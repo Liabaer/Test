@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Test" uuid="92c8bf4e-52c6-4840-a2f8-4612ffdef0d3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://ordering-test-instance-2021-04-30-06-00-cluster.cluster-czmlu1dglm0q.ap-northeast-1.rds.amazonaws.com:3306/ordering_new</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Product" uuid="59557e8b-ac1c-4d81-9b79-b5ccecbd8012">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://easi-prod-cluster.cluster-ro-caahqfzypuh1.ap-southeast-2.rds.amazonaws.com:3306/ordering</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Test_delivery" uuid="fe759621-5a62-43ff-8991-4f8ee224b341">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://ordering-test-instance-2021-04-30-06-00-cluster.cluster-czmlu1dglm0q.ap-northeast-1.rds.amazonaws.com:3306/easi_delivery</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Product_delivery" uuid="503bb97c-f858-46c1-bb89-538bd49b4885">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://easi-delivery-prod.cluster-ro-caahqfzypuh1.ap-southeast-2.rds.amazonaws.com:3306/easi_delivery</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="stage_ordering" uuid="fcfccb6e-ee0b-4e79-8bfa-e48a5395a0c8">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://easi-stage-2020-10-27-17-10-cluster.cluster-czmlu1dglm0q.ap-northeast-1.rds.amazonaws.com:3306/ordering</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="stage_delivery" uuid="ef3da2b1-9317-4957-a550-6eabd7c26df9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://easi-stage-2020-10-27-17-10-cluster.cluster-czmlu1dglm0q.ap-northeast-1.rds.amazonaws.com:3306/easi_delivery</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>

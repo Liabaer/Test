@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Test" uuid="92c8bf4e-52c6-4840-a2f8-4612ffdef0d3">
+      <database-info product="MySQL" version="5.6.10-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="1.23.2" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ordering</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>8c0f1f55-a7b7-4322-a674-6e70ec77912f</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+    <data-source name="Product" uuid="59557e8b-ac1c-4d81-9b79-b5ccecbd8012">
+      <database-info product="MySQL" version="5.6.10-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="1.22.2" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>zhengtiantian</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>54cc2a44-8c9a-4fe8-a4c1-a0453e2d4d13</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+    <data-source name="Test_delivery" uuid="fe759621-5a62-43ff-8991-4f8ee224b341">
+      <database-info product="MySQL" version="5.6.10-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="1.23.2" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ordering</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>8c0f1f55-a7b7-4322-a674-6e70ec77912f</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+    <data-source name="Product_delivery" uuid="503bb97c-f858-46c1-bb89-538bd49b4885">
+      <database-info product="MySQL" version="5.7.12-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="2.9.1" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>tulian</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>54cc2a44-8c9a-4fe8-a4c1-a0453e2d4d13</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+    <data-source name="stage_ordering" uuid="fcfccb6e-ee0b-4e79-8bfa-e48a5395a0c8">
+      <database-info product="MySQL" version="5.6.10-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="1.22.2" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ordering_stage</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>993a33cb-94d3-487f-8975-43e5dc6ccd10</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+    <data-source name="stage_delivery" uuid="ef3da2b1-9317-4957-a550-6eabd7c26df9">
+      <database-info product="MySQL" version="5.6.10-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL_AURORA" exact-version="1.22.2" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>ordering_stage</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <ssh-config-id>993a33cb-94d3-487f-8975-43e5dc6ccd10</ssh-config-id>
+      </ssh-properties>
+    </data-source>
+  </component>
+</project>
