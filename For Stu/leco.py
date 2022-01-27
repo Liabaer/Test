@@ -56,8 +56,8 @@ class RecentCounter(object):
 # 类似java new一个对象
 # 通过a = RecntCounter() 得到a对象，这样a对象就可以调用类的方法和变量了
 a = RecentCounter()
-print a.add(1, 2)
-print a.sub(1, 2)
-print a.add_glob(1, 2)
+print(a.add(1, 2))
+print(a.sub(1, 2))
+print(a.add_glob(1, 2))
 
 
