@@ -3,6 +3,7 @@ def calc(c, d):
     c = c + 1
     d = d + 1
     print(c)
+
     print(d)
 
 a = 1
