@@ -8,10 +8,10 @@ grab_url = U'https://staging-f.presto.direct'
 account = U'pe-easi'
 secret_easi = U'F!2u7rrY$B9a'
 uuid_str = str(uuid.uuid1()).replace('-', '')
-print uuid_str
+print(uuid_str)
 # 加密
 fp_token = hashlib.sha1(account + uuid_str + secret_easi).hexdigest()
-print fp_token
+print(fp_token)
 
 headers = {
     'fp-account': account,
@@ -24,4 +24,4 @@ data = {"merchantOrderID": "11025133", "origin": {"coordinates": {"latitude": 3.
 
 quote_url = grab_url + u'/api/logistics/grab/delivery'
 response = requests.post(quote_url, headers=headers, json=data, timeout=10.0)
-print response.content
+print(response.content)

@@ -8,16 +8,16 @@ while m < len(strs):
     n = 0
     new_str = ''
     while n < len(strs[m]):
-        # print strs[m][n]
+        # print(strs[m][n])
         new_str = new_str + strs[m][n]
-        print new_str
+        print(new_str)
         if new_str not in new_strs:
             new_strs[new_str] = 1
         else:
             new_strs[new_str] = new_strs[new_str] + 1
         n = n + 1
     m = m + 1
-print new_strs
+print(new_strs)
 i = 0
 j = ""
 lenth = 0
@@ -27,5 +27,5 @@ for k, v in new_strs.items():
             lenth = len(k)
             i = v
             j = k
-print j
+print(j)
 

@@ -9,7 +9,7 @@ for z in reversed(y):
         a = False  # 只要出现一次就不是回文数
         break
     i = i+1
-print a
+print(a)
 
 
 

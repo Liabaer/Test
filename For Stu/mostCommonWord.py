@@ -44,19 +44,19 @@ if temp != '':
     #     continue
     # if paragraph[i] != ' ':
     #     temp = temp + paragraph[i]
-    # print temp
+    # print(temp)
     # i = i + 1
-print par
+print(par)
 pa = {}
 j = 0
 while j < len(par):
-    print par[j]
+    print(par[j])
     if par[j] not in pa:
         pa[par[j]] = 1
     else:
         pa[par[j]] = pa[par[j]] + 1
     j = j + 1
-print pa
+print(pa)
 num = 0
 k_max = ''
 for k, v in pa.items():
@@ -65,4 +65,4 @@ for k, v in pa.items():
     if v > num:
         num = v
         k_max = k
-print k_max
+print(k_max)

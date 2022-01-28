@@ -8,11 +8,11 @@ for i in range(0, len(nums)):
     if nums[i] != 0:
         nums[a] = nums[i]
         a = a + 1
-print nums
+print(nums)
 while a < len(nums):
     nums[a] = 0
     a = a+1
-print nums
+print(nums)
 
 # 这是个简单方法
 # nums = []
@@ -21,7 +21,7 @@ print nums
 #         nums.append(b)
 #         a.remove(b)
 # nums = a + nums
-# print num
+# print(num)
 
 
 

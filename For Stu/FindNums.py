@@ -7,4 +7,4 @@ while i <= len(nums)-1:
         i = i + 1
     else:
         break
-print i
+print(i)

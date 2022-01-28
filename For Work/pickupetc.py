@@ -25,7 +25,7 @@ from math import radians, sin, cos, asin, sqrt
 
 # dis = distance(shop_lat, shop_lon, courier_lat, courier_lon)
 
-# print dis
+# print(dis)
 
 order_pickup_time = '2021.07.02 17:58:55'
 
@@ -33,7 +33,7 @@ pickupeta = [{"start": 0, "end": 3000, "time": 900}, {"start": 3001, "end": 5000
 order_dis = 1369
 
 configs = sorted(pickupeta, key=lambda s: s['start'])
-print configs
+print(configs)
 
 eta_time = 300
 for conf in configs:
@@ -43,14 +43,14 @@ for conf in configs:
     if order_dis >= conf['start'] and conf['end'] == -1:
         eta_time = conf['time']
         break
-print eta_time
+print(eta_time)
 
 
 deliveryeta = [{"start": 0, "end": 500, "time": 1200}, {"start": 501, "end": 5000, "time": 1800}, {"start": 5001, "end": 10000, "time": 2400}, {"start": 10001, "end": 15000, "time": 3000}, {"start": 15001, "end": -1, "time": 3600}]
 order_dis = 1369
 
 configs = sorted(deliveryeta, key=lambda s: s['start'])
-print configs
+print(configs)
 
 delivery_time = 300
 for conf in configs:
@@ -60,12 +60,12 @@ for conf in configs:
     if order_dis >= conf['start'] and conf['end'] == -1:
         delivery_time = conf['time']
         break
-print delivery_time
+print(delivery_time)
 
-print (eta_time + delivery_time) / 60
+print((eta_time + delivery_time) / 60)
 
 courier_complete_order_estimated_datetime = datetime.strptime(order_pickup_time, DATE_TIME_FORMAT) + timedelta(minutes=int(delivery_time) / 60)
-print (courier_complete_order_estimated_datetime - (datetime.now() + timedelta(minutes=120))).total_seconds() / 60
+print((courier_complete_order_estimated_datetime - (datetime.now() + timedelta(minutes=120))).total_seconds() / 60)
 
 
 

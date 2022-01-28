@@ -13,4 +13,4 @@ for i in range(0, len(matrix)):
             break
     if Flag:
         break
-print Flag
+print(Flag)

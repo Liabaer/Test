@@ -17,10 +17,10 @@ while i < len(s):
             num.append(a)
             a = ''
             break
-        # print a
+        # print(a)
         j = j + 1
     i = i + 1
-print num
+print(num)
 
 m = 0
 while m < len(num):
@@ -29,10 +29,10 @@ while m < len(num):
     else:
         dic[num[m]] = dic[num[m]] + 1
     m = m + 1
-print dic
+print(dic)
 
 new_num = []
 for k, v in dic.items():
     if v >= 2:
         new_num.append(k)
-print new_num
+print(new_num)

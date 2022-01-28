@@ -6,7 +6,7 @@
 #         a = a + "%20"
 #     else:
 #         a = a + s[b]
-# print a
+# print(a)
 
 
 a = [1, 2, 3, 2, 2, 2, 5, 4, 2]
@@ -16,10 +16,10 @@ for b in range(0, len(a)):
         c[a[b]] = 1
     else:
         c[a[b]] = c[a[b]] + 1
-print c
+print(c)
 for i in c:
     if c[i] > len(a)/2:
-        print i
+        print(i)
 
 
 
@@ -33,13 +33,13 @@ for i in c:
 #         b[s[i]] = 1
 #     else:
 #         b[s[i]] = b[s[i]] + 1
-# print b
+# print(b)
 # a = ' '
 # for j in b:
 #     if b[j] == 1:
 #         a = j
 #         break
-# print a
+# print(a)
 
 
 

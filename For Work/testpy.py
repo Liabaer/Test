@@ -11,7 +11,7 @@ for vehicle in vehicles:
 orders = x['problem']['orders']
 for order in orders:
     if order['assigned'] != '' and order['assigned'] not in vehicles_map:
-        print order['order_id'] + " " + order['assigned']
+        print(order['order_id'] + " " + order['assigned'])
 
 
 

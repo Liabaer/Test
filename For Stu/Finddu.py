@@ -11,23 +11,23 @@ for b in range(0, len(nums)):
         a[nums[b]] = 1
     else:
         a[nums[b]] = a[nums[b]] + 1
-print"每个数字出现的次数: " + str(a)
+print("每个数字出现的次数: " + str(a))
 # 找出现最大的次数
 for v in a:
     if a[v] >= c:
         c = a[v]
     else:
         continue
-print "最大的度 : %s" % c
+print("最大的度 : %s" % c)
 if c == 1:
-    print 1
+    print(1)
 else:
     # 出现次数最多的数字取出来放数组里面
     d = []
     for v in a:
         if a[v] == c:
             d.append(v)
-    print d
+    print(d)
     #
     l = None
     r = None
@@ -42,7 +42,7 @@ else:
                 if i == nums[j]:
                     r = j
                     # print"r值 : %s" % r
-        # print l, r
+        # print(l, r)
         if x == None:
             x = r - l
         # 当x不为None, 就要那x和这次的r-l比较大
@@ -57,7 +57,7 @@ else:
         l = None
         r = None
     x = x + 1
-    print"结果 : %s" % x
+    print("结果 : %s" % x)
 
 
 

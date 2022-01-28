@@ -40,7 +40,7 @@ for conf in configs:
         eta_time = conf['time']
         break
 
-print 'pickup_eta' + str(eta_time)
+print('pickup_eta' + str(eta_time))
 
 deliveryeta = [{"start": 0, "end": 1000, "time": 900}, {"start": 1001, "end": 2000, "time": 1680},
                {"start": 2001, "end": 3000, "time": 1800}, {"start": 3001, "end": 4000, "time": 2040},
@@ -58,15 +58,15 @@ for conf in configs:
     if order_dis >= conf['start'] and conf['end'] == -1:
         delivery_time = conf['time']
         break
-print 'delivery_eta' + str(delivery_time)
+print('delivery_eta' + str(delivery_time))
 
 order_delivery_eta_modulus = {"modulus": 0.27, "fixed": 6}
 
 delivery_time = (delivery_time * 1.27 + 360 ) /60
-print delivery_time + (eta_time/60)
+print(delivery_time + (eta_time/60))
 
 order_pickup_time = '2021.07.30 18:57:20'
 now = datetime.now()
 
 now = now + timedelta(minutes=120)
-print (datetime.strptime(order_pickup_time, DATE_TIME_FORMAT) + timedelta(minutes=delivery_time) - now).total_seconds() / 60
+print((datetime.strptime(order_pickup_time, DATE_TIME_FORMAT) + timedelta(minutes=delivery_time) - now).total_seconds() / 60)

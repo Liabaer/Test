@@ -22,7 +22,7 @@ for i in range(0, len(y)):
             break
         elif y[i] in a and y[j] not in a:
             continue
-    # print y
+    # print(y)
     if flag == False and y[i] in a:
         break
     if x == 0:
@@ -32,7 +32,7 @@ for i in range(0, len(y)):
 o = ''.join(y)
 # for k in y:
 #     o = o + k
-print o
+print(o)
 # 优化的方法嘞
 # a = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
 # y = []
@@ -57,10 +57,10 @@ print o
 # o = ''
 # for k in y:
 #     o = o + k
-# print o
+# print(o)
 # 这个方法可行，但是执行时间太长
 # y = list(s)
-# print y
+# print(y)
 # # for z in s:
 # #     y.append(z)
 # a = ['a', 'e', 'i', 'o', 'u','A' ,'E', 'I', 'O', 'U']
@@ -69,20 +69,20 @@ print o
 # for i in range(0, len(y)):
 #     for j in range(x, -1, -1):
 #         if y[i] in a and y[j] in a:
-#             print y[i], y[j],i,j
+#             print(y[i], y[j],i,j)
 #             c = y[i]
 #             y[i] = y[j]
 #             y[j] = c
 #             x = j - 1
 #             break
-#     print y
+#     print(y)
 #     if i >= x:
 #         break
 # o = ''
 # o = ''.join(y)
 # # for k in y:
 # #     o = o + k
-# print o
+# print(o)
 # "leotcede"
 # "Never a foot too far, even."
 # "euston saw I was not SuE."
@@ -107,4 +107,4 @@ while left < right:
         right = right - 1
 b = ''
 a = b.join(a)
-print a
+print(a)

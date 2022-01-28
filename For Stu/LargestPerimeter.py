@@ -19,4 +19,4 @@ while i < len(new_nums)-2:
         C = new_nums[i] + new_nums[i+1] + new_nums[i+2]
         break
     i = i + 1
-print C
+print(C)

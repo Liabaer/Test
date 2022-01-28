@@ -6,18 +6,18 @@
 #         a[nums[i]] = 1
 #     else:
 #         a[nums[i]] = a[nums[i]] + 1
-# print a
+# print(a)
 # for b in a:
 #     if a[b] == 1:
-#         print b
+#         print(b)
 
 # a = ["h","e","l","l","o"]
 # # # b = []
 # # # for i in reversed(a):
 # # #     b.append(i)
-# # # print b
+# # # print(b)
 # #
-# print a[::-1]
+# print(a[::-1])
 
 # -*- coding: utf-8 -*-
 
@@ -33,8 +33,8 @@
 # # 类似java new一个对象
 # # 通过a = RecntCounter() 得到a对象，这样a对象就可以调用类的方法和变量了
 # a = RecentCounter()
-# print a.add(1 ,2)
-# print a.sub(1, 2)
+# print(a.add(1 ,2))
+# print(a.sub(1, 2))
 
 # 定义类名
 class RecentCounter(object):

@@ -4,7 +4,7 @@
 s1 = "this apple is sweet"
 s2 = "this apple is sour"
 s1_list = s1.split()
-print s1_list
+print(s1_list)
 
 def to_list(s):
     """
@@ -63,18 +63,18 @@ def find_word(sd1, sd2):
 
 
 sa_new = to_list(s1)
-print sa_new
+print(sa_new)
 sdic = to_dic(sa_new)
-print sdic
+print(sdic)
 
 sa_new2 = to_list(s2)
-print sa_new2
+print(sa_new2)
 sdic2 = to_dic(sa_new2)
-print sdic2
+print(sdic2)
 
 key1 = find_word(sdic, sdic2)
-print key1
+print(key1)
 key2 = find_word(sdic2, sdic)
-print key2
+print(key2)
 key_new = key1 + key2
-print key_new
+print(key_new)

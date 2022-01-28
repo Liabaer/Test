@@ -19,7 +19,7 @@ flag = False
 temp = []
 i = len(digits)-1
 while i >= 0:
-    print digits[i]
+    print(digits[i])
     if i == len(digits) - 1:
         flag, temp = add_list(flag, digits, i, temp)
     else:
@@ -28,7 +28,7 @@ while i >= 0:
         else:
             temp.append(digits[i])
     i = i - 1
-print temp
+print(temp)
 res = []
 j = len(temp)-1
 while j >= 0:
@@ -38,5 +38,5 @@ while j >= 0:
     else:
         res.append(temp[j])
     j = j - 1
-print res
+print(res)
 

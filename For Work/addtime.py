@@ -34,4 +34,4 @@ expect_order_ready_time = expect_order_ready_time + timedelta(
 now =datetime.now()
 
 now = now + timedelta(minutes=120)
-print (expect_order_ready_time - now).total_seconds() / 60
+print((expect_order_ready_time - now).total_seconds() / 60)

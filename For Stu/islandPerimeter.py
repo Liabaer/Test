@@ -7,9 +7,9 @@ i = 0
 c = 0
 while i < len(grid):
     j = 0
-    print grid[i]
+    print(grid[i])
     while j < len(grid[i]):
-        # print grid[i][j]
+        # print(grid[i][j])
         if grid[i][j] == 1:
             c = c+4
             if i - 1 >= 0:
@@ -26,4 +26,4 @@ while i < len(grid):
             #         c = c-1
         j = j + 1
     i = i + 1
-print c
+print(c)

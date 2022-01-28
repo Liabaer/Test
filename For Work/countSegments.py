@@ -8,7 +8,7 @@ count =0
 i = 0
 flag = True
 while i < len(s):
-    print s[i]
+    print(s[i])
     if i == len(s) - 1 and s[i] !=' ':
         count = count + 1
     elif s[i] != ' ':
@@ -19,6 +19,6 @@ while i < len(s):
         if s[i] == ' ' and flag == False:
             flag = True
             count = count + 1
-            print count
+            print(count)
     i = i + 1
-print count
+print(count)

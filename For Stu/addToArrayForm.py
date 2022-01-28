@@ -8,9 +8,9 @@ res = []
 # 这是使用函数的方法
 # map(str,A)是让A里面的每个元素变成str元素 ,list()将里面的都变成数组
 A = list(map(str, A))
-# print A
+# print(A)
 A = int("".join(A)) + K
-# print A
+# print(A)
 A = str(A)
 j = 0
 while j < len(A):
@@ -30,10 +30,10 @@ print(res)
 #     s = s + str(A[i])
 #     i = i + 1
 # s1 = int(s) + K
-# print s1
+# print(s1)
 # s1 = str(s1)
 # j = 0
 # while j < len(s1):
 #     res.append(int(s1[j]))
 #     j = j + 1
-# print res
+# print(res)

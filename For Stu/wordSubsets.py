@@ -37,7 +37,7 @@ while i < len(words2):
         else:
             temp3[k] = v
     i = i + 1
-print (temp3)
+print((temp3))
 res = []
 
 m = 0
@@ -65,7 +65,7 @@ print(res)
 # i = 0
 # while i < len(words1):
 #     j = 0
-#     # print words1[i]
+#     # print(words1[i])
 #     flag = False
 #     while j < len(words2):
 #         print(words2[j])
@@ -79,4 +79,4 @@ print(res)
 #     if flag:
 #         temp.append(words1[i])
 #     i = i + 1
-# print temp
+# print(temp)

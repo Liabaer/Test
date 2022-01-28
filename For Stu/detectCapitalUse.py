@@ -21,7 +21,7 @@ def is_lowercase(word_str):
 i = 0
 flag = True
 
-# print ord('a')
+# print(ord('a'))
 while i < len(word):
     if len(word) == 1:
         flag = True
@@ -36,7 +36,7 @@ while i < len(word):
         elif is_lowercase(word[i]) and is_lowercase(word[1]):
             flag = True
         elif is_uppercase(word[i]) and is_lowercase(word[1]):
-            print word[i]
+            print(word[i])
             flag = False
             break
         elif is_lowercase(word[i]) and is_uppercase(word[1]):
@@ -47,4 +47,4 @@ while i < len(word):
             flag = False
             break
     i = i + 1
-print flag
+print(flag)

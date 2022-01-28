@@ -22,7 +22,7 @@ while i < len(moves):
     i = i + 1
 if x != 0 or y != 0:
     flag = False
-print flag
+print(flag)
 
 # 方法一
 # dict_moves = {}
@@ -34,7 +34,7 @@ print flag
 #     else:
 #         dict_moves[moves[i]] = dict_moves[moves[i]] + 1
 #     i = i + 1
-# print dict_moves
+# print(dict_moves)
 # if 'U' in dict_moves and 'D' not in dict_moves:
 #     flag = False
 # if 'U' not in dict_moves and 'D' in dict_moves:
@@ -49,4 +49,4 @@ print flag
 # if 'L' in dict_moves and 'R' in dict_moves:
 #     if dict_moves['L'] != dict_moves['R']:
 #         flag = False
-# print flag
+# print(flag)

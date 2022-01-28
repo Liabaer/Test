@@ -36,9 +36,9 @@ while i < len(nums)-1:
         continue
     elif nums[i+1] == nums[i]:
         break
-print k,j
+print(k,j)
 if k <= j:
     is_straight = True
-    print is_straight
+    print(is_straight)
 else:
-    print is_straight
+    print(is_straight)

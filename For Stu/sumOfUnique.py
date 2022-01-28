@@ -9,17 +9,17 @@ nums = [1,2,3,2]
 # while i < len(nums):
 #     if nums[i] not in new_nums:
 #         new_nums.append(nums[i])
-#         print new_nums
+#         print(new_nums)
 #     else:
 #         new_nums.remove(nums[i])
 #     i = i + 1
-# print new_nums
+# print(new_nums)
 #
 # j = 0
 # while j < len(new_nums):
 #     count = count + new_nums[j]
 #     j = j + 1
-# print count
+# print(count)
 
 new_nums = {}
 count = 0
@@ -32,10 +32,10 @@ while i < len(nums):
     else:
         new_nums[nums[i]] = new_nums[nums[i]] + 1
     i = i + 1
-print new_nums
+print(new_nums)
 
 for m, n in new_nums.items():
-    # print m, n
+    # print(m, n)
     if n == 1:
         count = count + m
-print count
+print(count)

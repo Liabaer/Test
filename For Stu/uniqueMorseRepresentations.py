@@ -19,12 +19,12 @@ temps = []
 for i in range(0, len(words)):
     temp = ''
     # temp = temp + nums[ord(words[i]) - ord('a')]
-    # print words[i]
+    # print(words[i])
     for j in range(0, len(words[i])):
         temp = temp + nums[ord(words[i][j]) - ord('a')]
-        # print words[i][j], temp
+        # print(words[i][j], temp)
     temps.append(temp)
-print temps
+print(temps)
 m = 0
 count = 1
 
@@ -35,7 +35,7 @@ else:
         n = m + 1
         flag = False
         while n <= len(temps)-1:
-            print m, temps[m], n ,temps[n], count
+            print(m, temps[m], n ,temps[n], count)
             if m == n:
                 n = n + 1
                 continue
@@ -48,4 +48,4 @@ else:
         m = m + 1
         if flag:
             count = count + 1
-print count
+print(count)

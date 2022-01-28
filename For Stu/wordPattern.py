@@ -27,7 +27,7 @@ while l < len(s):
         l = l + 1
         continue
     l = l + 1
-print s_a
+print(s_a)
 # 遍历s_a计算单词第几次出现 存到字典sa中
 sa = {}
 o = 0
@@ -37,7 +37,7 @@ while o < len(s_a):
         sa[s_a[o]] = p
         p = p + 1
     o = o + 1
-print sa
+print(sa)
 # 遍历s，用字典中出现的次数value替换值，用新字符串a_new存
 s_new = ''
 n = 0
@@ -45,7 +45,7 @@ while n < len(s_a):
     if s_a[n] in sa:
         s_new = s_new + str(sa[s_a[n]])
     n = n + 1
-print s_new
+print(s_new)
 # 遍历patten 第几次出现存在字典pa里
 i = 0
 pa = {}
@@ -54,7 +54,7 @@ while i < len(pattern):
         pa[pattern[i]] = j
         j = j + 1
     i = i + 1
-print pa
+print(pa)
 pattern_new = ''
 m = 0
 # 遍历patten 用字典中出现的字符串做对比，将pattern以数字形式记录并用新的字符串pattern_new存
@@ -62,9 +62,9 @@ while m < len(pattern):
     if pattern[m] in pa:
         pattern_new = pattern_new + str(pa[pattern[m]])
     m = m + 1
-print pattern_new
+print(pattern_new)
 # 对比俩个字符串最终的
 if pattern_new == s_new:
-    print True
+    print(True)
 else:
-    print False
+    print(False)

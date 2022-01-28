@@ -7,10 +7,10 @@ J = "aA"
 S = "aAAbbbb"
 list_j = list(J)
 list_s = list(S)
-# print list_j
+# print(list_j)
 nums = 0
 for j in range(0, len(list_j)):
     for s in range(0,len(list_s)):
        if list_j[j] == list_s[s]:
             nums = nums + 1
-print nums
+print(nums)

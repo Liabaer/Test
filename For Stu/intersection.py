@@ -12,7 +12,7 @@ while i < len(nums1):
         if nums1[i] not in new_num:
             new_num.append(nums1[i])
     i = i + 1
-print new_num
+print(new_num)
 
 # j = 0
 # nums = []
@@ -28,5 +28,5 @@ print new_num
 #     if flag == True:
 #         nums.append(new_num[j])
 #     j = j + 1
-# print nums
-# print new_num
+# print(nums)
+# print(new_num)

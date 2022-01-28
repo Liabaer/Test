@@ -15,7 +15,7 @@ while i>=0:
         flag = False
     if s[i] == ' ' and flag == False:
         break
-    print s[i] ,flag
+    print(s[i] ,flag)
     sum = sum + 1
     i = i - 1
-print sum
+print(sum)

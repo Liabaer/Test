@@ -13,4 +13,4 @@ for i in range(0, len(a)):
     else:
         c = c + a[i]
 c = c + b
-print c
+print(c)

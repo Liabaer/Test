@@ -13,12 +13,12 @@ while i < len(s_new):
         new = new + s_new[i]
     if 48 <= ord(s_new[i]) <= 57:
         new = new + s_new[i]
-        print new
+        print(new)
     else:
         i = i + 1
         continue
     i = i + 1
-print new
+print(new)
 m = 0
 n = len(new) - 1
 while m < n:
@@ -27,7 +27,7 @@ while m < n:
         break
     m = m + 1
     n = n - 1
-print flag
+print(flag)
 
 #这是自己的方法，不灵巧
 # while m < len(new):
@@ -43,4 +43,4 @@ print flag
 #         n = n - 1
 #     if flag == False:
 #         break
-# print flag
+# print(flag)

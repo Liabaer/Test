@@ -7,7 +7,7 @@ flag = True
 #     if n/2 != 1:
 #         m = n % 2
 #         n = n/2
-#         print n
+#         print(n)
 #         l.append(m)
 #     else:
 #         m = n % 2
@@ -19,18 +19,18 @@ flag = True
 #         break
 # 反转后为二进制
 # l.reverse()
-# print l
+# print(l)
 # for i in range(0,len(l)-1):
 #     if l[i] == l[i+1]:
 #         flag = False
 #         break
-# print flag
+# print(flag)
 while n != 0:
     m = n % 2
     n = n / 2
     l.append(m)
-print l
+print(l)
 for i in range(0,len(l)-1):
     if l[i] == l[i+1]:
         flag = False
-print flag
+print(flag)

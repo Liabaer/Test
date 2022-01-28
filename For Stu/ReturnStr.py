@@ -9,18 +9,18 @@
 #         x = x + a[i]
 #     else:
 #         # 如果遇见空格 说明 x是一个完整的单词了，就把x放进y里面，并且让x又从空字符开始成为单词
-#         print x
+#         print(x)
 #         y.append(x)
 #         x = ''
 # # 循环结束后如果x不是空字符串的话就放进y里面，比如ccc，因为他最后没有空格了，所以执行不到上面那个else就放到这里来
 # y.append(x)
-# print y
+# print(y)
 # # 把y数组倒着循环，然后用c变量加起来就是 倒着的答案了
 # c = ''
 # for i in range(len(y) - 1, -1, -1):
 #     c = c + ' ' + y[i]
-#     print c
-# print c
+#     print(c)
+# print(c)
 
 
 a = "a good   example"
@@ -41,7 +41,7 @@ while j <= len(a) - 1:
     else:
         j = j + 1
         continue
-print 'b=' + b
+print('b=' + b)
 # b就是去掉了开头空格的
 # 然后把b倒过来，继续去除开头的空格，相当于结尾的空格也去掉了
 # b = "the sky is blue   "
@@ -57,7 +57,7 @@ while k >= 0:
         break
 for m in range(0, k+1):
     c = c + b[m]
-print 'c=' + c
+print('c=' + c)
 
 x = ''
 y = []
@@ -72,15 +72,15 @@ for i in range(0, len(c)):
             flag = True
         x = ''
 y.append(x)
-print y
+print(y)
 z = ''
 for l in range(len(y)-1, -1, -1):
     if l == len(y) - 1:
         z = y[l]
     else:
         z = z + ' ' + y[l]
-    print z
-print z
+    print(z)
+print(z)
 
 
 

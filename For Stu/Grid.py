@@ -8,7 +8,7 @@ nums = 0
 #     for j in range(0, len(grid[i])):
 #         if grid[i][j] < 0:
 #             nums = nums + 1
-# print nums
+# print(nums)
 i = 0
 while i < len(grid):
     j = 0
@@ -17,4 +17,4 @@ while i < len(grid):
             nums = nums + 1
         j = j + 1
     i = i + 1
-print nums
+print(nums)

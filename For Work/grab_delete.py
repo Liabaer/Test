@@ -20,4 +20,4 @@ headers = {
 
 quote_url = grab_url + u'/api/logistics/grab/delivery/' + deliveryid
 response = requests.delete(quote_url, headers=headers, timeout=10.0)
-print response.content
+print(response.content)

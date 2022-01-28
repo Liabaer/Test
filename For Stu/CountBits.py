@@ -10,7 +10,7 @@
 #     num = num - 1
 #     if num == -1:
 #         break
-# print nums
+# print(nums)
 #
 # i = len(nums) -1
 # while i >= 0:
@@ -25,5 +25,5 @@ from datetime import datetime
 
 # date = datetime.strptime('2021.08.18 16:16:37', '%Y.%m.%d')
 a = '2021.08.19 13:14:51'
-print a[0:10]
-# print  date
+print(a[0:10])
+# print( date)

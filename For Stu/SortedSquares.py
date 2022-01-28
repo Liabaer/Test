@@ -5,4 +5,4 @@ new_nums = []
 for i in range(0, len(nums)):
     new_nums.append(nums[i] * nums[i])
 new_nums.sort()
-print new_nums
+print(new_nums)

@@ -39,4 +39,4 @@ while i < len(mat):
                 num = num + 1
         j = j + 1
     i = i + 1
-print num
+print(num)

@@ -4,14 +4,14 @@ numRows = 5
 i = 0
 m = []
 while i < numRows:
-    # print str(i)+'---'
+    # print(str(i)+'---')
     j = 0
     n = []
     m.append(n)
-    print m
+    print(m)
     while j <= i:
         k = 0
-        print i, j, len(m[i-1])
+        print(i, j, len(m[i-1]))
         if i == 0 and j == 0:
             n.append(1)
         elif i-1 >= 0 and j-1 >= 0 and j < len(m[i-1]):
@@ -25,4 +25,4 @@ while i < numRows:
             n.append(k)
         j = j + 1
     i = i + 1
-print m
+print(m)

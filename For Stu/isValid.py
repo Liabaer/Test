@@ -9,10 +9,10 @@ i = 0
 j = ''
 flag = False
 while i < len(s):
-    # print s[i]
+    # print(s[i])
     if s[i] == '{' or s[i] == '[' or s[i] == '(':
         m.append(s[i])
-        print m
+        print(m)
     if s[i] == '}' or s[i] == ']' or s[i] == ')':
         if len(m) <= 0:
             flag = False
@@ -30,13 +30,13 @@ while i < len(s):
     i = i + 1
 if len(m) > 0:
     flag = False
-print flag
+print(flag)
 
 # while i < len(s):
-#     # print s[i]
+#     # print(s[i])
 #     if s[i] == '{' or s[i] == '[' or s[i] == '(':
 #         m.append(s[i])
-#         # print m
+#         # print(m)
 #
 #     if s[i] == '}':
 #         if len(m) <= 0:
@@ -71,4 +71,4 @@ print flag
 #     i = i + 1
 # if len(m) > 0:
 #     flag = False
-# print flag
+# print(flag)
