@@ -69,6 +69,7 @@ turtle.pensize(10)
 # 保存当前画图
 turtle.done()
 # # 画笔是否落下
+
 # # 颜色
 # turtle.color('red')
 # # 画笔颜色
