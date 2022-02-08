@@ -25,7 +25,7 @@ while i < len(order):
         new_s = new_s + order[i]*dict_s[order[i]]
     i = i + 1
 
-# 双循环，空间复杂度高，O(N*N)
+# 双循环，时间复杂度高，O(N*N)
 # while i < len(order):
 #     z = 0
 #     # 循环
