@@ -6,6 +6,41 @@
 # 如果方程中只有一个解，要保证返回值 'x'是一个整数。
 # a = '12x'
 # print(a[:-1]) 移除temp的最后一位
+def calc_num(flag, temp, num, num_x):
+    """
+
+    :param flag: 使用flag判断符号
+    :param temp: 中间变量存储非符号字符
+    :param num: 常数
+    :param num_x: x的系数
+    :return: 返回常数和x的系数
+    """
+    # 首先flag = true, 遇见了加号，temp = x, 根据flag，我们知道 a要加1，同时遇见的也是加号，设置下一次做加法 flag = true ,temp初始化
+    # 遇见了加号，temp = 3,根据上一步的flag = false 我们知道 b要减3，同事遇见的是加号，设置下一次是做加法 flag = true, temp 初始化
+    # print(temp)
+    # flag为True，就加法
+    if flag:
+        # 这里判断是x还是常数
+        if 'x' not in temp:
+            num = num + int(temp)
+        else:
+            # 这里要注意x的系数为1，l_temp[:-1]会为空
+            if temp[:-1] == '':
+                num_x = num_x + 1
+            else:
+                num_x = num_x + int(temp[:-1])
+    # flag为False，执行减法，
+    else:
+        # 这里判断是x还是常数
+        if 'x' not in temp:
+            num = num - int(temp)
+        else:
+            if temp[:-1] == '':
+                num_x = num_x - 1
+            else:
+                num_x = num_x - int(temp[:-1])
+    return num, num_x
+
 
 
 def calc_coefficient(equ):
@@ -34,47 +69,13 @@ def calc_coefficient(equ):
             # 遇见了加号，temp = 3,根据上一步的flag = false 我们知道 b要减3，同事遇见的是加号，设置下一次是做加法 flag = true, temp 初始化
             print(temp)
             # flag为True，就加法
-            if flag:
-                # 这里判断是x还是常数
-                if 'x' not in temp:
-                    num = num + int(temp)
-                else:
-                    # 这里要注意x的系数为1，l_temp[:-1]会为空
-                    if temp[:-1] == '':
-                        num_x = num_x + 1
-                    else:
-                        num_x = num_x + int(temp[:-1])
-            # flag为False，执行减法，
-            else:
-                # 这里判断是x还是常数
-                if 'x' not in temp:
-                    num = num - int(temp)
-                else:
-                    if temp[:-1] == '':
-                        num_x = num_x - 1
-                    else:
-                        num_x = num_x - int(temp[:-1])
+            num, num_x = calc_num(flag, temp, num, num_x)
             flag = True
             temp = ''
         # 遇见了减号，temp = 5, 根据上一步的flag = true 我们知道 b要加5，同时遇见的是减号，设置下一次是做减法， flag = false，temp 初始化
         elif equ[i] == '-':
             print(temp)
-            if flag:
-                if 'x' not in temp:
-                    num = num + int(temp)
-                else:
-                    if temp[:-1] == '':
-                        num_x = num_x + 1
-                    else:
-                        num_x = num_x + int(temp[:-1])
-            else:
-                if 'x' not in temp:
-                    num = num - int(temp)
-                else:
-                    if temp[:-1] == '':
-                        num_x = num_x - 1
-                    else:
-                        num_x = num_x - int(temp[:-1])
+            num, num_x = calc_num(flag, temp, num, num_x)
             flag = False
             temp = ''
         else:
@@ -82,23 +83,7 @@ def calc_coefficient(equ):
         i = i + 1
     # 最后一个l_temp没有遇到符号，所以要单独特殊处理
     if temp != '':
-        if flag:
-            if 'x' not in temp:
-                num = num + int(temp)
-            else:
-                if temp[:-1] == '':
-                    num_x = num_x + 1
-                else:
-                    num_x = num_x + int(temp[:-1])
-        else:
-            if 'x' not in temp:
-                num = num - int(temp)
-            else:
-                if temp[:-1] == '':
-                    num_x = num_x - 1
-                else:
-                    num_x = num_x - int(temp[:-1])
-
+        num, num_x = calc_num(flag, temp, num, num_x)
     return num, num_x
 
 
