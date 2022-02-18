@@ -10,29 +10,29 @@ f = open("/Users/Tu/text.txt", "r", encoding="utf-8")
 print(f.read())
 # 调用close()方法关闭文件
 f.close()
+# #
+# # 上面的写法等价为下面,会自动调用close()方法，没有其他作用了
+# with open('/Users/Tu/text.txt', "r", encoding="utf-8") as f:
+#     print(f.read())
 #
-# 上面的写法等价为下面,会自动调用close()方法，没有其他作用了
-with open('/Users/Tu/text.txt', "r", encoding="utf-8") as f:
-    print(f.read())
-
-f = open("/Users/Tu/text.txt", "r", encoding="utf-8")
-
-
-num = 0
-# readlines()按行读取，可以使用x.strip()去掉结尾的回车符，可以看到下面输出，x默认打印了个空行
-for x in f.readlines():
-    print("第" + str(num) + '行是:' + x)
-    num = num + 1
-f.close()
-
-# 写文件 覆盖文件text.txt, 不存在文件名会创建，存在则覆盖原来的内容
-f = open("/Users/Tu/text.txt", "w", encoding="utf-8")
-f.write("我是代码写入的1\n")
-f.write("我是代码写入的2\n")
-f.close()
-
-# 写文件 不存在文件名会创建，存在就在已有的文件上追加内容
-f = open("/Users/Tu/text.txt", "a", encoding="utf-8")
-f.write("我是追加代码写入的1\n")
-f.write("我是追加代码写入的2\n")
-f.close()
+# f = open("/Users/Tu/text.txt", "r", encoding="utf-8")
+#
+#
+# num = 0
+# # readlines()按行读取，可以使用x.strip()去掉结尾的回车符，可以看到下面输出，x默认打印了个空行
+# for x in f.readlines():
+#     print("第" + str(num) + '行是:' + x)
+#     num = num + 1
+# f.close()
+#
+# # 写文件 覆盖文件text.txt, 不存在文件名会创建，存在则覆盖原来的内容
+# f = open("/Users/Tu/text.txt", "w", encoding="utf-8")
+# f.write("我是代码写入的1\n")
+# f.write("我是代码写入的2\n")
+# f.close()
+#
+# # 写文件 不存在文件名会创建，存在就在已有的文件上追加内容
+# f = open("/Users/Tu/text.txt", "a", encoding="utf-8")
+# f.write("我是追加代码写入的1\n")
+# f.write("我是追加代码写入的2\n")
+# f.close()
