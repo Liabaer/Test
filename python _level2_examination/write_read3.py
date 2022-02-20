@@ -44,7 +44,9 @@ for i in f_data.readlines():
     score = temp.split("，")[1]
     if subject in dict_subject:
         value = dict_subject[subject]
+        # print(value)
         dict_subject[subject] = [value[0] + int(score), value[1] + 1]
+        # print(dict_subject[subject])
     else:
         dict_subject[subject] = [int(score), 1]
 print(dict_subject)
