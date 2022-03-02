@@ -20,18 +20,34 @@
 # 若6次还没猜对，在评判 大小后，输出“谢谢请休息后再猜”，然后程序退出。
 # 在___补充一行代码
 
-import random
-random.seed(25)
-n = random.randint(0, 100)
-print(n)
-for m in range(1, 7):
-    x = eval(input("请输入猜测的数字："))
-    if x == n:
-        print("恭喜你，猜对了！")
-        break
-    elif x > n:
-        print("大了，再试试")
-    else:
-        print("小了，再试试")
-    if m == 6:
-        print("谢谢！请休息后再猜")
+# import random
+# random.seed(25)
+# n = random.randint(0, 100)
+# print(n)
+# for m in range(1, 7):
+#     x = eval(input("请输入猜测的数字："))
+#     if x == n:
+#         print("恭喜你，猜对了！")
+#         break
+#     elif x > n:
+#         print("大了，再试试")
+#     else:
+#         print("小了，再试试")
+#     if m == 6:
+#         print("谢谢！请休息后再猜")
+
+# 第三题
+# (41)考生文件夹下存在一个文件PY101.py,请写代码替换横线，不修改其他代码，实现以下 功能：
+# 随机选择一个手机品牌屏幕输出。
+# 提示：建议使用本机提供的Python集成开发环境IDLE编写、调试及验证程序。
+# PY101.py
+# 请在...处使用一行或多行代码替换
+# 请在___处使用一行代码替换
+# 注意：请不要修改其他已给出代码
+
+# import random
+#
+# brandlist=['华为', '苹果', '诺基亚', '0PPO', '小米']
+# random.seed(0)
+# name = random.choice(brandlist)
+# print(name)

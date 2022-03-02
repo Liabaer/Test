@@ -1,0 +1,4 @@
+starting,0.0000037,2.102
+After opening tables,0.000008,0.455
+System lock,0.000004,0.277
+end,0.001,3.01
