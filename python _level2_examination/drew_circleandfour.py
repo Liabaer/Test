@@ -3,7 +3,7 @@
 import turtle
 
 turtle.pensize(2)
-for i in range(0,4):
+for i in range(0, 4):
     turtle.fd(200)
     turtle.left(90)
 # 注意箭头开始画的方向
