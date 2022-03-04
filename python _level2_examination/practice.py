@@ -99,13 +99,58 @@
 # 在...上补充一行或者多行代码
 # 在——————上补充一行代码
 
-import random
-n = input("请输入一个整数：")
-random.seed(100)
-for i in range(1,11):
-    if i < 10:
-        #  注意n是字符串
-        print(random.randint(1, int(n)), end=',')
-    else:
-        # 最后一位不打印逗号，所以单独处理
-        print(random.randint(1, int(n)))
+# import random
+# n = input("请输入一个整数：")
+# random.seed(100)
+# for i in range(1,11):
+#     if i < 10:
+#         #  注意n是字符串
+#         print(random.randint(1, int(n)), end=',')
+#     else:
+#         # 最后一位不打印逗号，所以单独处理
+#         print(random.randint(1, int(n)))
+#
+# 第八题
+# 请写代码替换横线，不修改其他代码，实现以下功能：
+# a和b是两个长度相同的列表变量，列表a为[3,6,9]已经给定，键盘输入列表b,计算a 中元素与b中元素的和形成新的列表c,在屏幕上输出。
+
+# 在...上补充一行或者多行代码
+# 在——————上补充一行代码
+# a = [3, 6, 9]
+# b = eval(input())  # 例如：[1,2,3]
+# c = []
+# for i in range(3):
+#     c.append(a[i]+b[i])
+# print(c)
+#
+# 第九题
+# 请写代码替换横线，不修改其他代码，实现以下功能：
+# 键盘输入一段中文文本，不含标点符号和空格，命名为变量s,采用jieba库对其进行 分词，输出该文本中词语的平均长度，保留1位小数。
+# 在...上补充一行或者多行代码
+# 在——————上补充一行代码
+
+# import jieba
+# txt = input("请输入一段中文文本:")
+# # jieba精确模式
+# ls = jieba.lcut(txt)
+# # :.1f是保留一位小数   :.nf是保留n位小数
+# print("{:.1f}".format(len(txt)/len(ls)))
+
+# 保留两位小数的方法
+# format保留小数位方法
+# print('{:.3f} {:.2f}'.format(0.12345, 1))
+# # round函数
+# print(round(1.234, 2))
+# # %.xf
+# print('%.2f' % 1.236)
+#
+# 第十题
+# 请写代码替换模板中的横线，键盘输入一段文本，保存在一个字符串变量$中，
+# 分别用Python内置函数以及jieba库中的已有函数计算字符串s的中文字符个数以及中 文词语个数。注意：中文字符包括中文标点符号。
+
+import jieba
+s = input("请输入一个字符串:")
+n = len(s)
+print(jieba.lcut(s, cut_all=True))
+m = len(jieba.lcut(s))
+print("中文字符数为{}，中文词语数为{}。".format(n, m))
