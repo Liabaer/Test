@@ -195,12 +195,35 @@
 # 在...上补充一行或者多行代码
 # 在——————上补充一行代码
 
+#
+# score = [[87, 79, 90], [99, 83, 93], [90, 75, 89], [89, 87, 94], [95, 85, 84]]
+# i = 0
+# for j in score:
+#     # print(i)
+#     final = j[0]*0.6 + j[1]*0.3 + j[2]*0.1
+#     print(final)
+#     print('the {} final score is {}'.format(i + 1, int(final)))
+#     i= i+ 1
 
-score = [[87, 79, 90], [99, 83, 93], [90, 75, 89], [89, 87, 94], [95, 85, 84]]
-i = 0
-for j in score:
-    # print(i)
-    final = j[0]*0.6 + j[1]*0.3 + j[2]*0.1
-    print(final)
-    print('the {} final score is {}'.format(i + 1, int(final)))
-    i= i+ 1
+
+# 第十二题
+# 请写代码替换横线，不修改其他代码，实现以下功能：
+# 键盘输入一句话，用jieba分词后，将切分的词组按照在原话中的逆序输出到屏幕 上，词组中间没有空格。示例如下：
+
+# import jieba
+# txt = input("请输入一段中文文本:")
+# ls = jieba.lcut(txt)
+# for i in ls[::-1]:
+#     print(i, end='')
+#
+#
+# 第十二题
+# 描述等比数列是指从第二项起，每一项与它的前一项的比值等于同一个常数的一种
+# 数列，常用G、P表示。
+a, b, c = eval(input("输入："))
+ls = []
+for i in range(c):
+    # pow(x, n)表示x的n次方   a*pow(b, i) --> a*b^i
+    ls.append(str(a*pow(b, i)))
+# join方法要求传进来的数组里面都是字符串
+print(",".join(ls))
