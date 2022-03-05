@@ -148,9 +148,59 @@
 # 请写代码替换模板中的横线，键盘输入一段文本，保存在一个字符串变量$中，
 # 分别用Python内置函数以及jieba库中的已有函数计算字符串s的中文字符个数以及中 文词语个数。注意：中文字符包括中文标点符号。
 
-import jieba
-s = input("请输入一个字符串:")
-n = len(s)
-print(jieba.lcut(s, cut_all=True))
-m = len(jieba.lcut(s))
-print("中文字符数为{}，中文词语数为{}。".format(n, m))
+# import jieba
+# s = input("请输入一个字符串:")
+# n = len(s)
+# print(jieba.lcut(s, cut_all=True))
+# m = len(jieba.lcut(s))
+# print("中文字符数为{}，中文词语数为{}。".format(n, m))
+
+#第十一题
+# 从键盘输入两个浮点数，计算以这两个浮点数为边长的长方形的面积，显示在屏幕 上，数据长度为10，右对齐，不足部分用-补齐，保留2位小数。"23.34,45.12"
+
+# l, w = eval(input())
+# {:->10.2f}表示保留两位小数右对齐，长度为10不足用-补齐
+# print("长方形的面积是:{:->10.2f}".format(l*w))
+# 这是分开使用":2.f".format(l*w)先算面积并保留两位小数，再右对齐长度为10补齐-
+# print("长方形的面积是:{:->10}".format(":2.f".format(l*w)))
+
+#
+# 第十一题
+# 利用random随机库里的函数，生成一个由四个大小写字母组成的验证码，显示在屏 幕上。
+# # 在...上补充一行或者多行代码
+# # 在——————上补充一行代码
+# import random as r
+# zmb = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'
+# r.seed(1)
+# 方法一
+# code = ''.join(r.sample(zmb, 4))
+# 方法二
+# tmp = r.sample(zmb, 4)
+# code = tmp[0] + tmp[1] + tmp[2] + tmp[3]
+# 方法三
+# tmp = r.sample(zmb, 4)
+# code = ''
+# for x in tmp:
+#     code = code + x
+# # 方法四
+# code = ''
+# for i in range(4):
+#     code += r.choice(zmb)
+# print(code)
+
+
+# 第十二题
+# 示例代码里定义的列表变量score! 里面是5组同学在一次比赛中的成绩，每组成 绩包括三项，分别记为a1,a2,a3,三个字段以逗号分隔，示例如下：
+# 计算每组同学比赛成绩的总成绩，计算公式为：total=a1*0.6+a2*0.3+a3*0.1。
+# 在...上补充一行或者多行代码
+# 在——————上补充一行代码
+
+
+score = [[87, 79, 90], [99, 83, 93], [90, 75, 89], [89, 87, 94], [95, 85, 84]]
+i = 0
+for j in score:
+    # print(i)
+    final = j[0]*0.6 + j[1]*0.3 + j[2]*0.1
+    print(final)
+    print('the {} final score is {}'.format(i + 1, int(final)))
+    i= i+ 1

@@ -27,10 +27,10 @@ while m < 4:
         i = i + 1
     flag = True
     mat = new_mat
-    print new_mat
+    # print new_mat
     i = 0
     while i < len(new_mat):
-        print i,j
+        # print i,j
         j = 0
         while j < len(new_mat[i]):
             if new_mat[i][j] != target[i][j]:
@@ -44,6 +44,6 @@ while m < 4:
         break
     else:
         m = m + 1
-print flag
+print(flag)
 
 

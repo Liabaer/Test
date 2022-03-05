@@ -12,7 +12,7 @@ while i < len(grid):
     k = 0
     while j < len(grid[i]):
         c = 2 + 4 * grid[i][j]
-        print grid[i][j]
+        # print grid[i][j]
         # [0,0]一个正方体时
         if grid[i][j] > 0:
             if i+1 < len(grid[i]):
@@ -41,4 +41,4 @@ while i < len(grid):
         j = j + 1
         sum = sum + c
     i = i + 1
-print sum
+# print sum
