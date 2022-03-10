@@ -24,3 +24,24 @@
 #         turtle.seth(d)
 #         k += 2
 # turtle.done()
+
+# 使用turtle库的turtle.fd0函数和turtle.seth(0)函数绘制嵌套10层的螺旋六边形，
+# 六边形边长从1像素开始，第一条边从0度方向开始，边长按照3个像素递增，效 果如下图所示。
+# import turtle
+# edge = 6
+# d = 0
+# k = 1
+# for j in range(10):
+#     for i in range(edge):
+#         turtle.fd(k)
+#         d += 360/6
+#         turtle.seth(d)
+#         k += 3
+# turtle.done()
+
+# 使用turtle库的turtle.right()函数和turtle.circle()函数绘制一个星星图形，圆弧的 半径为90，如下图所示。
+import turtle
+for i in range(4):
+    turtle.circle(-90, 90)  #这个空为一个负数
+    turtle.right(180)
+turtle.done()
