@@ -40,8 +40,19 @@
 # turtle.done()
 
 # 使用turtle库的turtle.right()函数和turtle.circle()函数绘制一个星星图形，圆弧的 半径为90，如下图所示。
+# import turtle
+# for i in range(4):
+#     turtle.circle(-90, 90)  #这个空为一个负数
+#     turtle.right(180)
+# turtle.done()
+
+# 画太阳花
 import turtle
-for i in range(4):
-    turtle.circle(-90, 90)  #这个空为一个负数
-    turtle.right(180)
+turtle.color("red", "yellow") #画笔颜色与填充设置
+turtle.begin_fill()
+#绘制太阳花形状
+for i in range(50):
+    turtle.forward(200)#先前200
+    turtle.right(170)  #右转170度
+turtle.end_fill()
 turtle.done()
