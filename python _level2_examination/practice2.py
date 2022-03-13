@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#第一题
+# 第一题
 # 模板中给出的代码是本题目的提示框架，其中代码可以任意修改。请在该文件中删 除横线，编写代码，以实现一下功能：
 # 键盘输入小明学习的课程名称及考分等信息，信息间采用空格分隔，每个课程一 行，空行回车结束录入，示例格式如下：
 # 数学90
@@ -40,7 +40,7 @@
 # # print(min_name,min_score, max_name, max_score, avg)
 # print("最高分课程是{}{}, 最低分课程是{}{}, 平均分是{:.2f}".format(min_name, max_score, min_score, min_score, avg))
 
-#第二题
+# 第二题
 # 补全编程模板中的代码，删除横线，补全代码，可以修改其他代码。实现以下功能
 #
 # 键盘输入某个班级各个同学就业的行业名称，行业名称之间用空格间隔(回车结束输入)。完善python代码，统计各行各业就业的学生数量，按数量从高到低方式输出。例如输入:
@@ -127,27 +127,116 @@
 # 包含大学的名称数量是10
 # 包含学院的名称数量是10
 # 在右侧的编码框中给出了程序框架文件，请补充修改代码完成程序(10分)
-n = 0
-m = 0
-f = open("univ.txt", "r")
+# n = 0
+# m = 0
+# f = open("univ.txt", "r")
+# f_new = f.readlines()
+# dict = {}
+# for i in f_new:
+#     print("{}".format(i))
+#     if '大学' in i:
+#         dict['大学'] = dict.get('大学', 0) + 1
+#     if '学院' in i:
+#         dict['学院'] = dict.get('学院', 0) + 1
+#     elif '大学' in i and '学院' in i:
+#         dict['大学'] = dict.get('大学', 0) + 1
+# f.close()
+# # print(dict)
+# for k, v in dict.items():
+#     if k == '大学':
+#         n = v
+#     if k == '学院':
+#         m = v
+# print("包含大学的名称数量是{}".format(n))
+# print("包含学院的名称数量是{}".format(m))
+
+# 第五题
+# 问题1：数据统计。要求：统计出两个文件中出现次数最多的10个词 语，作为主题词，要求词语不少于2个字符，
+# 打印输出在屏幕上，输出 示例如下：（示例仅作为示意）
+# 2019:改革：10，企业：9，..（略），深化2
+# 2018:改革：11，效益，7.…（略)，深化：1
+# 注意：输出格式采用英文冒号和英文逗号，标点符号前后无空格，各词 语间用逗号分隔，最后一个词语后无逗号。
+# import jieba
+#
+# temp = [':', ' ', '（', '）', '.', '/', '\n', '-', '，', '「', '」', '—', '：', '；', '。', '、']
+# def find_most(f):
+#     f = f.readlines()
+#     d = {}
+#     for i in f:
+#         i.strip()
+#         # print(jieba.lcut(i))
+#         for j in jieba.lcut(i):
+#             if j not in temp:
+#                 d[j] = d.get(j, 0) + 1
+#     # print(d)
+#     ls = list(d.items())
+#     ls.sort(key=lambda x: x[-1], reverse=True)
+#     # print(len(ls))
+#     num = 0
+#     for i in ls[0:10]:
+#         if num < 9:
+#             print("{}:{},".format(i[0], i[1]), end='')
+#         if num == 9:
+#             print("{}:{}".format(i[0], i[1]))
+#         num += 1
+#     return
+#
+# f1 = open("text.txt", 'r')
+# find_most(f1)
+# f2 = open("text1.txt", 'r')
+# find_most(f2)
+
+# 第六题
+# 其中，文本文件“八十天环游地球.xt"是法国作家儒勒.凡尔纳《八十天环游地球》 长篇小说的网络版本，请修改源文件实现以下功能。
+# 问题1：提取章节题目并输出到文件。
+# 要求：在模板中补充代码，提取“八十天环游地球.xt”中所有章节的题目，并且将提 取后的题目输出到“八十天环游地球-章节.txt"文件中，每行一一个标题
+# f = open("八十天环游地球.txt", encoding="utf-8")
+# f_new = f.readlines()
+# f = open('八十天环游地球-章节.txt', 'w')
+# for i in f_new:
+#     if i[0] == '第' and i[2] == '章':
+#         # print(i)
+#         f.write('{}'.format(i))
+# f.close()
+
+# 问题2：统计每章节的高频词并打印输出。
+# 要求：在模板补充代码，统计"八十天环游地球.xt”中每一章的标题和内容中出现
+# 次数最多的词语（词语长度不少于2个字符）及其次数，输出格式为章节名、词语及其 出现的次数，以空格分隔
+import jieba
+
+jieba.setLogLevel(20)
+temp = [':', ' ', '（', '）', '.', '/', '\n', '-', '，', '「', '」', '—', '：', '；', '。', '、']
+f = open("八十天环游地球.txt", encoding="utf-8")
 f_new = f.readlines()
-dict = {}
+
+new_str = ''
 for i in f_new:
-    print("{}".format(i))
-    if '大学' in i:
-        dict['大学'] = dict.get('大学', 0) + 1
-    if '学院' in i:
-        dict['学院'] = dict.get('学院', 0) + 1
-    if '大学' in i and '学院' in i:
-        dict['大学'] = dict.get('大学', 0) + 1
+    i.strip()
+    d = {}
+    if i[0] == '第' and i[2] == '章':
+        # print(new_str)
+        if new_str != '':
+            for j in jieba.lcut(new_str):
+                if j not in temp and len(j) >1:
+                    d[j] = d.get(j, 0) + 1
+            ls = list(d.items())
+            ls.sort(key=lambda x: x[-1], reverse=True)
+            print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
+        # print(d)
+        # 初始化
+        new_str = ''
+        # 再将标题加进去
+        t = i
+        new_str = new_str +(i)
+    else:
+        new_str = new_str +(i)
+d = {}
+if new_str != []:
+    for j in jieba.lcut(new_str):
+        if j not in temp and len(j) > 1:
+            d[j] = d.get(j, 0) + 1
+# print(d)
+ls = list(d.items())
+ls.sort(key=lambda x:x[-1],reverse=True)
+print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
 f.close()
-# print(dict)
-for k, v in dict.items():
-    if k == '大学':
-        n = v
-    if k == '学院':
-        m = v
-print("包含大学的名称数量是{}".format(n))
-print("包含学院的名称数量是{}".format(m))
-
-
