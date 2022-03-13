@@ -75,23 +75,79 @@
 #
 # 平均年龄是2067男性人数是2
 
-data = input()  # 姓名 年龄 性别
-avg = 0
-count = 0
-num_man = 0
-age = 0
-data_new = []
-while data:
-    data_new.append(data.split(' ')[1:3])
-    data = input()
-print(data_new)
-for i in data_new:
-    count += 1
-    for j in i:
-        if j == '男':
-            num_man += 1
-        elif j != '女':
-            age += int(j)
-print(age, num_man, count)
-avg = age/count
-print("平均年龄是{:.2f} 男性人数是{}".format(avg, num_man))
+# data = input()  # 姓名 年龄 性别
+# avg = 0
+# count = 0
+# num_man = 0
+# age = 0
+# data_new = []
+# while data:
+#     data_new.append(data.split(' ')[1:3])
+#     data = input()
+# print(data_new)
+# for i in data_new:
+#     count += 1
+#     for j in i:
+#         if j == '男':
+#             num_man += 1
+#         elif j != '女':
+#             age += int(j)
+# print(age, num_man, count)
+# avg = age/count
+# print("平均年龄是{:.2f} 男性人数是{}".format(avg, num_man))
+
+# 第四题问题：请编写程序，从data.txt中提取大学或者机构名称列表，将结果写入文件 univ.txt,每行一个大学或者机构名称，
+# 按照大学或机构在data.txt出现的先后顺序 输出，样例如下：
+# 北京理工大学
+# 北京师范大学
+# 。。。
+# 提示：所有大学名称在data.txt文件中以alt="北京理工大学"形式存在。
+
+# f = open('school.txt', 'r')  # 此处可多行
+# f = f.readlines()
+# school = []
+# for i in f:
+#     for j in i.split(' '):
+#         if j[0:3] == 'alt' and ('大学' in j or '学院' in j):
+#             school.append(j.split('"')[1])
+# print(school)
+# f = open("univ.txt", "w")
+# for i in school:
+#     f.write('{}\n'.format(i))
+# f.close()
+
+# 问题2:请编写程序，从univtxt文件中提取大学名称，大学名称以出现“大学"或“学院"字样为参考，
+# 但不包括“大学生"等字样，将所有大学名称在屏幕上输出，大学各行之间没有空行，最后给出名称中包含"
+# 大学"和“学院”的名称数量，同时有大学和学院做大学处理。样例如下(样例中数量不是真实结果):
+#
+# 北京理工大学
+#
+# 长沙师范学院
+#
+# 包含大学的名称数量是10
+# 包含学院的名称数量是10
+# 在右侧的编码框中给出了程序框架文件，请补充修改代码完成程序(10分)
+n = 0
+m = 0
+f = open("univ.txt", "r")
+f_new = f.readlines()
+dict = {}
+for i in f_new:
+    print("{}".format(i))
+    if '大学' in i:
+        dict['大学'] = dict.get('大学', 0) + 1
+    if '学院' in i:
+        dict['学院'] = dict.get('学院', 0) + 1
+    if '大学' in i and '学院' in i:
+        dict['大学'] = dict.get('大学', 0) + 1
+f.close()
+# print(dict)
+for k, v in dict.items():
+    if k == '大学':
+        n = v
+    if k == '学院':
+        m = v
+print("包含大学的名称数量是{}".format(n))
+print("包含学院的名称数量是{}".format(m))
+
+
