@@ -202,41 +202,193 @@
 # 问题2：统计每章节的高频词并打印输出。
 # 要求：在模板补充代码，统计"八十天环游地球.xt”中每一章的标题和内容中出现
 # 次数最多的词语（词语长度不少于2个字符）及其次数，输出格式为章节名、词语及其 出现的次数，以空格分隔
-import jieba
+# import jieba
+#
+# jieba.setLogLevel(20)
+# temp = [':', ' ', '（', '）', '.', '/', '\n', '-', '，', '「', '」', '—', '：', '；', '。', '、']
+# f = open("八十天环游地球.txt", encoding="utf-8")
+# f_new = f.readlines()
+#
+# new_str = ''
+# for i in f_new:
+#     i.strip()
+#     d = {}
+#     if i[0] == '第' and i[2] == '章':
+#         # print(new_str)
+#         if new_str != '':
+#             for j in jieba.lcut(new_str):
+#                 if j not in temp and len(j) >1:
+#                     d[j] = d.get(j, 0) + 1
+#             ls = list(d.items())
+#             ls.sort(key=lambda x: x[-1], reverse=True)
+#             print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
+#         # print(d)
+#         # 初始化
+#         new_str = ''
+#         # 再将标题加进去
+#         t = i
+#         new_str = new_str +(i)
+#     else:
+#         new_str = new_str +(i)
+# d = {}
+# if new_str != []:
+#     for j in jieba.lcut(new_str):
+#         if j not in temp and len(j) > 1:
+#             d[j] = d.get(j, 0) + 1
+# # print(d)
+# ls = list(d.items())
+# ls.sort(key=lambda x:x[-1],reverse=True)
+# print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
+# f.close()
+#
+#
+# 第七题
+# webpage.txt保存了某网站一个网页的HTML格式源代码。在该文件中，JPG图片以
+# 一个完整的URL表示，示例如下：# 其中，<a>与<a>是一对组合，表示包含一个URL链接；<img..(略)…/>表示包含
+# 一个JPG图像文件的URL,每个URL用src=开头，以JPG图像文件名结束，如
+# 538.JPG表示JPG图像文件。
+# 在右侧编程框编程实现如下功能：
+# 本题作答第一问
+# (1)统计并打印输出该页面中JPG图像文件的URL数量。注意，JPG扩展名都是大写
+# 字母，输出示例如下（其中数据仅用于示意）：
+# 输出：
+# 15
+#
+# f = open("webpage.txt", "r")
+# f = f.readlines()
+# #统计url个数
+# num= 0  #统计个数的初始值为0
+# for i in f:
+#     if 'src=' in i and 'JPG' in i:
+#         num += 1
+#         print(i)
+# print(num)  #输出个数
 
-jieba.setLogLevel(20)
-temp = [':', ' ', '（', '）', '.', '/', '\n', '-', '，', '「', '」', '—', '：', '；', '。', '、']
-f = open("八十天环游地球.txt", encoding="utf-8")
-f_new = f.readlines()
+# (2)将webpage.txt页面中的JPG图像文件的URL提取出来，保存在文件images.txt
+# 中，每个URL-行。
+# 输出格式示例如下：( 其中数据仅用于示意)
+# http://image.ngchina.com.cn/2018/0829/20180829012548753.JPG
+# http:/image.ngchina.com.cn/2018/0823/thumb._469_352_20180823121155508.
+# (略)
+#
+# f = open("webpage.txt", "r")
+# a = f.readlines()
+# #统计url个数
+# f_new = open("images.txt", 'w')
+# for i in a:
+#     if 'src=' in i and 'JPG' in i:
+#         i = i.split(' ')
+#         for j in i:
+#             if 'src=' in j and 'JPG' in j:
+#                 print(j.split('"')[1])
+#                 n = j.split('"')[1]
+#                 f_new.write("{}\n".format(n))
+# f_new.close()
+# f.close()
 
-new_str = ''
-for i in f_new:
-    i.strip()
-    d = {}
-    if i[0] == '第' and i[2] == '章':
-        # print(new_str)
-        if new_str != '':
-            for j in jieba.lcut(new_str):
-                if j not in temp and len(j) >1:
-                    d[j] = d.get(j, 0) + 1
-            ls = list(d.items())
-            ls.sort(key=lambda x: x[-1], reverse=True)
-            print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
-        # print(d)
-        # 初始化
-        new_str = ''
-        # 再将标题加进去
-        t = i
-        new_str = new_str +(i)
+# 第八题
+# 要求：在右侧答题模板中修改代码，删除代码中的横线，填写代码，对 文件data.txt的内容进行清洗，
+# 去掉中文标点符号、中英文空格、回车 等符号，只保留中文、英文、数字、英文标点符号，将结果输出到文件 clean.txt中。
+
+# t = ["，", "。", "？", "；", " ", " "]
+#
+# f = open("data(5).txt", 'r')
+# a = f.readlines()
+# f_new = open("clean.txt", 'w')
+# for i in a:
+#     for j in i:
+#         if j not in t:
+#             f_new.write("{}".format(j))
+#             # if j != '\n':
+#             #     f_new.write("{}".format(j))
+#             # else:
+#             #     f_new.write('\n')
+# f_new.close()
+# f.close()
+# 问题2：提取主题词及其出现频次。
+# 要求：在右侧答题模板中修改代码，删除代码中的横线，填写代码，提 取clean.txt文件中长度不少于3个字符的词语并统计词频，将词频最高 的10个词语作为主题词，并将主题词及其频次输出到屏幕。
+# 示例如下：
+# 4.0:10,制造业：9.…（略）
+# 注意：输出格式采用英文冒号和英文逗号，标点符号前后无空格，各词 语中间用逗号分隔，最后一个词语无逗号。
+# import jieba
+# f = open("clean.txt", "r")
+# a = f.readlines()
+# d = {}
+# for i in a:
+#     i = jieba.lcut(i)
+#     for j in i:
+#         if len(j) > 2:
+#             d[j] = d.get(j, 0) + 1
+# # print(d)
+# ld = list(d.items())
+# # print(ld)
+# ld.sort(key=lambda x:x[-1], reverse=True)
+# ld = ld[0:10]
+# # print(ld)
+# num = 0
+# for i in ld:
+#     if num < 9:
+#         print("{}:{},".format(i[0], i[1]), end='')
+#     else:
+#         print("{}:{}".format(i[0], i[1]))
+#     num += 1
+# f.close()
+#
+#
+# 第九题
+# 二千多年前希腊的天文学家希巴克斯命名十二星座，
+# 它们是水瓶座、双鱼座、白羊 座、金牛座、双子座、巨蟹座、狮子座、处女座、天秤座、天蝎座、射手座、魔蝎 座。
+# 给出一个CSV文件(PY301-SunSign.csv),内容示例如下：
+# 问题1(5分)：在代码框中修改代码，读入CSV文件中的数据，获得用户输入。根
+# 据用户输入的星座名称，输出此星座的出生日期范围。
+# 参考输入和输出示例格式如下：
+# 请输入星座中文名称（例如，双子座）：双子座
+# 双子座的生日位于521-621之间
+
+# xz = input("请输入星座中文名称:")
+# f = open("data-xz.csv", "r")
+# new = f.readlines()
+# ls = []
+# for i in new:
+#     i = i.split(",")
+#     if i[1] == xz:
+#         print("{}的生日位于{}-{}之间".format(i[1], i[2], i[3]))
+# f.close()
+#
+# 问题2（10分)：在代码框中修改代码，读入CSV文件中数据，获得用户输入。用户
+# 键盘输入一组范围是1-12的证书作为序号，序号间采用空格分隔，以回车结束。
+# 屏 幕输出这些序号对应的星座的名称、支付编码以及出生日期范围，每个星座的信息
+# 一行。本次屏幕显示完成后，重新回到输入序号的状态。
+# 双子座(9802)的生日是5月21日至6月21日之间
+import csv
+f = open("data-xz.csv", "r")
+new = csv.reader(f)
+y_s = ''
+d_s = ''
+y_e = ''
+d_e = ''
+while True:
+    xh = input("请输入序号：")
+    if 1 <= int(xh) <= 12:
+        print("输入正确，开始执行计算逻辑")
+        for i in new:
+            if xh == i[0]:
+                print(i)
+                if len(i[2]) == 3:
+                    d_s = i[2][1:3]
+                    y_s = i[2][0]
+                if len(i[3]) == 3:
+                    d_e = i[3][1:3]
+                    y_e = i[3][0]
+                if len(i[2]) == 4:
+                    d_s = i[2][2:4]
+                    y_s = i[2][1:2]
+                if len(i[3]) == 4:
+                    d_e = i[3][2:4]
+                    y_e = i[3][1:2]
+                print("{}({})的生日是{}月{}日至{}月{}日之间".format(i[1], i[4], y_s, d_s, y_e, d_e))
+        break
     else:
-        new_str = new_str +(i)
-d = {}
-if new_str != []:
-    for j in jieba.lcut(new_str):
-        if j not in temp and len(j) > 1:
-            d[j] = d.get(j, 0) + 1
-# print(d)
-ls = list(d.items())
-ls.sort(key=lambda x:x[-1],reverse=True)
-print("{} {} {}".format(t[0:3], ls[0][0], ls[0][1]))
+        print("输入有误继续输入")
+        continue
 f.close()
