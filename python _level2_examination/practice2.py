@@ -360,35 +360,165 @@
 # 屏 幕输出这些序号对应的星座的名称、支付编码以及出生日期范围，每个星座的信息
 # 一行。本次屏幕显示完成后，重新回到输入序号的状态。
 # 双子座(9802)的生日是5月21日至6月21日之间
-import csv
-f = open("data-xz.csv", "r")
-new = csv.reader(f)
-y_s = ''
-d_s = ''
-y_e = ''
-d_e = ''
-while True:
-    xh = input("请输入序号：")
-    if 1 <= int(xh) <= 12:
-        print("输入正确，开始执行计算逻辑")
-        for i in new:
-            if xh == i[0]:
-                print(i)
-                if len(i[2]) == 3:
-                    d_s = i[2][1:3]
-                    y_s = i[2][0]
-                if len(i[3]) == 3:
-                    d_e = i[3][1:3]
-                    y_e = i[3][0]
-                if len(i[2]) == 4:
-                    d_s = i[2][2:4]
-                    y_s = i[2][1:2]
-                if len(i[3]) == 4:
-                    d_e = i[3][2:4]
-                    y_e = i[3][1:2]
-                print("{}({})的生日是{}月{}日至{}月{}日之间".format(i[1], i[4], y_s, d_s, y_e, d_e))
-        break
-    else:
-        print("输入有误继续输入")
-        continue
-f.close()
+# import csv
+# f = open("data-xz.csv", "r")
+# new = csv.reader(f)
+# y_s = ''
+# d_s = ''
+# y_e = ''
+# d_e = ''
+# while True:
+#     xh = input("请输入序号：")
+#     if 1 <= int(xh) <= 12:
+#         print("输入正确，开始执行计算逻辑")
+#         for i in new:
+#             if xh == i[0]:
+#                 print(i)
+#                 if len(i[2]) == 3:
+#                     d_s = i[2][1:3]
+#                     y_s = i[2][0]
+#                 if len(i[3]) == 3:
+#                     d_e = i[3][1:3]
+#                     y_e = i[3][0]
+#                 if len(i[2]) == 4:
+#                     d_s = i[2][2:4]
+#                     y_s = i[2][1:2]
+#                 if len(i[3]) == 4:
+#                     d_e = i[3][2:4]
+#                     y_e = i[3][1:2]
+#                 print("{}({})的生日是{}月{}日至{}月{}日之间".format(i[1], i[4], y_s, d_s, y_e, d_e))
+#         break
+#     else:
+#         print("输入有误继续输入")
+#         continue
+# f.close()
+#
+#
+# 第十题
+# 描述
+# 获得用户的非数字输入，如果输入中存在数字，则要求用户重新输入，直至满足条件 为止，
+# 并输出用户输入字符的个数，完善模板中的代码，可以删除全部提示代码，删 除横线完成编程。
+# count = 0
+# flag = True
+# while True:
+#     num = input("请输入内容：")
+#     for i in num:
+#         # if ord('0') >= ord(i) or ord(i) >= ord('9')
+#         if 48 >= ord(i) or ord(i) >= 57:
+#             flag = True
+#             count += 1
+#         else:
+#             flag = False
+#             continue
+#     if flag:
+#         print(count)
+#         break
+#
+# 第十一题
+# 键盘输入一组我国高校所对应的学校类型，以空格为分隔，共一行，示例格式如下：
+# 综合 理工 综合 综合 综合 师范 理工
+# 统计各类型的数量，从数量多道少的顺序屏幕输出类型及对应数量，以英文冒号分 隔，以英文冒号分隔，每个类型一行，输出参考格式如下：
+# 综合：4
+# 理工：2
+# 师范：1
+
+# txt = input("请输入类型序列：")
+# txt = txt.split(" ")
+# d = {}
+# for i in txt:
+#     d[i] = d.get(i, 0)+1
+# ls = list(d.items())
+# ls.sort(key=lambda x: x[-1], reverse=True)
+# for i in ls:
+#     print("{}:{}".format(i[0], i[1]))
+#
+#
+# 第十一题
+# 计算两个列表1s和1t对应元素乘积的和（即向量和），补充模板中的代码，删除下 划线，可以任意修改代码。完成程序。
+# 1s=[111,222,333,444,555,666,777,888,999]
+# 1t=[999,777,555,333,111,888,666,444,222]
+
+# ls = [111, 222, 333, 444, 555, 666, 777, 888, 999]
+# lt = [999, 777, 555, 333, 111, 888, 666, 444, 222]
+#
+# i=0
+# new=0
+# while i < len(ls):
+#     new += (ls[i] * lt[i])
+#     i += 1
+# print(new)
+#
+#
+# 第十二题
+# 在右侧答题模板中修改代码，删除代码中的横线，填写代码，完成如下功能。
+# 将程序里定义好的sd列表里的姓名和成绩与已经定义好的模板拼成一段话，显示在 屏幕上。
+# 示例
+# 输出
+# 亲爱的张三，你的考试成绩是：英语90，数学87，python语言95，总成绩272.特此通知
+
+# std = [['张三', 90, 87, 95], ['李四', 83, 80, 87], ['王五', 73, 57, 55]]
+# modl = "亲爱的{}, 你的考试成绩是: 英语{}, 数学{}, Python语言{}, 总成绩{}.特此通知."
+#
+# for st in std:
+#     cnt = 0
+#     for i in range(1, 4):
+#         cnt += int(st[i])
+#         # print(cnt)
+#     print(modl.format(st[0], st[1], st[2], st[3], cnt))
+#
+#
+#
+# 第十三题
+# 《论语》是儒家学派的经典著作之一，主要记录里孔子及其弟子言行。这里给出了
+# 一个网络版的《论语》，文件名为“论语.xt”，其内容采用逐句"原文"与逐句“注释” 相结合的形式组织，
+# 通过【原文】标记《论语》原文内容，通过【注释】标记《论 语》注释内容，具体文件格式框架请参考“论语txt"文件。
+# 问题一（10分)：在模板中修改代码，提取"论语.txt"文件中的原文内容，输出保 存到考生文件夹下，文件名为“论语-原文.tx"
+# 具体要求：仅保留"论语.txt"文件中 所有【原文】标签下面的内容，不保留标签，并去掉每行行首空格及行尾空格，无 空行。
+# 原文小括号及内部数字是源文件中注释项的标记，请保留。示例输出文件格 式请参考“论语-原文-输出示例.txt”文件。注意：示例输出文件仅帮助考生了解输出 格式，不作它用。
+#
+# fi = open("论语.txt", "r")
+# fo = open("论语-原文.txt", "w")
+# fi_r = fi.readlines()
+# flag = True
+# for i in fi_r:
+#     i = i.strip()
+#     temp = ''
+#     # print(i)
+#     if "【原文】" in i:
+#         flag = True
+#         # print(temp)
+#     elif "【注释】" in i:
+#         flag = False
+#         continue
+#     # print(flag)
+#     if flag and i != '【原文】' and i != '':
+#         temp = i
+#         fo.write("{}\n".format(temp))
+# fo.close()
+# fi.close()
+#
+# 问题二（10分)：在模板中修改代码，对“论语-原文.txt"(这是你回答问题一生成的 答案文件)或“论语.txt"文件进一步提纯，
+# 去掉每行文字中所有的小括号及内部数 字，保存为“论语-提纯原文"文件。示例输出文件格式请参考“论语-提纯原文-输出 示例txt"文件。
+# 注意：示例输出文件仅帮助考试了解输出格式。不做它用。
+
+fi = open("论语-原文.txt", "r")
+fo = open("论语-提纯原文.txt", 'w')
+f_new = fi.readlines()
+for i in f_new:
+    flag = True
+    temp = ''
+    for j in i:
+        if (ord('1') > ord(j) or ord(j) > ord('9')) and j != '(' and j != ')':
+            temp += j
+            # flag = True
+        else:
+            flag = False
+            continue
+        # if flag:
+        #     temp += j
+    if temp != '':
+        # print("{}".format(temp))
+        fo.write("{}".format(temp))
+fo.close()
+fi.close()
+
