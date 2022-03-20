@@ -163,20 +163,43 @@
 
 # 第七题
 # 使用turtle库的turtle.circle()函数和turtle.seth()函数绘制图形，最 小的圆圈半径为20像素，不同圆圈之间的半径差是20像素。
-import turtle
+# import turtle
+#
+# r = 20
+# head = 90
+# for i in range(3):
+#     turtle.seth(head)
+#     turtle.circle(r)
+#     r = r + 20
+#
+# r = 20
+# head = -90
+# for i in range(3):
+#     turtle.seth(head)
+#     turtle.circle(r)
+#     r = r + 20
+#
+# turtle.done()
 
-r = 20
-head = 90
-for i in range(3):
-    turtle.seth(head)
-    turtle.circle(r)
-    r = r + 20
-
-r = 20
-head = -90
-for i in range(3):
-    turtle.seth(head)
-    turtle.circle(r)
-    r = r + 20
-
-turtle.done()
+# # 第八题-蝴蝶结
+#
+# import turtle as t
+#
+# t.pensize(6)
+# t.fillcolor("red")
+# t.goto(-100, -50)
+# t.pendown()
+# t.begin_fill()
+# t.pencolor("black")
+# t.goto(-100, 50)
+# t.goto(100, -50)
+# t.goto(100, 50)
+# t.goto(-100, -50)
+# t.penup()
+# t.goto(-10, 0)
+# t.pendown()
+# t.right(90)
+# t.circle(10)
+# t.end_fill()
+# t.hideturtle()
+# t.done()
