@@ -218,3 +218,4 @@ for i in range(4):
     # 再画圆
     turtle.circle(r)
     r = r + 40
+turtle.done()
