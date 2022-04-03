@@ -203,3 +203,18 @@
 # t.end_fill()
 # t.hideturtle()
 # t.done()
+
+
+# 第九题
+# 使用turtle库的turtle.circle()函数和turtle.seth()函数绘制套圈，最小的圆圈半径为10像素，不同圆圈之间的半径差是40像素。效果如下图 所示。
+# 请在______处补充一行代码
+import turtle
+
+r = 10
+head = 90
+for i in range(4):
+    # 先改变方向  turtle.seth(angle):只改变海龟的行进方向(角度按逆时针)，但不行进，angle为绝对度数
+    turtle.seth(head)
+    # 再画圆
+    turtle.circle(r)
+    r = r + 40
