@@ -91,28 +91,66 @@
 # 第三题
 # 有一个列表stones如下：
 # stones=['1901010902,翡翠，21000，
-# 1901010903,玛瑙，15000'，
-# 1901010900,和田玉，20800'，
-# 1901010901,水晶石，18000]
-# 第1列是玉石的编号，第2列是玉石名称，第3列是玉石报价。
-# 按照玉石编号从小到大显示玉石的编号、名称和报价，并显示价格最低的玉石名称 和价格。
-stones = ['1901010902,翡翠,21000', '1901010903,玛瑙,15000', '1901010900,和田玉,20800', '1901010901,水晶石,18000']
+# # 1901010903,玛瑙，15000'，
+# # 1901010900,和田玉，20800'，
+# # 1901010901,水晶石，18000]
+# # 第1列是玉石的编号，第2列是玉石名称，第3列是玉石报价。
+# # 按照玉石编号从小到大显示玉石的编号、名称和报价，并显示价格最低的玉石名称 和价格。
+# stones = ['1901010902,翡翠,21000', '1901010903,玛瑙,15000', '1901010900,和田玉,20800', '1901010901,水晶石,18000']
+#
+# std = {}
+# minp = {}
+# for s in stones:
+#     sl = s.split(',')
+#     key = sl[0]
+#     key2 = sl[1]
+#     std[key] = [sl[1], sl[2]]
+#     minp[key2] = sl[2]
+#
+# stl = list(std.items())
+# stl.sort(key=lambda x: x[0])
+# ml = list(minp.items())
+# ml.sort(key=lambda x: x[1])
+# print(ml)
+# for s in stl:
+#     print('编号：{}，名称:{}, 报价:{}'.format(s[0], s[1][0], s[1][1]))
+# print('价格最低的玉石是{},价格是{}'.format(ml[0][0], ml[0][1]))
 
-std = {}
-minp = {}
-for s in stones:
-    sl = s.split(',')
-    key = sl[0]
-    key2 = sl[1]
-    std[key] = [sl[1], sl[2]]
-    minp[key2] = sl[2]
+# 第四题
+# 取文件 gasconc.txt里记录的不同房间里的二氧化碳气体浓度传感器的数据，第一列 是传感器编号，第二列是房间名称，第三列是浓度值。示例如下：
+# GS602:臣卧室1：1500
+# GS600:臣室2：1200
+# GS610:卫生间：500
+# GS620:餐厅：600
+# 1)请将数据读入到字典sensor里，以传感器编号为键，气体名称和浓度以列表的形式作为值；在屏幕上按照键值由小到大顺序输出字典sensor的内容。
+# 2)建立新的字典gas,l 以房间名称为键，以浓度作为值；在屏幕上按照气体浓度从 大到小排序后，输出gas的内容
+sensor = {}
+gas = {}
+with open('gasconc.txt', 'r', encoding='UTF-8-sig') as f:
+    f_new = f.readlines()
+    for i in f_new:
+        i = i.strip()
+        k = i.split(':')[0]
+        v = i.split(':')[1]+','+i.split(':')[2]
+        new_k = v.split(',')[0]
+        new_v = v.split(',')[1]
+        sensor[k] = v
+        gas[new_k] = new_v
+        # print(i)
+    f.close()
+sensor_l = list(sensor.items())
+sensor_l.sort(key=lambda x: x[0], reverse=True)
+temp = []
+for i in sensor_l:
+    temp.append(i[1].split(',')[0])
+    temp.append(i[1].split(',')[1])
+    print('传感器{}:{}'.format(i[0], temp))
+    temp = []
 
-stl = list(std.items())
-stl.sort(key=lambda x: x[0])
-ml = list(minp.items())
-ml.sort(key=lambda x: x[1])
-print(ml)
-for s in stl:
-    print('编号：{}，名称:{}, 报价:{}'.format(s[0], s[1][0], s[1][1]))
-print('价格最低的玉石是{},价格是{}'.format(ml[0][0], ml[0][1]))
+gas_l = list(gas.items())
+gas_l.sort(key=lambda x: x[-1])
+for i in gas_l:
+    print('{}的浓度是：{}'.format(i[0], i[1]))
+
+
 
