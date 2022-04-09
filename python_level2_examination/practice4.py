@@ -124,33 +124,93 @@
 # GS620:餐厅：600
 # 1)请将数据读入到字典sensor里，以传感器编号为键，气体名称和浓度以列表的形式作为值；在屏幕上按照键值由小到大顺序输出字典sensor的内容。
 # 2)建立新的字典gas,l 以房间名称为键，以浓度作为值；在屏幕上按照气体浓度从 大到小排序后，输出gas的内容
-sensor = {}
-gas = {}
-with open('gasconc.txt', 'r', encoding='UTF-8-sig') as f:
-    f_new = f.readlines()
-    for i in f_new:
-        i = i.strip()
-        k = i.split(':')[0]
-        v = i.split(':')[1]+','+i.split(':')[2]
-        new_k = v.split(',')[0]
-        new_v = v.split(',')[1]
-        sensor[k] = v
-        gas[new_k] = new_v
-        # print(i)
-    f.close()
-sensor_l = list(sensor.items())
-sensor_l.sort(key=lambda x: x[0], reverse=True)
-temp = []
-for i in sensor_l:
-    temp.append(i[1].split(',')[0])
-    temp.append(i[1].split(',')[1])
-    print('传感器{}:{}'.format(i[0], temp))
-    temp = []
+# sensor = {}
+# gas = {}
+# with open('gasconc.txt', 'r', encoding='UTF-8-sig') as f:
+#     f_new = f.readlines()
+#     for i in f_new:
+#         i = i.strip()
+#         k = i.split(':')[0]
+#         v = i.split(':')[1]+','+i.split(':')[2]
+#         new_k = v.split(',')[0]
+#         new_v = v.split(',')[1]
+#         sensor[k] = v
+#         gas[new_k] = new_v
+#         # print(i)
+#     f.close()
+# sensor_l = list(sensor.items())
+# sensor_l.sort(key=lambda x: x[0], reverse=True)
+# temp = []
+# for i in sensor_l:
+#     temp.append(i[1].split(',')[0])
+#     temp.append(i[1].split(',')[1])
+#     print('传感器{}:{}'.format(i[0], temp))
+#     temp = []
+#
+# gas_l = list(gas.items())
+# gas_l.sort(key=lambda x: x[-1])
+# for i in gas_l:
+#     print('{}的浓度是：{}'.format(i[0], i[1]))
 
-gas_l = list(gas.items())
-gas_l.sort(key=lambda x: x[-1])
-for i in gas_l:
-    print('{}的浓度是：{}'.format(i[0], i[1]))
+# 第五题
+# 请利用jieba库分析药方，提取有用的信息。
+# ·提取药方中的四个标签及标签后面的内容，用字典medi记录。
+# 文件内容示例如下：
+# 处方：人参3克，石莲肉12克，莲须3克，麦冬6克，远志6克，芡实6克，甘草3克 功能主治：养心安神，主心肾不交 用法用量：水煎服，每日1剂，日服2次 摘录：《仙拈集》卷二
+# 字典内容示例如下（字典顺序可以不一致）：
+# {"处方'：'人参3克，石莲肉12克，莲须3克，麦冬6克，远志6克，芡实6克，甘草3克，用法用量'：'水煎服，每日 1剂，日服2次，功能主治：'养心安神，主心肾不交，摘录：·《仙拈集》卷二}
+# ·将药方中的【处方】标签对应的处方内容，进行统计分析，计算并在屏幕上显示处方药量的总和，药量最大的药 名及其药量；示例如下：
+# 总药量是：39
+# 药量最大的药是：石莲肉，药量是：12
+import jieba
 
+fi = open("anshentang.txt", "r", encoding="utf-8")
+medi = {}
+f = fi.readlines()
+for i in f:
+    i = i.strip()
+    temp = i.split('】')[0]
+    n = len(temp)-1
+    k = temp[-n:]
+    v = i.split('】')[1]
+    v = v.strip()
+    medi[k] = v
+    # print(k, v)
+print(medi)
+fi.close()
 
-
+n = medi['处方']
+cnt = 0
+m = 0
+key = ''
+new_medi = {}
+# 可以 split 分割字符串
+# l = n.split('，')
+# print(l)
+l =[]
+temp = ''
+for i in n:
+    if i != '，':
+        temp += i
+    else:
+        l.append(temp)
+        temp = ''
+if temp != '':
+    l.append(temp)
+print(l)
+for i in l:
+    i = i.strip()
+    k = i.split(' ')[0]
+    v = int(i.split(' ')[1][0:-1])
+    cnt += v
+    if m < v:
+        m = v
+        key = k
+    # new_medi[k] = v
+    # print(k, v)
+print("总药量是：{}".format(cnt))
+print("药量最大的药是：{}，药量是：{}".format(key, m))
+for k, v in new_medi.items():
+    if int(v) == m:
+        print("药量最大的药是：{}，药量是：{}".format(k, v))
+        break
