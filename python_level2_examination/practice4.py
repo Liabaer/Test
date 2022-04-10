@@ -162,55 +162,116 @@
 # ·将药方中的【处方】标签对应的处方内容，进行统计分析，计算并在屏幕上显示处方药量的总和，药量最大的药 名及其药量；示例如下：
 # 总药量是：39
 # 药量最大的药是：石莲肉，药量是：12
-import jieba
-
-fi = open("anshentang.txt", "r", encoding="utf-8")
-medi = {}
-f = fi.readlines()
-for i in f:
-    i = i.strip()
-    temp = i.split('】')[0]
-    n = len(temp)-1
-    k = temp[-n:]
-    v = i.split('】')[1]
-    v = v.strip()
-    medi[k] = v
-    # print(k, v)
-print(medi)
-fi.close()
-
-n = medi['处方']
-cnt = 0
-m = 0
-key = ''
-new_medi = {}
-# 可以 split 分割字符串
-# l = n.split('，')
+# import jieba
+#
+# fi = open("anshentang.txt", "r", encoding="utf-8")
+# medi = {}
+# f = fi.readlines()
+# for i in f:
+#     i = i.strip()
+#     temp = i.split('】')[0]
+#     n = len(temp)-1
+#     k = temp[-n:]
+#     v = i.split('】')[1]
+#     v = v.strip()
+#     medi[k] = v
+#     # print(k, v)
+# print(medi)
+# fi.close()
+#
+# n = medi['处方']
+# cnt = 0
+# m = 0
+# key = ''
+# new_medi = {}
+# # 可以 split 分割字符串
+# # l = n.split('，')
+# # print(l)
+# l =[]
+# temp = ''
+# for i in n:
+#     if i != '，':
+#         temp += i
+#     else:
+#         l.append(temp)
+#         temp = ''
+# if temp != '':
+#     l.append(temp)
 # print(l)
-l =[]
-temp = ''
-for i in n:
-    if i != '，':
-        temp += i
-    else:
-        l.append(temp)
-        temp = ''
-if temp != '':
-    l.append(temp)
-print(l)
-for i in l:
-    i = i.strip()
-    k = i.split(' ')[0]
-    v = int(i.split(' ')[1][0:-1])
-    cnt += v
-    if m < v:
-        m = v
-        key = k
-    # new_medi[k] = v
-    # print(k, v)
-print("总药量是：{}".format(cnt))
-print("药量最大的药是：{}，药量是：{}".format(key, m))
-for k, v in new_medi.items():
-    if int(v) == m:
-        print("药量最大的药是：{}，药量是：{}".format(k, v))
-        break
+# for i in l:
+#     i = i.strip()
+#     k = i.split(' ')[0]
+#     v = int(i.split(' ')[1][0:-1])
+#     cnt += v
+#     if m < v:
+#         m = v
+#         key = k
+#     # new_medi[k] = v
+#     # print(k, v)
+# print("总药量是：{}".format(cnt))
+# print("药量最大的药是：{}，药量是：{}".format(key, m))
+# for k, v in new_medi.items():
+#     if int(v) == m:
+#         print("药量最大的药是：{}，药量是：{}".format(k, v))
+#         break
+
+#
+# 第六题
+# 其中，每行是一个记录，空格分隔多个含义，分别包括日期、时间、温 度、湿度、光照、空气干燥度和操作员姓名。其中，光照处于第5列。
+# 统计并输出传感器采集数据中光照部分的最大值、最小值和平均值，所 有值保留小数点后2位，并输出低于平均值的数据个数。
+# 然后按照光照 时长进行升序排序，将排序后的结果写入到sensor-data-sort.txt中，新 文件的第一列是操作人姓名，第二列是时间（只精确到分)，第三列是 光照时长。
+
+
+try:
+    f = open("sensor-data.txt", 'r')
+    fl = f.readlines()
+    max_num = 0
+    min_num = 100
+    avg_num = 0
+    num = 0
+    count = 0
+    low_avg = 0
+    new_list = []
+    for i in fl:
+        i = i.strip()
+        if i == '':
+            continue
+        # 第一问
+        count += 1
+        # 有了float就不用int取整了
+        temp = float(i.split(' ')[4])
+        num += temp
+        if max_num < temp:
+            max_num = temp
+        if min_num > temp:
+            min_num = temp
+        # print(i)
+
+        # 第二问
+        name = i.split(' ')[-1]
+        time = i.split(' ')[1][0:5]
+        # 这样处理不方便排序
+        # new_temp = name + ',' + str(time) + ',' + str(temp)
+        # 如果是上面的写法是这样排序
+        # new_list.sort(key=lambda x: int(x.split(",")[2]))
+        new_temp = [name, time, temp]
+        new_list.append(new_temp)
+    f.close()
+    avg_num = num / count
+    for i in fl:
+        i = i.strip()
+        if i == '':
+            continue
+        temp = float(i.split(' ')[4])
+        if temp < avg_num:
+            low_avg += 1
+    print("传感器采集数据中光照部分的最大值:{:.2f}、最小值:{:.2f}和平均值:{:.2f},低于平均值的数据个数{}".format(max_num, min_num, avg_num, low_avg))
+    # print(new_list)
+    new_list.sort(key=lambda x: x[-1])
+    print(new_list)
+    new_f = open('sensor-data-sort.txt', 'w')
+    for i in new_list:
+        new_f.write('{}\n'.format(i))
+    new_f.close()
+except:
+    print("文件打开错误")
