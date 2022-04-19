@@ -221,57 +221,95 @@
 # 统计并输出传感器采集数据中光照部分的最大值、最小值和平均值，所 有值保留小数点后2位，并输出低于平均值的数据个数。
 # 然后按照光照 时长进行升序排序，将排序后的结果写入到sensor-data-sort.txt中，新 文件的第一列是操作人姓名，第二列是时间（只精确到分)，第三列是 光照时长。
 
+#
+# try:
+#     f = open("sensor-data.txt", 'r')
+#     fl = f.readlines()
+#     max_num = 0
+#     min_num = 100
+#     avg_num = 0
+#     num = 0
+#     count = 0
+#     low_avg = 0
+#     new_list = []
+#     for i in fl:
+#         i = i.strip()
+#         if i == '':
+#             continue
+#         # 第一问
+#         count += 1
+#         # 有了float就不用int取整了
+#         temp = float(i.split(' ')[4])
+#         num += temp
+#         if max_num < temp:
+#             max_num = temp
+#         if min_num > temp:
+#             min_num = temp
+#         # print(i)
+#
+#         # 第二问
+#         name = i.split(' ')[-1]
+#         time = i.split(' ')[1][0:5]
+#         # 这样处理不方便排序
+#         # new_temp = name + ',' + str(time) + ',' + str(temp)
+#         # 如果是上面的写法是这样排序
+#         # new_list.sort(key=lambda x: int(x.split(",")[2]))
+#         new_temp = [name, time, temp]
+#         new_list.append(new_temp)
+#     f.close()
+#     avg_num = num / count
+#     for i in fl:
+#         i = i.strip()
+#         if i == '':
+#             continue
+#         temp = float(i.split(' ')[4])
+#         if temp < avg_num:
+#             low_avg += 1
+#     print("传感器采集数据中光照部分的最大值:{:.2f}、最小值:{:.2f}和平均值:{:.2f},低于平均值的数据个数{}".format(max_num, min_num, avg_num, low_avg))
+#     # print(new_list)
+#     new_list.sort(key=lambda x: x[-1])
+#     print(new_list)
+#     new_f = open('sensor-data-sort.txt', 'w')
+#     for i in new_list:
+#         new_f.write('{}\n'.format(i))
+#     new_f.close()
+# except:
+#     print("文件打开错误")
 
-try:
-    f = open("sensor-data.txt", 'r')
-    fl = f.readlines()
-    max_num = 0
-    min_num = 100
-    avg_num = 0
-    num = 0
-    count = 0
-    low_avg = 0
-    new_list = []
-    for i in fl:
-        i = i.strip()
-        if i == '':
-            continue
-        # 第一问
-        count += 1
-        # 有了float就不用int取整了
-        temp = float(i.split(' ')[4])
-        num += temp
-        if max_num < temp:
-            max_num = temp
-        if min_num > temp:
-            min_num = temp
-        # print(i)
 
-        # 第二问
-        name = i.split(' ')[-1]
-        time = i.split(' ')[1][0:5]
-        # 这样处理不方便排序
-        # new_temp = name + ',' + str(time) + ',' + str(temp)
-        # 如果是上面的写法是这样排序
-        # new_list.sort(key=lambda x: int(x.split(",")[2]))
-        new_temp = [name, time, temp]
-        new_list.append(new_temp)
-    f.close()
-    avg_num = num / count
-    for i in fl:
-        i = i.strip()
-        if i == '':
+# 第七题
+# 从data.txt文件读入一篇文章，用jieba库的函数lcut的全模式做分词。
+# 问题1：输 出词汇长度为2的词出现的总数，并且输出前10名出现次数最多的词汇，按照降序 输出。
+# 问题2：将文件里面的内容反转写入到新的文件data-out.txt中
+
+import jieba
+dk = {}
+temp = [':', ',', '（', '）', '.', ' ', '\n', '-', '，', '「', '」', '？', '：', '；', '。', '、']
+two_cnt = 0
+f = open('data-in.txt', 'r')
+fr = f.readlines()
+fn = open('data-out.txt', 'w')
+new_str = ''
+for i in fr:
+    new_str += i
+    i = i.strip()
+    m = jieba.lcut(i)
+    for j in m:
+        if j in temp:
             continue
-        temp = float(i.split(' ')[4])
-        if temp < avg_num:
-            low_avg += 1
-    print("传感器采集数据中光照部分的最大值:{:.2f}、最小值:{:.2f}和平均值:{:.2f},低于平均值的数据个数{}".format(max_num, min_num, avg_num, low_avg))
-    # print(new_list)
-    new_list.sort(key=lambda x: x[-1])
-    print(new_list)
-    new_f = open('sensor-data-sort.txt', 'w')
-    for i in new_list:
-        new_f.write('{}\n'.format(i))
-    new_f.close()
-except:
-    print("文件打开错误")
+        else:
+            if len(j) == 2:
+                two_cnt += 1
+            dk[j] = dk.get(j, 0) + 1
+        # print(j)
+    # print(i)
+fn.write(new_str[::-1])
+fn.close()
+dl = list(dk.items())
+dl.sort(key=lambda x: x[-1], reverse=True)
+res = []
+for i in dl[0:10]:
+    res.append(i[0])
+print("词汇长度为2的词出现的总数:{},前10名出现次数最多的词汇有{}".format(two_cnt, res))
+f.close()
+
