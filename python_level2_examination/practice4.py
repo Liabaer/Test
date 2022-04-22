@@ -281,35 +281,86 @@
 # 从data.txt文件读入一篇文章，用jieba库的函数lcut的全模式做分词。
 # 问题1：输 出词汇长度为2的词出现的总数，并且输出前10名出现次数最多的词汇，按照降序 输出。
 # 问题2：将文件里面的内容反转写入到新的文件data-out.txt中
+#
+# import jieba
+# dk = {}
+# temp = [':', ',', '（', '）', '.', ' ', '\n', '-', '，', '「', '」', '？', '：', '；', '。', '、']
+# two_cnt = 0
+# f = open('data-in.txt', 'r')
+# fr = f.readlines()
+# fn = open('data-out.txt', 'w')
+# new_str = ''
+# for i in fr:
+#     new_str += i
+#     i = i.strip()
+#     m = jieba.lcut(i)
+#     for j in m:
+#         if j in temp:
+#             continue
+#         else:
+#             if len(j) == 2:
+#                 two_cnt += 1
+#             dk[j] = dk.get(j, 0) + 1
+#         # print(j)
+#     # print(i)
+# fn.write(new_str[::-1])
+# fn.close()
+# dl = list(dk.items())
+# dl.sort(key=lambda x: x[-1], reverse=True)
+# res = []
+# for i in dl[0:10]:
+#     res.append(i[0])
+# print("词汇长度为2的词出现的总数:{},前10名出现次数最多的词汇有{}".format(two_cnt, res))
+# f.close()
+#
+# 第八题
+# 在文件xueyajilu.txt中记录了一段时间的某人的血压测量值。文件中每行是一条记 录，
+# 包含6个值：测量时间、左臂高压值、左臂低压值、右臂高压值、右臂低压值、 记录人每个字段用英文逗号隔开，示例格式如下：
+# 解决以下问题：
+# 2022/04/10 02:30:00 ,131,82,139,74 liabaer
+# ·求该人左臂高压平均值和低压平均值、右臂的最高压和最低压（保留2位小数)
+# ·求在那一天由谁记录的该人左臂的高压值和左臂的低压值波动范围最大
+# 。将文件中每行的记录写入新的文件xueyajilu_avg.txt中，格式为日期，记录人， 左臂血压平均值，右臂血压平均值。用英文逗号分割
 
-import jieba
-dk = {}
-temp = [':', ',', '（', '）', '.', ' ', '\n', '-', '，', '「', '」', '？', '：', '；', '。', '、']
-two_cnt = 0
-f = open('data-in.txt', 'r')
-fr = f.readlines()
-fn = open('data-out.txt', 'w')
-new_str = ''
-for i in fr:
-    new_str += i
+f = open('xueyajilu.txt', 'r')
+fx = f.readlines()
+l_sum_max = 0
+l_sum_min = 0
+cnt = 0
+l_avg_max = 0
+l_avg_min = 0
+
+l_top = []
+l_down = []
+l_t_d = {}
+r_top = []
+r_down = []
+fnew = open("xueyajilu_avg.txt", 'w')
+for i in fx:
     i = i.strip()
-    m = jieba.lcut(i)
-    for j in m:
-        if j in temp:
-            continue
-        else:
-            if len(j) == 2:
-                two_cnt += 1
-            dk[j] = dk.get(j, 0) + 1
-        # print(j)
-    # print(i)
-fn.write(new_str[::-1])
-fn.close()
-dl = list(dk.items())
-dl.sort(key=lambda x: x[-1], reverse=True)
-res = []
-for i in dl[0:10]:
-    res.append(i[0])
-print("词汇长度为2的词出现的总数:{},前10名出现次数最多的词汇有{}".format(two_cnt, res))
-f.close()
-
+    xueya = i.split(',')
+    l_top.append(float(xueya[1]))
+    # l_sum_max += int(xueya[1])
+    cnt += 1
+    l_down.append(float(xueya[2]))
+    # 波动幅度，记得小数要用float
+    l_t_d[float(xueya[1])-float(xueya[2])] = xueya[4].split(' ')[1]
+    r_top.append(xueya[3])
+    r_down.append(xueya[4].split(' ')[0])
+    d = xueya[0]
+    nm = xueya[4].split(' ')[1]
+    lavg = (float(xueya[1])+float(xueya[2]))/2
+    ravg = (float(xueya[1])+float(xueya[4].split(' ')[0]))/2
+    # fnew.write(xueya[0], xueya[4].split(' ')[1], (int(xueya[1])+int(xueya[2]))/2),(int(xueya[1])+int(xueya[2]))/2
+    fnew.write("{},{},{},{}\n".format(d, nm, lavg, ravg))
+    print(i)
+# l_avg_max = l_sum_max/cnt
+# count(l_top) => cnt
+l_avg_max = sum(l_top)/cnt
+l_avg_min = sum(l_down)/cnt
+fnew.close()
+# 1
+print("左臂高压平均值:{:.2f}和低压平均值:{:.2f},右臂的最高压:{} 和最低压:{}".format(l_avg_max, l_avg_min, max(r_top), min(r_down)))
+# 2
+print("记录的该人左臂的高压值和左臂的低压值波动范围最大的人是{}".format(l_t_d[max(l_t_d)]))
+# print(sum(l_top))
