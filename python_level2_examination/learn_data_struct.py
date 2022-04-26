@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # a = [1, 2, 3]
-# # 移除某个元素，如果元素不存在会报错
-# a.remove(2)
+# # # 移除某个元素，如果元素不存在会报错
+# # a.remove(2)
 # # insert(i, x) 在第i位插入新元素x
 # a.insert(1, 5)
 # print(a)
@@ -62,8 +62,8 @@
 # # # 输出所有的key, 会输出dict_keys([1,2,3])这个，因为他属于dict_keys类型
 # # print(a.keys())
 # # # 删除key，如果key不存在会报错 KeyError
-# # a.pop(1)
-# # print(a)
+# a.pop(1)
+# print(a)
 # # # a.pop(4)  # 报错
 # # # # 这种容错的写法就不会报错，如果4不存在，则去删除为5的key,5不存在也不会报错
 # # a.pop(4, 5)
