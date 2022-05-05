@@ -38,16 +38,17 @@
 # update_list3()
 # update_list3()
 
-def func(x=[], y=[6, 7]):
-    x.append(8)
-    y.append(8)
-    return(x+y)
+# def func(x=[], y=[6, 7]):
+#     x.append(8)
+#     y.append(8)
+#     return (x+ y)
+#
+# a,b=[1,2],[3,4]
+# # t=func(x=a),y没有传值，所以让y的默认值从[]变成了[6,7,8]，x不变还是[]
+# t = func(x=a)
+# print(t)
+# # 第二个t = func(y=b), x没有传值 这个时候让x的默认值从[]变成了[8] y不变，是[6,7,8]
+# t = func(y=b)
+# print(t)
+# print(func(), end=";")
 
-a,b=[1,2],[3,4]
-# t=func(x=a),y没有传值，所以让y的默认值从[]变成了[6,7,8]，x不变还是[]
-t = func(x=a)
-print(t)
-# 第二个t = func(y=b), x没有传值 这个时候让x的默认值从[]变成了[8] y不变，是[6,7,8]
-t = func(y=b)
-print(t)
-print(func(), end=";")

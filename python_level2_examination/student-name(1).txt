@@ -1,0 +1,27 @@
+name age
+liabaer 18
+yanxu 17
+yanxuxu 20
+tulian 18
+tl 17
+dayday 20
+yanxu-1 18
+liabaer-1 17
+dayday-1 20
+tl-1 21
+tulian 22
+tulian-1 16
+day-1 18
+yanxuxu-1 18
+yanxuxu-3 13
+yanxuxu-4 12
+day-2 22
+day-3 23
+liabaer-2 24
+liabaer-3 25
+day-8 23
+tl-8 23
+liabaer-8 25
+
+
+
