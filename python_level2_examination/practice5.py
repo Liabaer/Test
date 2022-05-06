@@ -112,14 +112,18 @@ fc = open('class-data(1).csv', 'r')
 fc.seek(53)
 fcn = csv.reader(fc)
 # count = 0
+ls_class = []
 for i in fcn:
     # i是每一列csv的数组
     j = i[1]
     # count += 1
     lun.append(j)
-    print(j)
+    temp = [i[3], i[1], i[4], i[2]]
+    ls_class.append(temp)
+    # print(i)
 fc.close()
-print(lun)
+# print(lun)
+print(ls_class)
 
 fs = open('student-name(1).txt', 'r')
 fs.seek(9)
@@ -128,11 +132,13 @@ ln = []
 la = []
 num = 0
 cnt = 0
+dic_student = {}
 for i in fsn:
     i = i.strip()
     if i != '':
         name = i.split(' ')[0]
         age = i.split(' ')[1]
+        dic_student[name] = age
         num += int(age)
         cnt += 1
         if name not in lun:
@@ -140,11 +146,27 @@ for i in fsn:
         la.append(age)
     # print(i)
 fs.close()
-print(ln)
-print("最大年龄：{}，最小年龄：{}，平均年龄：{:.2f}".format(max(la), min(la), num/cnt))
-
+print(dic_student)
+# print(ln)
 
 # 问题2：统计学生的平均年龄、最大年龄和最小年龄。
+# print("最大年龄：{}，最小年龄：{}，平均年龄：{:.2f}".format(max(la), min(la), num/cnt))
 
-# 问题3：存储新的文件class-data-age.csv,文件记录D、姓名、年龄、注册时间和班级，按 照班级进行排序，班级相同，按照年龄升序排列
+# 问题3：存储新的文件class-data-age.csv,文件记录iD、姓名、年龄、注册时间和班级，按照班级进行排序，班级相同，按照年龄升序排列
+
+for i in ls_class:
+    name = i[1]
+    age = dic_student[name]
+    i.insert(2, age)
+print(ls_class)
+ls_class.sort(key=lambda x: (x[4], x[2]) )
+print('---', ls_class)
+f_new = open('class-data-age.csv', 'w')
+f_new_w = csv.writer(f_new)
+f_new_w.writerow(['ID', '姓名', '年龄', '注册时间', '班级'])
+i = 0
+while i < len(ls_class):
+    f_new_w.writerow(ls_class[i])
+    i += 1
+f_new.close()
 
