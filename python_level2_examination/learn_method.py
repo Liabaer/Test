@@ -27,8 +27,8 @@
 # calc1(b=1, a)
 
 # 补充上面的多个参数版本
-def calc(a, b=2, c=3):
-    print(a + b + c)
+# def calc(a, b=2, c=3):
+#     print(a + b + c)
 
 # 正常调用，也就是a=1,b=2,c=3
 # calc(1, 2, 3)
@@ -65,14 +65,14 @@ def calc(a, b=2, c=3):
 a = 2
 
 
-def update_variable():
-    # 定义a是全局变量
-    global a
-    a = 3
-    # 这里会更新，但是执行完函数a还是2不会修改，因为a是全局变量
-    print("函数中更新a = {}".format(a))
-
-
-update_variable()
-# 执行函数后不会修改a的值
-print("函数调用后a的值是{}".format(a))
+# def update_variable():
+#     # 定义a是全局变量
+#     global a
+#     a = 3
+#     # 这里会更新，但是执行完函数a还是2不会修改，因为a是全局变量
+#     print("函数中更新a = {}".format(a))
+#
+#
+# update_variable()
+# # 执行函数后不会修改a的值
+# print("函数调用后a的值是{}".format(a))

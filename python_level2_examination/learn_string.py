@@ -66,12 +66,12 @@ import string
 #     :return:
 #     """
 #     print(a + b)
-
-def sum(a, b):
-    '''
-    计算a + b单引号注释
-    :param a:
-    :param b:
-    :return:
-    '''
-    print(a + b)
+#
+# def sum(a, b):
+#     '''
+#     计算a + b单引号注释
+#     :param a:
+#     :param b:
+#     :return:
+#     '''
+#     print(a + b)

@@ -179,53 +179,168 @@
 # (4)程序运行每次产生10个密码，每个密码一行。
 # (5)每次产生的10个密码首字符不能一样。
 # (6) 密码的中间五位按照scⅱ码从小到大排序，最后五位从大到小排序，排序后如果生成的密码出现过，则继续随机 密码，然后排序直到该密码没有出现过。
-# (7）程序运行后产生的密码保存在“random_password.txt"文件中，每次允许代码不能覆盖原文件
-import random
-temp = 'abcdefghijkImnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&*'
-random.seed(0x1010)
-dict_first_name = {}
-def create_pwd():
-    """
-    随机生成密码
-    :return:
-    """
-    ser = ''
-    i = 15
-    while i > 0:
-        ser += random.choice(temp)
-        i -= 1
-    return ser
+# # (7）程序运行后产生的密码保存在“random_password.txt"文件中，每次允许代码不能覆盖原文件
+# import random
+# temp = 'abcdefghijkImnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&*'
+# random.seed(0x1010)
+# dict_first_name = {}
+# def create_pwd():
+#     """
+#     随机生成密码
+#     :return:
+#     """
+#     ser = ''
+#     i = 15
+#     while i > 0:
+#         ser += random.choice(temp)
+#         i -= 1
+#     return ser
+#
+# def be_pwd():
+#     '''
+#     判断首字母是否重复
+#     :return:
+#     '''
+#     ser = ''
+#     ls_ser = []
+#     j = 10
+#     while j > 0:
+#         ser = create_pwd()
+#         if ser[0] in dict_first_name:
+#             continue
+#         else:
+#             dict_first_name[ser] = ser[0]
+#         ls_ser.append(ser)
+#         j -= 1
+#     return ls_ser
+# ls = be_pwd()
+# print(ls)
+#
+# # print(be_pwd())
+#
+# f = open('random_password.txt', 'a')
+# for i in ls:
+#     m = list(i[5:10])
+#     n = list(i[10:15])
+#     m.sort()
+#     n.sort(reverse=True)
+#     # print(m, n)
+#     res = i[0:5]+''.join(m)+''.join(n)
+#     f.write('{}\n'.format(res))
+#     print(res)
+# f.close()
 
-def be_pwd():
-    '''
-    判断首字母是否重复
-    :return:
-    '''
-    ser = ''
-    ls_ser = []
-    j = 10
-    while j > 0:
-        ser = create_pwd()
-        if ser[0] in dict_first_name:
-            continue
-        else:
-            dict_first_name[ser] = ser[0]
-        ls_ser.append(ser)
-        j -= 1
-    return ls_ser
-ls = be_pwd()
-print(ls)
+# 第四题
+# 在_____上填写一行代码 从键盘输入一些字符，逐个把它们写到指定的文件，直到输入一个@为止
+# 在...上补充一行或者多行代码
+# filename = input("请输入文件名：\n")
+# fp = open(filename, 'w')
+# ch = input("请输入字符串：\n")
+# while True:
+#     if '@' in ch:
+#         fp.write('{} '.format(ch))
+#         break
+#     else:
+#         fp.write('{} '.format(ch))
+#         ch = input("")
+# fp.close()
 
-# print(be_pwd())
+# 第五题
+# 某学习学生会共计有30名学生，学生信息存放在student_info.csv中，格式为姓名、学号、专业、年级。
+# 现在需要从 大二和大三的学生中选举出一个部长和两个副部长，任意年级的人都权利投给任意年级的人一票，
+# 如果投给大一或者 大四的则记为无效票得票数第一为部长，得票第二和三（可以并列）为副部长，题目数据保证只有一个最高票和一个 次高票。
+# 投票结果存放在student_vote.txt中分别为投票时间、投票者姓名、被投票者姓名，职位名称(main表示部 长，Sub表示副部长)。
+# 首先输出无效票数量、其次将副部长和部长的姓名、年级、专业、学号、得票数记录到 final_result.txt中。
+import csv
 
-f = open('random_password.txt', 'a')
-for i in ls:
-    m = list(i[5:10])
-    n = list(i[10:15])
-    m.sort()
-    n.sort(reverse=True)
-    # print(m, n)
-    res = i[0:5]+''.join(m)+''.join(n)
-    f.write('{}\n'.format(res))
-    print(res)
+f = open("student_info.csv", 'r')
+fi = csv.reader(f)
+lu = []
+info = {}
+for i in fi:
+    if i[3] == '大一' or i[3] == '大四':
+        lu.append(i[0])
+    # print(i)
+    info[i[0]] = i[1]+','+i[2]+','+i[3]
 f.close()
+# print(lu)
+# print(info)
+
+f = open('student_vote.txt', 'r')
+fv = f.readlines()
+res_dict = {}
+invalid_ticket = 0
+for i in fv:
+    i = i.strip()
+    temp = i.split(' ')[3]
+    if temp in lu:
+        invalid_ticket += 1
+        continue
+    if temp not in res_dict:
+        res_dict[temp] = 1
+    else:
+        res_dict[temp] = res_dict[temp] + 1
+    # print(temp)
+f.close()
+print('无效票数量为：{}'.format(invalid_ticket))
+print(res_dict)
+num = [v for k, v in res_dict.items()]
+# num2 = []
+res_main = max(num)
+num2 = num.copy()
+num2.remove(res_main)
+res_sub = max(num2)
+
+# 如果有两票相同，首先找出了次高票后，循环判断次高票是不是出现了2次，然后出现了2次，就把相同次高票的人都存入到数组里如下
+# 判断次高票出现了几次
+cnt = num2.count(res_sub)
+print(cnt)
+# 如果次高票没有出现2次，就找次次高票
+# 默认是-1
+res_sub_b = -1
+if cnt != 2:
+    num3 = num2.copy()
+    num3.remove(res_sub)
+    res_sub_b = max(num3)
+# 副部长名单
+res_sub_name_list = []
+res_main_name = ''
+for k, v in res_dict.items():
+    if v == res_main:
+        res_main_name = k
+    if v == res_sub:
+        res_sub_name_list.append(k)
+    if v == res_sub_b:
+        res_sub_name_list.append(k)
+print(res_sub_name_list, res_main_name)
+
+temp1 = info[res_main_name].split(',')
+temp2 = info[res_sub_name_list[0]].split(',')
+temp3 = info[res_sub_name_list[1]].split(',')
+
+
+# for k, v in res_dict.items():
+#     if v == res_main:
+#         res_main_name = k
+#     if v == res_sub:
+#         res_sub_name = k
+# print(res_sub_name, res_main_name)
+# print(res_dict)
+# 另一种方法使用sort排序
+# l_res = list(res_dict.items())
+# l_res.sort(key=lambda x:x[1],reverse=True)
+# fr = open('final_result.txt', 'w')
+# temp1 = info[l_res[0][0]].split(',')
+# temp2 = info[l_res[1][0]].split(',')
+# temp3 = info[l_res[2][0]].split(',')
+# print(l_res)
+
+fr = open('final_result.txt', 'w')
+# temp1 = info[res_main_name].split(',')
+# temp2 = info[res_sub_name].split(',')
+fr.write('副部长姓名1:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[0],temp2[2],temp2[1],temp2[0],res_sub))
+fr.write('副部长姓名2:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[1],temp3[2],temp3[1],temp3[0],res_sub_b))
+fr.write('部长姓名:{}、年级:{}、专业:{}、学号:{}、得票数:{}'.format(res_main_name,temp1[2],temp1[1],temp1[0],res_main))
+fr.close()
+
+
