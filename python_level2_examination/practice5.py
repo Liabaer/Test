@@ -251,96 +251,123 @@
 # 如果投给大一或者 大四的则记为无效票得票数第一为部长，得票第二和三（可以并列）为副部长，题目数据保证只有一个最高票和一个 次高票。
 # 投票结果存放在student_vote.txt中分别为投票时间、投票者姓名、被投票者姓名，职位名称(main表示部 长，Sub表示副部长)。
 # 首先输出无效票数量、其次将副部长和部长的姓名、年级、专业、学号、得票数记录到 final_result.txt中。
-import csv
-
-f = open("student_info.csv", 'r')
-fi = csv.reader(f)
-lu = []
-info = {}
-for i in fi:
-    if i[3] == '大一' or i[3] == '大四':
-        lu.append(i[0])
-    # print(i)
-    info[i[0]] = i[1]+','+i[2]+','+i[3]
-f.close()
-# print(lu)
-# print(info)
-
-f = open('student_vote.txt', 'r')
-fv = f.readlines()
-res_dict = {}
-invalid_ticket = 0
-for i in fv:
-    i = i.strip()
-    temp = i.split(' ')[3]
-    if temp in lu:
-        invalid_ticket += 1
-        continue
-    if temp not in res_dict:
-        res_dict[temp] = 1
-    else:
-        res_dict[temp] = res_dict[temp] + 1
-    # print(temp)
-f.close()
-print('无效票数量为：{}'.format(invalid_ticket))
-print(res_dict)
-num = [v for k, v in res_dict.items()]
-# num2 = []
-res_main = max(num)
-num2 = num.copy()
-num2.remove(res_main)
-res_sub = max(num2)
-
-# 如果有两票相同，首先找出了次高票后，循环判断次高票是不是出现了2次，然后出现了2次，就把相同次高票的人都存入到数组里如下
-# 判断次高票出现了几次
-cnt = num2.count(res_sub)
-print(cnt)
-# 如果次高票没有出现2次，就找次次高票
-# 默认是-1
-res_sub_b = -1
-if cnt != 2:
-    num3 = num2.copy()
-    num3.remove(res_sub)
-    res_sub_b = max(num3)
-# 副部长名单
-res_sub_name_list = []
-res_main_name = ''
-for k, v in res_dict.items():
-    if v == res_main:
-        res_main_name = k
-    if v == res_sub:
-        res_sub_name_list.append(k)
-    if v == res_sub_b:
-        res_sub_name_list.append(k)
-print(res_sub_name_list, res_main_name)
-
-temp1 = info[res_main_name].split(',')
-temp2 = info[res_sub_name_list[0]].split(',')
-temp3 = info[res_sub_name_list[1]].split(',')
-
-
+# import csv
+#
+# f = open("student_info.csv", 'r')
+# fi = csv.reader(f)
+# lu = []
+# info = {}
+# for i in fi:
+#     if i[3] == '大一' or i[3] == '大四':
+#         lu.append(i[0])
+#     # print(i)
+#     info[i[0]] = i[1]+','+i[2]+','+i[3]
+# f.close()
+# # print(lu)
+# # print(info)
+#
+# f = open('student_vote.txt', 'r')
+# fv = f.readlines()
+# res_dict = {}
+# invalid_ticket = 0
+# for i in fv:
+#     i = i.strip()
+#     temp = i.split(' ')[3]
+#     if temp in lu:
+#         invalid_ticket += 1
+#         continue
+#     if temp not in res_dict:
+#         res_dict[temp] = 1
+#     else:
+#         res_dict[temp] = res_dict[temp] + 1
+#     # print(temp)
+# f.close()
+# print('无效票数量为：{}'.format(invalid_ticket))
+# print(res_dict)
+# num = [v for k, v in res_dict.items()]
+# # num2 = []
+# res_main = max(num)
+# num2 = num.copy()
+# num2.remove(res_main)
+# res_sub = max(num2)
+#
+# # 如果有两票相同，首先找出了次高票后，循环判断次高票是不是出现了2次，然后出现了2次，就把相同次高票的人都存入到数组里如下
+# # 判断次高票出现了几次
+# cnt = num2.count(res_sub)
+# print(cnt)
+# # 如果次高票没有出现2次，就找次次高票
+# # 默认是-1
+# res_sub_b = -1
+# if cnt != 2:
+#     num3 = num2.copy()
+#     num3.remove(res_sub)
+#     res_sub_b = max(num3)
+# # 副部长名单
+# res_sub_name_list = []
+# res_main_name = ''
 # for k, v in res_dict.items():
 #     if v == res_main:
 #         res_main_name = k
 #     if v == res_sub:
-#         res_sub_name = k
-# print(res_sub_name, res_main_name)
-# print(res_dict)
-# 另一种方法使用sort排序
-# l_res = list(res_dict.items())
-# l_res.sort(key=lambda x:x[1],reverse=True)
-# fr = open('final_result.txt', 'w')
-# temp1 = info[l_res[0][0]].split(',')
-# temp2 = info[l_res[1][0]].split(',')
-# temp3 = info[l_res[2][0]].split(',')
-# print(l_res)
-
-fr = open('final_result.txt', 'w')
+#         res_sub_name_list.append(k)
+#     if v == res_sub_b:
+#         res_sub_name_list.append(k)
+# print(res_sub_name_list, res_main_name)
+#
 # temp1 = info[res_main_name].split(',')
-# temp2 = info[res_sub_name].split(',')
-fr.write('副部长姓名1:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[0],temp2[2],temp2[1],temp2[0],res_sub))
-fr.write('副部长姓名2:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[1],temp3[2],temp3[1],temp3[0],res_sub_b))
-fr.write('部长姓名:{}、年级:{}、专业:{}、学号:{}、得票数:{}'.format(res_main_name,temp1[2],temp1[1],temp1[0],res_main))
-fr.close()
+# temp2 = info[res_sub_name_list[0]].split(',')
+# temp3 = info[res_sub_name_list[1]].split(',')
+#
+#
+# # for k, v in res_dict.items():
+# #     if v == res_main:
+# #         res_main_name = k
+# #     if v == res_sub:
+# #         res_sub_name = k
+# # print(res_sub_name, res_main_name)
+# # print(res_dict)
+# # 另一种方法使用sort排序
+# # l_res = list(res_dict.items())
+# # l_res.sort(key=lambda x:x[1],reverse=True)
+# # fr = open('final_result.txt', 'w')
+# # temp1 = info[l_res[0][0]].split(',')
+# # temp2 = info[l_res[1][0]].split(',')
+# # temp3 = info[l_res[2][0]].split(',')
+# # print(l_res)
+#
+# fr = open('final_result.txt', 'w')
+# # temp1 = info[res_main_name].split(',')
+# # temp2 = info[res_sub_name].split(',')
+# fr.write('副部长姓名1:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[0],temp2[2],temp2[1],temp2[0],res_sub))
+# fr.write('副部长姓名2:{}、年级:{}、专业:{}、学号:{}、得票数:{}\n'.format(res_sub_name_list[1],temp3[2],temp3[1],temp3[0],res_sub_b))
+# fr.write('部长姓名:{}、年级:{}、专业:{}、学号:{}、得票数:{}'.format(res_main_name,temp1[2],temp1[1],temp1[0],res_main))
+# fr.close()
 
 
+# # 第六题
+# 你是否还记得下过雨之后的路面，水面斑驳的路面远处颜色深，近处颜 色浅。
+# 使用turtle库的fd()、seth（)、pencolor0,pensize(0等函数和 random.库的randint()函数，在x坐标范围（-200,200)，y坐标范围 (-200,0)的一个长方形区域里，
+# 绘制一个雨后路面的效果图。具体 而言，是在这个区域内画100条参数为随机值的横线，其长度在（20， 40)范围，画笔宽度在（1,4)范围，颜色值是在
+# (-1/255,-200/255)范围内的灰度值，但色彩的深度与线条的y坐标值 相关，越靠下的线条颜色越浅，越靠上的线条颜色越深。效果如下图所 示。
+# 在_____处填写一行代码
+# 在….处填写多行代码
+import turtle as t
+import random
+for i in range(0, 100):
+    z = random.randint(0, 200)
+    g = z / 255
+    r = z / 255
+    b = z / 255
+    # 这里控制深浅
+    t.pencolor((r, g, b))
+    t.pensize(random.randint(1, 4))
+    x = random.randint(-200, 200)
+    y = random.randint(-200, 0)
+    t.penup()
+    # 前往坐标（x，y）往目标移动，如果这个时候笔还行落在画板上的，就会画一条前往x,y的线
+    t.goto(x, y)
+    t.pendown()
+    t.fd(random.randint(20, 40))
+    # t.seth(0)不需要这个，0就是向东，默认是向东的
+t.hideturtle()
+t.done()

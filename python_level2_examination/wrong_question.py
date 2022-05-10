@@ -159,12 +159,63 @@
 # c=0x0101
 # print(c)
 
-import random
-print(type(random.random()))    # <class 'float'>
-# random返回0-1之间的小数
+# import random
+# print(type(random.random()))    # <class 'float'>
+# # random返回0-1之间的小数
+#
+# print(random.random())
+# # 返回a-b之间的数字，非整数
+# print(random.uniform(1, 100))
+# # 返回a-b的整数
+# print(random.randint(1, 100))
 
-print(random.random())
-# 返回a-b之间的数字，非整数
-print(random.uniform(1, 100))
-# 返回a-b的整数
-print(random.randint(1, 100))
+
+# # 二维数组sort排序默认只排一位
+# L2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
+# # [5，6，7，8] 和[1,2,3,4]排序： 先比较第一个数字，相等往后比较
+# L2.sort(reverse=True)
+# print(L2)
+
+# 注意index在循环过程中的变化
+at=['1','2','3','0','0','0']
+# for i in at:
+#     if i == '0':
+#         at.remove(i)
+#
+# print(at)
+
+# dic = {'A':'a','B':'b'}
+# print(dic.items())
+#
+# ls = [123]
+# def test():
+#     ls.append(1)
+#     print(ls)
+# test()
+
+# # reverse()不需要重新赋值 如下会输出None 类似的有a = a.sort()  a = a.remove(2)
+# 数组里面的方法只有copy需要重新赋值一下，其他都不要重新赋值
+# l = [1, 4, 3]
+# lr = l.reverse()
+# a = l.sort()
+# b = l.remove(1)
+# print(b)
+
+# 程序的三种结构指的是：顺序结构，从上到下，选择结构 if else，循环结构 for  while
+# 分支结构包括如下三种：单分支，双分支，多分支，二分支结构可以嵌套组合形成多分支结构
+a = 1
+# 单分支
+if a > 1:
+    pass
+# 双分支
+if a > 1:
+    pass
+else:
+    pass
+# 多分支
+if a> 1:
+    pass
+elif a > 2:
+    pass
+elif a > 3:
+    pass

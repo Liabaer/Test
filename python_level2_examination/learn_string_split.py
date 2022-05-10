@@ -30,6 +30,8 @@
 # print('{:^30}'.format("ab"))
 # print('{:*>30}'.format("ab"))
 # print('{:+<30}'.format("ab"))
+# .n表示对待填充的字符截取前n位
+print('{:+<30.4}'.format("flower"))
 
 
 # 判断字符串是不是数字

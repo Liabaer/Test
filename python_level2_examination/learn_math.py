@@ -32,7 +32,7 @@ import random
 # # random返回0-1之间的小数
 # print(random.random())
 # # # # 返回a-b之间的数字，非整数
-# print(random.uniform(1, 100))
+print(random.uniform(1, 100))
 # # # 返回a-b的整数
 # print(random.randint(1, 100))
 

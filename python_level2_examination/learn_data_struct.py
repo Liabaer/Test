@@ -32,7 +32,7 @@
 # print(type('a'))
 # print(type({'a', 'b'}))
 
-# # zip将数组a和数组b合并转换为元祖
+# # # zip将数组a和数组b合并转换为元祖
 # a = [1, 2, 3]
 # b = [3, 4, 5]
 # c = list(zip(a, b))
