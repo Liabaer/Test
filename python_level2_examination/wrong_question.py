@@ -203,19 +203,31 @@ at=['1','2','3','0','0','0']
 
 # 程序的三种结构指的是：顺序结构，从上到下，选择结构 if else，循环结构 for  while
 # 分支结构包括如下三种：单分支，双分支，多分支，二分支结构可以嵌套组合形成多分支结构
-a = 1
-# 单分支
-if a > 1:
-    pass
-# 双分支
-if a > 1:
-    pass
-else:
-    pass
-# 多分支
-if a> 1:
-    pass
-elif a > 2:
-    pass
-elif a > 3:
-    pass
+# a = 1
+# # 单分支
+# if a > 1:
+#     pass
+# # 双分支
+# if a > 1:
+#     pass
+# else:
+#     pass
+# # 多分支
+# if a> 1:
+#     pass
+# elif a > 2:
+#     pass
+# elif a > 3:
+#     pass
+
+
+# home（）初始到一开始的位置，然后默认向东
+# seth（）是改变箭头的方向但是不移动 seth(0）就是朝向东，默认也是朝向东的。
+# 导入所有就是imort turtle  from turtle 是部分导入
+# from random import randint
+#
+# # 通过from的方式就不用random.randint的方式了
+# a = randint(1, 100)
+# # 但是由于没有全部导入，所以调用其他会报错
+# # b = choice([1,2])
+# print(a)

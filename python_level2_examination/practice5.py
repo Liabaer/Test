@@ -351,23 +351,55 @@
 # (-1/255,-200/255)范围内的灰度值，但色彩的深度与线条的y坐标值 相关，越靠下的线条颜色越浅，越靠上的线条颜色越深。效果如下图所 示。
 # 在_____处填写一行代码
 # 在….处填写多行代码
+# import turtle as t
+# import random
+# for i in range(0, 100):
+#     z = random.randint(0, 200)
+#     g = z / 255
+#     r = z / 255
+#     b = z / 255
+#     # 这里控制深浅
+#     t.pencolor((r, g, b))
+#     t.pensize(random.randint(1, 4))
+#     x = random.randint(-200, 200)
+#     y = random.randint(-200, 0)
+#     t.penup()
+#     # 前往坐标（x，y）往目标移动，如果这个时候笔还行落在画板上的，就会画一条前往x,y的线
+#     t.goto(x, y)
+#     t.pendown()
+#     t.fd(random.randint(20, 40))
+#     # t.seth(0)不需要这个，0就是向东，默认是向东的
+# t.hideturtle()
+# t.done()
+
+# 第七题
+# 注释：黄色小球的半径为20，红色小球的半径为45，蓝色小球的半径为 30。
+# 因turtle颜色覆盖情况下的逻辑运算可能不同机器上效果不一样， 如果出现无法填充完整黄色小球，也是正确的。
+# 在_____上完善一行代码
 import turtle as t
-import random
-for i in range(0, 100):
-    z = random.randint(0, 200)
-    g = z / 255
-    r = z / 255
-    b = z / 255
-    # 这里控制深浅
-    t.pencolor((r, g, b))
-    t.pensize(random.randint(1, 4))
-    x = random.randint(-200, 200)
-    y = random.randint(-200, 0)
-    t.penup()
-    # 前往坐标（x，y）往目标移动，如果这个时候笔还行落在画板上的，就会画一条前往x,y的线
-    t.goto(x, y)
-    t.pendown()
-    t.fd(random.randint(20, 40))
-    # t.seth(0)不需要这个，0就是向东，默认是向东的
+
+t.penup()
+t.fd(-200)
+t.pendown()
+t.begin_fill()
+t.fillcolor('yellow')
+t.circle(20, 360 + 135)
+t.end_fill()
+t.right(90)
+t.fd(200)
+t.begin_fill()
+t.right(45)
+t.fillcolor('red')
+t.circle(45, 360)
+t.right(45)
+t.fd(200)
+t.left(-90)
+t.end_fill()
+t.begin_fill()
+t.fillcolor('blue')
+t.circle(30, 360)
+t.left(-45)
+t.end_fill()
+t.fd(282)
 t.hideturtle()
 t.done()
