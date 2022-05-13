@@ -376,30 +376,62 @@
 # 注释：黄色小球的半径为20，红色小球的半径为45，蓝色小球的半径为 30。
 # 因turtle颜色覆盖情况下的逻辑运算可能不同机器上效果不一样， 如果出现无法填充完整黄色小球，也是正确的。
 # 在_____上完善一行代码
-import turtle as t
+# import turtle as t
+#
+# t.penup()
+# t.fd(-200)
+# t.pendown()
+# t.begin_fill()
+# t.fillcolor('yellow')
+# t.circle(20, 360 + 135)
+# t.end_fill()
+# t.right(90)
+# t.fd(200)
+# t.begin_fill()
+# t.right(45)
+# t.fillcolor('red')
+# t.circle(45, 360)
+# t.right(45)
+# t.fd(200)
+# t.left(-90)
+# t.end_fill()
+# t.begin_fill()
+# t.fillcolor('blue')
+# t.circle(30, 360)
+# t.left(-45)
+# t.end_fill()
+# t.fd(282)
+# t.hideturtle()
+# t.done()
 
-t.penup()
-t.fd(-200)
-t.pendown()
-t.begin_fill()
-t.fillcolor('yellow')
-t.circle(20, 360 + 135)
-t.end_fill()
-t.right(90)
-t.fd(200)
-t.begin_fill()
-t.right(45)
-t.fillcolor('red')
-t.circle(45, 360)
-t.right(45)
-t.fd(200)
-t.left(-90)
-t.end_fill()
-t.begin_fill()
-t.fillcolor('blue')
-t.circle(30, 360)
-t.left(-45)
-t.end_fill()
-t.fd(282)
-t.hideturtle()
-t.done()
+# 第八题
+# 请用户输入中国一线城市和二线城市的城市名，城市名称之间用空格隔开。
+# 将输入 的字符串转换为两个列表a和b,去除两个列表中重复出现的城市名称，北京 上海 广州 深圳 杭州
+
+# 并把第一个 列表剩余的城市名称追加到第二个列表后面，保持原有城市的顺序，显示在屏幕 上。示例如下：
+city1 = input("请输入一线城市").split()
+city2 = input("请输入二线城市").split()
+al = []
+for i in city1:
+    al.append(i)
+bl = []
+for i in city2:
+    bl.append(i)
+print(al)
+print(bl)
+# dict_b = {}
+# for i in bl:
+#     if i not in dict_b:
+#         dict_b[i] = 1
+#     else:
+#         dict_b[i] = dict_b[i] + 1
+# print(dict_b)
+temp = al.copy()
+
+for i in bl:
+    if i in al:
+        temp.remove(i)
+res = bl+temp
+print(res)
+
+
