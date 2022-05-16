@@ -253,3 +253,16 @@ at=['1','2','3','0','0','0']
 # except:
 #     print("请输入整数：")
 
+# 三个式子等价
+def calc1():
+    print(1)
+    return
+print(calc1())
+def calc2():
+    print(1)
+    return None
+print(calc2())
+def calc3():
+    print(1)
+print(calc3())
+

@@ -408,30 +408,196 @@
 # 请用户输入中国一线城市和二线城市的城市名，城市名称之间用空格隔开。
 # 将输入 的字符串转换为两个列表a和b,去除两个列表中重复出现的城市名称，北京 上海 广州 深圳 杭州
 
-# 并把第一个 列表剩余的城市名称追加到第二个列表后面，保持原有城市的顺序，显示在屏幕 上。示例如下：
-city1 = input("请输入一线城市").split()
-city2 = input("请输入二线城市").split()
-al = []
-for i in city1:
-    al.append(i)
-bl = []
-for i in city2:
-    bl.append(i)
-print(al)
-print(bl)
-# dict_b = {}
+# # 并把第一个 列表剩余的城市名称追加到第二个列表后面，保持原有城市的顺序，显示在屏幕 上。示例如下：
+# city1 = input("请输入一线城市").split()
+# city2 = input("请输入二线城市").split()
+# al = []
+# for i in city1:
+#     al.append(i)
+# bl = []
+# for i in city2:
+#     bl.append(i)
+# print(al)
+# print(bl)
+# # dict_b = {}
+# # for i in bl:
+# #     if i not in dict_b:
+# #         dict_b[i] = 1
+# #     else:
+# #         dict_b[i] = dict_b[i] + 1
+# # print(dict_b)
+# temp = al.copy()
+#
 # for i in bl:
-#     if i not in dict_b:
-#         dict_b[i] = 1
-#     else:
-#         dict_b[i] = dict_b[i] + 1
-# print(dict_b)
-temp = al.copy()
+#     if i in al:
+#         temp.remove(i)
+# res = bl+temp
+# print(res)
 
-for i in bl:
-    if i in al:
-        temp.remove(i)
-res = bl+temp
-print(res)
+# 第九题
+# 获得用户输入的一个整数，参考该整数值，打印输出"Hello World",要求：
+# 如果输入值是0，直接输出"Hello World"
+# 如果输入值大于0，以两个字符一行方式输出"Hello World"（(空格也是字符)
+# 如果输入值小于0，以垂直方式输出"Hello World"
+# ans = "Hello World"
+# res = eval(input('请输入一个整数：'))
+# if res == 0:
+#     print(ans)
+# elif res < 0:
+#     for i in ans:
+#         print(i)
+# else:
+#     i = 0
+#     j = 2
+#     while i < len(ans):
+#         print(ans[i:j])
+#         i = j
+#         j += 2
 
+# 第十题
+# 以整数17为随机数种子，获取用户输入整数N为长度，产生3个长度为N位的密
+# 码，密码的每位是一个数字。每个密码单独一行输出。
+# 产生密码采用random.randint()函数。
+# import random
+# l = eval(input('请输入一个整数：'))
+# random.seed(17)
+# for i in range(0, 3):
+#     res = ''
+#     for j in range(0, l):
+#         res += str(random.randint(0, 9))
+#     print(res)
 
+# #请在...和____补充代码
+# import random
+#
+# def genpwd(length):
+#     random.seed(17)
+#     res = ''
+#     for i in range(0, length):
+#         res += str(random.randint(0, 9))
+#     return res
+#
+#
+# length = eval(input('请输入一个整数：'))
+# ans = genpwd(length)
+# for i in range(0, 3):
+#     print(ans)
+
+# 第十题
+# 获得用户输入数字N,计算并输出从N开始的5个质数，单行输出，质数间用逗
+# 号，分割。
+# 注意：需要考虑用户输入的数字N可能是浮点数，应对输入取整数；最后一个输出后不用逗号。
+
+# 请在...补充一行或多行代码
+# 质数（素数）：除了1和他本身，无法被其他数字整除，比如5，5的公约数只有1和5，所以是质数，比如4公约除了1和4还有2，所以4是合数。
+#
+# def prime(m):
+#     flag = True
+#     for n in range(2, m):
+#         if m % n == 0:
+#             flag = False
+#             break
+#     if flag:
+#         return m
+#
+#
+# # print(prime(4))
+#
+# n = eval(input())
+# ans = ''
+# for i in range(1, n+1):
+#     res = prime(i)
+#     if res is not None:
+#         ans += str(res) + ','
+# l = len(ans)
+# print(ans[0:l-1])
+#
+# 另一种方式判断是否第一次出现
+# flag = True
+# n = 5
+# for i in range(1, n + 1):
+#     res = prime(i)
+#     if res is not None:
+#         print(str(res), end='') if flag else print(',' + str(res), end='')
+#         flag = False
+
+# 第十一题
+# 获得输入的一个字符串$，以字符减号(-)分割$，将其中首尾两段用加号(+)组合 后输出。Alice-Bob-Charis-David-Eric-FLurry
+# s = input('请输入字符串：')
+# ls = s.split('-')
+# print(ls[0]+'+'+ls[len(ls)-1])
+#
+# 获得用户输入的一个整数a,计算a的平方根，保留小数点后3位，并打印输出。
+# 输出结果采用宽度30个字符、右对齐输出、多余字符采用加号(+)填充。
+# 如果结果超过30个字符，则以结果宽度为准。
+# a = eval(input('请输入整数：'))
+# print('{:+>30.3f}'.format(pow(a, 1/2)))
+
+# 第十二题
+# 使用turtle库，绘制一个八角图形。
+# 注意：这是一个自动评阅题目，请补充"编程模板"中横线内容，横线不保 留。
+# import turtle as t
+# t.pensize(2)
+# for i in range(0, 8):
+#     t.fd(100)
+#     t.left(135)
+
+# 第十三题
+# 1,转子热套,9,4
+# 第1列是序号第2列的工序名称第3列是生产该工序所需要的节拍数，第4列是生产设备的数量。
+# 请读取文件，并统计所有生产设备的总数，以及所有工序所需要的平均 节拍数，并统计大于和小于平均节拍数的工序的个数。
+# 在_____处填写一行代码
+# 在….处填写多行代码
+
+# te, tslic, cnt, prol = 0, 0, 0, []
+# with open("data-work.csv", 'r') as f:
+#     for l in f.readlines():
+#         pros = l.split(',')
+#         prol.append((pros[0], pros[1], pros[2], pros[3]))
+#
+# cnt = len(prol)
+# for i in prol:
+#     tslic += int(i[2])
+#     te += int(i[3])
+# meansl = tslic//cnt
+# bigp, littlep = 0, 0
+# for p in prol:
+#     if int(p[2]) < meansl:
+#         littlep += 1
+#     if int(p[2]) > meansl:
+#         bigp += 1
+#
+# print('所有生产设备的总数是：{}个，平均节拍数是: {}'.format(te, meansl))
+# print('大于平均节拍数的工序有{}个，小于平均节拍数的工序有{}个'.format(bigp, littlep))
+
+# #第十四题
+# 接收用户输入的一串密钥序列号，显示序列号的内容，并检查序列号是否满足下述 条件： NAaG-UJ8Z-EVAP-JAUW NAAG-UJ8ZE-VAP-JAUW
+# 1）如果字符串的总长度不是19位，就显示'序列号长度非法'；
+# 2）要求被3个连字符连接，三个分隔符正好将序列号分割为四组，并且每组是四个 大写字符或者数字。如果三个分隔符的位置不对，
+# 就显示分隔符位置非法'；如果字 符不是大写字母或者不是数字，就显示字符不是大写或数字；
+# 3) 如果符合条件，就显示'序列号正确'。
+
+# 在_____处填写一行代码
+# 在….处填写多行代码
+
+ss = input()
+temp = ss.split('-')
+
+if len(ss) != 19:
+    print('序列号长度非法')
+
+flag = True
+for i in temp:
+    print(i)
+    if len(i) != 4:
+        print('分隔符位置非法')
+        break
+    for j in i:
+        if ord('A') > ord(j) < ord('Z') or ord('0') > ord(j) > ord('9'):
+            flag = False
+# 这中for else写法可以解决上面打印后下面判断又重复打印，且flag不够用的情况 还可以使用flag == 1， flag ==2，flag ==3 给flag重新定义的方式
+else:
+    if flag:
+        print('序列号正确')
+    else:
+        print('字符不是大写或数字')
