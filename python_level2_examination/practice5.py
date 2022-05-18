@@ -579,25 +579,420 @@
 
 # 在_____处填写一行代码
 # 在….处填写多行代码
+#
+# ss = input()
+# temp = ss.split('-')
+#
+# if len(ss) != 19:
+#     print('序列号长度非法')
+#
+# flag = True
+# for i in temp:
+#     print(i)
+#     if len(i) != 4:
+#         print('分隔符位置非法')
+#         break
+#     for j in i:
+#         if ord('A') > ord(j) < ord('Z') or ord('0') > ord(j) > ord('9'):
+#             flag = False
+# # 这中for else写法可以解决上面打印后下面判断又重复打印，且flag不够用的情况 还可以使用flag == 1， flag ==2，flag ==3 给flag重新定义的方式
+# else:
+#     if flag:
+#         print('序列号正确')
+#     else:
+#         print('字符不是大写或数字')
 
-ss = input()
-temp = ss.split('-')
+# 第十五题
+# 获得用户的任何可能输入，将其中的英文字符进行打印输出，程序不出现 错误。
+# alpha = []
+# for i in range(26):
+#     alpha.append(chr(ord('A')+i))
+#     alpha.append(chr(ord('a')+i))
+# # print(alpha)
+# s = input()
+# for c in s:
+#     if c in alpha:
+#         print(c, end='')
+#
+# 第十六题
+# 获得用户输入的一个字符串，格式如下：
+# M OP N
+# 其中，M和N是任何数字，OP代表一种操作，表示为如下四种：+，-，*/（加减
+# 乘除)
+# 根据OP,输出MOPN的运算结果，统一保存小数点后2位。
+# 注意：M和OP、OP和N之间可以存在多个空格，不考虑输入错误情况。
 
-if len(ss) != 19:
-    print('序列号长度非法')
+# s = eval(input("请输入字符串："))   # 不用想复杂了喂
+# # temp = s.split(' ')
+# # opt = ['+', '-', '*', '/']
+# # m = temp[0]
+# # op = temp[1]
+# # n = temp[2]
+# print('{:.2f}'.format(s))
 
-flag = True
-for i in temp:
-    print(i)
-    if len(i) != 4:
-        print('分隔符位置非法')
-        break
-    for j in i:
-        if ord('A') > ord(j) < ord('Z') or ord('0') > ord(j) > ord('9'):
-            flag = False
-# 这中for else写法可以解决上面打印后下面判断又重复打印，且flag不够用的情况 还可以使用flag == 1， flag ==2，flag ==3 给flag重新定义的方式
-else:
-    if flag:
-        print('序列号正确')
-    else:
-        print('字符不是大写或数字')
+# 十七题
+# 获得用户输入的一个整数N,输出N中所出现不同数字的和。
+# 例如：用户输入123123123，其中所出现的不同数字为：1、2、3，这几个 数字和为6。
+# n = input()
+# ss = set(i for i in n)
+# s = 0
+# for i in ss:
+#     s += int(i)
+# print(s)
+
+# 十八题
+# 获得用户的输入，当作对齐模式，用户输入：左、右、中，分别表示： 左对齐、右对齐和居中对齐，以*作为填充符号30字符宽度输出
+# PYTHON:字符串。无任何输入时，默认为左对齐，请参考编程模板，完
+# 善代码。本题目支持OJ在线评测。
+
+#请输入对齐模式：
+#在_______上完善一行代码
+# m = input("")
+# s = "PYTHON"
+# if  m =="右":
+#     m = ">"
+# elif m =="中":
+#     m = '^'
+# else:
+#     m = '<'
+# # 或者{1:*{0}30}.format(m,s) 使用1，0来指定format里的顺序
+# print('{:*{}30}'.format(s, m))
+
+# 十九题
+# 完善代码，输出如下图的田字符形状。
+#在_______上填写一行代码
+# for i in range(11):
+#     if i in (0,5,10):
+#         print("* - - - * - - - *")
+#     else:
+#         print("*       *       *")
+
+# 二十题
+# 四位玫瑰数是4位数的自幂数。自幂数是指一个位数，它的每个位上的数字的次幂之和等于它本身。
+# 例如：当n为3时，有1^3+5^3+3^3=153,153即是n为3时的一个自幂 数，3位数的自幂数被称为水仙花数。
+# 请输出所有4位数的四位玫瑰数，按照从小到大顺序，每个数字一行。
+
+# s = ""
+# for i in range(1000, 9999):
+#     t = str(i)
+#     if pow(int(t[0]), 4)+pow(int(t[1]), 4)+pow(int(t[2]), 4)+pow(int(t[3]), 4) == i:
+#         print(i)
+
+# 二十一
+# 求100以内所有素数之和并输出。
+# 素数指从大于1，且仅能被1和自己整除的整数。
+# 提示：可以逐一判断100以内每个数是否为素数，然后求和。
+#Prime
+# def is_prime(n):
+#     for i in range(2, n-1):
+#         if n%i == 0:
+#             return False
+#     return True
+# sum = 0
+# # 不从0开始，0是素数
+# for i in range(1, 100):
+#     if is_prime(i):
+#         sum += i
+# print(sum)
+
+# 二十二
+# 获得用户输入的一个数字，可能是浮点数或复数，如果是整数仅接收十进 制形式，且只能是数字。对输入数字进行平方运算，输出结果。
+# (1)无论用户输入何种内容，程序无错误；
+# (2)如果输入有误，请输出"输入有误"。
+
+
+
+# def is_num(a):
+#     for i in a:
+#         if ord('0') > ord(str(i)) > ord('9'):
+#             return False
+#         else:
+#             return True
+# if not is_num(s):
+#     print("输入有误")
+# else:
+#     print(pow(s, 2))
+# s = input()
+# try:
+#     print(pow(eval(s), 2))
+# except:
+#     print("输入有误")
+#
+
+# 二十三
+# import turtle
+# for i in range(0,8):
+#     turtle.fd(100)
+#     turtle.left(45)
+
+# # 二十五
+# 使用turtle库，绘制一个风轮效果，其中，每个风轮内角为45度，风轮边长150像素。
+# 注意：这不是自动评阅题目，仅用于练习，没有评阅。
+# 提示：turtle.goto(X,y)函数，能够将turtlei画笔移动到坐标(x,y)
+# import turtle as t
+# t.pensize(2)
+# for i in range(4):
+#     t.seth(i*90)
+#     t.fd(150)
+#     t.right(90)
+#     t.circle(-150, 45)
+#     t.goto(0, 0)
+
+# 二十六
+# 使用turtle库，绘制一个叠边形，其中，叠边形内角为100度。
+# import turtle as t
+# t.pensize(2)
+# for i in range(9):
+#     t.fd(100)
+#     t.left(80)
+
+# 二十七
+# data-name-list.txt中包含了含有重复的人名，请直接输出出现最多的人 名。
+# f = open('data-name-list.txt', 'r')
+# s = f.read()
+# # print(s)
+#
+# ls = s.split()
+# # print(ls)
+# d = {}
+# for i in ls:
+#     d[i] = d.get(i, 0) + 1
+# max_name, max_cnt = '', 0
+# for k in d:
+#     # print(k)
+#     if d[k] > max_cnt:
+#         max_name, max_cnt = k, d[k]
+# print(max_name)
+
+# 二十八
+# 使用turtle库的fd)、seth(O、pencolor()、backward()、right()、 screensize0等函数，
+# 以及random随机函数库的seed(),randint(), choice()函数，绘制n个彩色的蒲公英小伞。
+# 小伞的颜色在给定的颜色列 表color中随机选择；伞J顶半径画笔宽1个像素长edge个像素，
+# edge取值 在(20,30)范围里随机选择：伞柄画笔宽5个像素长handle个像素，handle 取值在(30,50)范围里随机选择；
+# 小伞的伞柄与伞顶交点的位置在画布上
+# 随机分布；画布的X轴坐标取值在(-200,200)范围里随机选择，Y轴坐标
+# 取值在（-100,100)范围里随机选择。的值由用户输入，其他值由代码 模板给出。当用户输入6的时候，效果如下图所示。
+import csv
+import random
+# import turtle as t
+# from random import *
+#
+#
+# def oneDandelion(x0, y0, color, edge, handle):
+#     """
+#     绘制一个蒲公英，在(x,y)的位置画一个颜色为color，边长为edge，根长为handle的蒲公英
+#     :param x0: 横坐标
+#     :param y0: 纵坐标
+#     :param color: 颜色
+#     :param edge: 边长
+#     :param handle: 根长
+#     :return:
+#     """
+#     # 起笔
+#     t.penup()
+#     # 移动到x,y位置
+#     t.goto(x0, y0)
+#     # 落笔 准备开始绘制
+#     t.pendown()
+#     # 设置颜色
+#     t.pencolor(color)
+#     # 设置根的方向，需要朝上，也就北方
+#     t.seth(90)
+#     # 设置根的宽度
+#     t.pensize(5)
+#     # 把根画出来
+#     t.fd(handle)
+#     # 设置方向开始画边长
+#     t.seth(250)
+#     # 设置边长的宽度为1
+#     t.pensize(1)
+#     for i in range(33):
+#         # 往返画边长
+#         t.fd(edge)
+#         t.backward(edge)
+#         # 每次移动10度
+#         t.right(10)
+#
+#
+# color = ['red', 'pink', 'green', 'violet', 'purple']
+# seed(20)
+# t.screensize(400, 200, "#E0FFFF")
+# n = eval(input())
+# for i in range(n):
+#     edge = randint(20, 30)  # 蒲公英的边长
+#     handle = randint(30, 50)  # 蒲公英的根长
+#     oneDandelion(randint(-200, 200), randint(-100, 100), choice(color), edge, handle)
+# t.done()
+
+
+# 二十九
+# 补全编程模板中的代码，删除横线，补全代码，可以修改其他代码。 实现以下功能
+# 键盘输入一个字符串空格分割，内容为专业名称。
+# 统计专业名称 出现的数量，按数量从高到低方式输出，名称不足五位使用等号居左对齐 计算机 计算机 计算机 软件 软件 软件 软件 财务 管理 管理
+# names = input("")
+# n = names.split(' ')
+# d = {}
+# for i in n:
+#     d[i] = d.get(i, 0)+1
+# ls = list(d.items())
+# ls.sort(key=lambda x: x[-1], reverse=True)
+# print(ls)
+# for k in ls:
+#     # 这里k是元祖哦记得
+#     print('{:=<5}:{}'.format(k[0], k[1]))
+
+# 三十
+# 读入一个字典类型的字符串，反转其中键值对输出。
+# 即，读入字典key:value模式，输出value:key模式。
+# 输入格式
+# 用户输入的字典格式的字符串，如果输入不正确，提示：输入错误。{"a":1,"b":2}
+# 输出格式
+# 给定字典d,按照print(d)方式输出
+# s = input()
+# try:
+#     d = eval(s)
+#     e = {}
+#     for k in d:
+#         e[d[k]] = k
+#     print(e)
+# except:
+#     print("输入错误")
+
+# 三十一
+# 获得用户输入，去掉其中全部空格，将其他字符按收入顺序打印输出。 Alice + Bob
+# txt = input()
+# # print(txt.replace(' ', ''))
+# print("".join(txt.split(" ")))
+#
+# # 三十二
+# # 键盘输入正整数n,按要求把n输出到屏幕，格式要求：宽度为20个字符，数字中间 对齐，不足部分用=填充，如果输入的不是数字，则提示输入错误。
+#
+# n = input()
+# try:
+#     m = eval(n)
+#     print('{:=^20}'.format(m))
+# except:
+#     print('输入错误')
+
+# 三十三
+# 键盘输入一段文本，使用jieba分词文本，并且使用字典统计每个词语出现的次数，
+# import jieba
+#
+# s = input("请输入一个字符串:")
+# m = jieba.lcut(s)
+# dict_text = {}
+# for i in m:
+#     dict_text[i] = dict_text.get(i, 0)+1
+# for i in dict_text:
+#     print(i, dict_text[i])
+
+# 三十四
+# 请写代码替换模板中的横线，不得修改其他代码，
+# 实现以下功能：键盘输入正整数 n,按要求把n输出到屏幕上，
+# 格式要求：宽度为20个字符，减号字符-填充，右对 齐，带千位分隔符。
+# 如果输入正整数超过20位，则按照实际长度输出。
+
+# # 千分分隔符：比如数字1234，在千分位上加上逗号1,234，比如12345678，123,456,789
+# # 实现方法，使用,d的写法。print("{:,d}".format(123456))
+# n = eval(input("请输入一个正整数:"))
+# print('{:->20,d}'.format(n))
+
+# 三十五
+# 键盘输入一组人员姓名、工作、性别、工资等信息，信息间采用空格分隔，每人一 行，空行回车结束录入，示例格式如下：
+# 张三 教师 男 5010
+# 李四 工人 女 4900
+# 王五 商人 男 6700
+# 计算并输出这组人员的平均工资（保留2位小数，宽度为20个字符，不足用=号补足)和最高工资， 格式如下：
+# data = input()
+# s = 0
+# n = 0
+# i = 0
+# max_value = 0
+# while data:
+#     i = i + 1
+#     ls = data.split(' ')[3]
+#     print(ls)
+#     if int(ls) > max_value:
+#         max_value = int(ls)
+#     s = s + int(ls)
+#     data = input()
+# s = s/i
+# print("这组人员的平均工资:{:=^20.2f}\n最高工资:{:=^20.2f}".format(s, max_value))
+
+# 三十六
+# 附件是一个CSV格式文件，提取数据进行如下格式转换：
+# (1)按行进行倒序排列；
+# (2)每行数据倒序排列；
+# (3)使用分号(：)代替逗号（，)无空格；
+# 按照上述要求转换后将数据输出。
+# f = open("data-list-reverse.csv")
+# ls = f.readlines()   #本身就返回了一个字符串的数组给ls
+# ls = ls[::-1]
+# lt = []
+# for item in ls:
+#     item = item.strip('\n')
+#     item = item.replace(' ', '')
+#     lt = item.split(",")
+#     lt = ';'.join(lt)
+#     print(lt)
+# f.close()
+
+# 三十七
+# 接收用户输入任何字符串或数字，显示在屏幕上，如果用户直接回车则显示'game over.'
+# count = input()
+# print(count if count else "game over")
+
+# 三十八
+# 使用turtle)库的fd)、seth()、pencolor(0函数绘制嵌套五角形，五角形边 长从1像素开始，
+# 第一条边从0度方向开始，边长按照2个像素递增，每 条边使用一种颜色
+
+#在_____处填写一行代码
+#不允许修改其他代码
+#
+# import turtle as t
+# colors = ["purple","red","blue","green","black"]
+# d = 0
+# k = 1
+# edge = 5
+# for j in range(10):
+#     for i in range(5):
+#         t.pencolor(colors[i])
+#         t.fd(edge*k)
+#         d = d + 360 / edge
+#         t.seth(d)
+#         k += 1
+# t.done()
+
+# 三十九
+# 输入一个包含字母和数字的字符串，剔除其中的字母，只保留数字，输出显示在屏幕上。
+#请在________处填写一行代码
+#不可修改其他代码
+
+# w = input()
+# for x in w:
+#     if ord('0') <= ord(x) <= ord('9'):
+#         continue
+#     else:
+#         w = w.replace(x, '')
+# print(w)
+
+# 四十
+# 字符串变量sr保存了气体浓度传感器的4条数据，每条数据的第一字段是传感器编号，第二字段是气体名 称，第三字段是浓度值。示例如下：
+# TGS2402:甲醛：1.36
+# 在屏幕上按照浓度值递减的顺序，显示输出每种气体名称，浓度，及其浓度在四种气体浓度中所占的百分 比；示例如下：
+#氮气的浓度是：5.20，占比：49号
+#请在………处填写多行代码
+#不可修改其他代码
+str = 'TGS2402:甲醛:1.36\nTGS2500:氮气:5.20\nTGS2310:甲烷:1.70\nTGS2820:乙烯:2.43'
+ls = str.split('\n')
+sum = 0
+fieds = []
+print(ls)
+for gas in ls:
+    fi = gas.split(':')[1]
+    sum += float(gas.split(':')[2])
+    fieds.append((fi, gas.split(':')[2]))
+    fieds.sort(key=lambda x: x[-1], reverse=True)
+print(fieds)
+for gas in fieds:
+    print('{}的浓度是:{},占比：{:.0f}%'.format(gas[0], gas[1], (float(gas[1])/sum) * 100))

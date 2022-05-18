@@ -253,16 +253,35 @@ at=['1','2','3','0','0','0']
 # except:
 #     print("请输入整数：")
 
-# 三个式子等价
-def calc1():
-    print(1)
-    return
-print(calc1())
-def calc2():
-    print(1)
-    return None
-print(calc2())
-def calc3():
-    print(1)
-print(calc3())
+# # 三个式子等价
+# def calc1():
+#     print(1)
+#     return
+# print(calc1())
+# def calc2():
+#     print(1)
+#     return None
+# print(calc2())
+# def calc3():
+#     print(1)
+# print(calc3())
 
+
+# 字典的初始化方式
+# d = {}
+# name_list = ['a','b','a','d']
+# # 第一种初始化
+# for name in name_list:
+#     if name not in d:
+#         d[name] = 1 # 表示第一次出现记成1
+#     else:
+#         d[name] = d[name] + 1 # 叠加出现的次数
+# print(d)
+#
+# # 第二种初始化
+# d = {}
+# for name in name_list:
+#     d[name] = d.get(name, 0) + 1 # d.get(name,i)写法，如果name不存在d中，那么就取默认值0
+# print(d)
+
+# / 商， //整数商  % 取余数
