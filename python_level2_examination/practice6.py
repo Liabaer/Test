@@ -705,9 +705,217 @@
 
 # 29
 # 以论语中一句话作为字符串变量S,补充程序，分别输出字符串s中汉字和标点符号的个数。
-s = "学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知而不愠,不亦君子乎?"
-n = 0  # 汉字个数
-m = 0  # 标点符号个数
-m = s.count(',')+ s.count('?') #  m = len([i for i in s if i == ',' or i == '?'])
-n = len(s)-m
-print("字符数为{}，标点符号数为{}。".format(n, m))
+# s = "学而时习之,不亦说乎?有朋自远方来,不亦乐乎?人不知而不愠,不亦君子乎?"
+# n = 0  # 汉字个数
+# m = 0  # 标点符号个数
+# m = s.count(',')+ s.count('?') #  m = len([i for i in s if i == ',' or i == '?'])
+# n = len(s)-m
+# print("字符数为{}，标点符号数为{}。".format(n, m))
+
+# 30
+# 获得输入正整数N,判断N是否为质数，如果是则输出True,否则输出
+# False。本题不考虑输入异常情况。
+#
+# N = eval(input())
+# if N == 1:
+#     flag = False
+#     print(flag)
+# else:
+#     flag = True
+#     for i in range(2, N):
+#         if N % i == 0:
+#             flag = False
+#             break
+#     print(flag)
+
+# 31
+# # 输出如下数列在1000000以内的值，以逗号分隔：k(0)=1,k(1)=2,k(n =k(n-1)2+k(n-2)2,其中，k(n)表示该数列。
+# a, b = 1, 2
+# ls = []
+# ls.append(str(a))
+# ls.append(str(b))
+# for i in range(2,1000000):
+#     temp = 0
+#     # 这里是公式 太大的数字str无法计算
+#     temp = int(ls[i-1]) * int(ls[i-1]) + int(ls[i-2]) * int(ls[i-2])
+#     ls.append(str(temp))
+#     # 当temp大于1000000时，结束循环
+#     if temp > 100000:
+#         break
+# print(",".join(ls))
+
+# 32
+# 使用turtle库绘制如下图的类斯洛克图形，效果如下图所示。
+# import turtle
+# #绘制边长为20的圆形
+# def drawCircle():
+#     turtle.pendown()
+#     turtle.circle(20)
+#     turtle.penup()
+#     turtle.fd(40)
+# #绘制n层图形
+# def drawRowCircle(n):
+#     for j in range(n, 1, -1):
+#         for i in range(j):
+#             drawCircle()
+#         turtle.fd(-j*40-20)
+#         turtle.right(90)
+#         turtle.fd(40)
+#         turtle.left(90)
+#         turtle.fd(40)
+#     drawCircle()
+# drawRowCircle(5)
+# turtle.hideturtle()
+# turtle.done()
+
+# 33
+# # 使用turtle库绘制由边长为100像素的菱形构成的六角雪花形状，效果如下图所示。
+# import turtle
+# def Draw():
+#     turtle.begin_fill()
+#     turtle.fd(100)
+#     turtle.left(60)
+#     turtle.fd(100)
+#     turtle.left(120)
+#     turtle.fd(100)
+#     turtle.left(60)
+#     turtle.fd(100)
+#     turtle.end_fill()
+# for i in range(3):
+#     turtle.fillcolor('green')
+#     Draw()
+# turtle.left(60)
+# for i in range(3):
+#     turtle.fillcolor('blue')
+#     Draw()
+# turtle.hideturtle()
+# turtle.done()
+
+# 34
+# 使用turtle库的绘制十二个花瓣的图形，效果如下图所示
+# import turtle
+# turtle.fillcolor('yellow')
+# turtle.begin_fill()
+# for i in range(12):
+#     turtle.circle(100, -90)
+#     turtle.right(120)
+# turtle.end_fill()
+# turtle.hideturtle()
+# turtle.done()
+
+# 35
+# 软文的诗词风将原有文章根据标点符号重新切分为短语并居中排版，对小屏幕阅读十分有 利。使用程序将普通文章变成软文的诗词风十分有趣。
+# txt = '''人生得意须尽欢，莫使金樽空对月。\
+# 天生我才必有用，千金散尽还复来。'''
+# # 宽度
+# linewidth = 30
+#
+# # 去除标点
+# def lineSplit(line):
+#     l = ["'","。","，"]
+#     temp = ''
+#     for i in line:
+#         if i in l:
+#             continue
+#         else:
+#             temp+=i
+#     return temp
+# # 打印答案
+# def linePrint(line):
+#     global linewidth
+#     print('{0:^{1}}'.format(line, linewidth))
+#
+# newlines = lineSplit(txt)
+# for i in range(0, len(newlines), 7):
+#     linePrint(newlines[i:i+7])
+
+# 36
+# 给定一个整数数字0x1010，请依次输出Python语言中十六进制、十进制、八进制 和二进制表示形式，使用英文逗号分隔。
+# n = 0x1010
+# print('{},{},{},{}'.format(hex(n),int(n), oct(n),bin(n)))
+
+# 37
+# 获得用户输入的以逗号分隔的3个正整数，记为a、b、c,以a为起始数 值，b为步长，c为数字的个数，
+# 产生一个递增的等差数列，将这个数列 以列表格式输出，请补充横线处代码。示例如下： 等比的规律就是相邻的2个数之间的倍数为q。  等差数列就是相邻的2个数之间的差为d。
+# a,b,c = eval(input())
+# ls = []
+# for i in range(int(c)):
+#     ls.append(a + (i-1)*b)
+# print(ls)
+
+# # 38
+# 使用字典和列表型变量完成村长选举。某国家有40名有选举权和被选举权的候选 人，名单在附件name.txt中，
+# 从这40名候选人中选出一人当总统，40人的投票信息 由附件vote.txt中给出，每行是一张选票的信息，有效票中得票最多的候选人当选。
+# 问题1：请从vote.txt中筛选出无效票写入文件vote1.txt。有效票的含义是：选票中只 有一个名字且该名字在name.txt文件列表中，
+# 不是有效票的票称之为无效票。
+#
+# f=open("data-name.txt")
+# names=f.readlines()
+# f.close()
+# f=open("vote-name.txt")
+# votes=f.readlines()
+# f.close()
+# D={}
+# NUM=0
+# for vote in votes:
+#     num = len(vote.split())
+#     print(vote[:-1])  #-1是取不到的，所以最后一个回车就被去掉了
+#     if num==1 and vote in names:
+#         D[vote[:-1]]=D.get(vote[:-1],0)+1
+#         NUM+=1
+#     else:
+#         with open("vote2.txt","a+",encoding="utf-8") as fi:
+#             fi.write("{}".format(vote[:-1]))
+# print(D)
+
+# 2使用字典和列表型变量完成总统选举。某国家有40名有选举权和被选举权的候选 人，名单在附件name.txt中，
+# 从这40名候选人中选出一人当总统，40人的投票信息 由附件vote.txt中给出，每行是一张选票的信息，有效票中得票最多的候选人当选。
+# f=open("data-name.txt")
+# names=f.readlines()
+# f.close()
+# f=open("vote-name.txt")
+# votes=f.readlines()
+# f.close()
+# D={}
+# NUM=0
+# for vote in votes:
+#     num = len(vote.split())
+#     if num==1 and vote in names:
+#         D[vote[:-1]]=D.get(vote[:-1],0)+1
+#         NUM+=1
+# l=list(D.items())
+# l.sort(key=lambda s:s[1], reverse=True)
+# print(l)
+# name=l[0][0]
+# score=l[0][1]
+# print("有效票数为：{} 当选总统为:{}，票数为：{}".format(NUM, name, score))
+
+# 39
+# 键盘输入小明学习的课程名称及考分等信息，信息间采用空格分隔，每个课程一 行，空行回车结束录入，示例格式如下：
+# 数学90
+# 语文95
+# 英语86
+# 物理84
+# 生物87
+# 屏幕输出得分最高的课程以及成绩，得分最低的课程及成绩，以及平均分（保留2位 小数)
+# 注意，其中逗号为英文逗号，格式如下；
+# 最高分课程是语文95，最低分课程是物理84，平均分是88.40
+# 注意：题目测试用例为循环读入
+
+data = input()  # 课程名 考分
+d = {}
+while data:
+    if data == ' ':
+        break
+    else:
+        temp = data.split(' ')
+        d[temp[0]] = temp[1]
+    data = input()
+num = 0
+cnt = len(d)
+for key in d:
+    num += int(d[key])
+ld = list(d.items())
+ld.sort(key=lambda x: x[1], reverse=True)
+print(ld)
+print("最高分课程是{}{}, 最低分课程是{}{}, 平均分是{:.2f}".format(ld[0][0],ld[0][1],ld[len(ld)-1][0],ld[len(ld)-1][1],num/cnt))
