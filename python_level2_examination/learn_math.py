@@ -46,7 +46,7 @@ print(random.uniform(1, 100))
 # # # 另外一种计算绝对值的方法
 # print(math.fabs(-5))
 
-# # 向上取整  floor地板的意思可以这样记
+# # 向下取整  floor地板的意思可以这样记
 # print(math.floor(5.2))
 
 # # 向上取整 ceil天花板
