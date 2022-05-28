@@ -3,9 +3,9 @@
 import time
 
 # 从1970-1-1到现在总过过了多少毫秒
-# a = time.time()
-# print(a)
-#
+a = time.time()
+print(a)
+
 # # 常用格式化符号
 # # %y 两位数的年份表示（00-99）
 # # %Y 四位数的年份表示（000-9999）
@@ -64,8 +64,8 @@ import time
 # # 输出该复数的共轭复数 共轭复数:两个实部相等，虚部互为相反数的复数
 # print(a.conjugate())
 # # 使用函数创建复数
-a = complex(5, 6)
-print(a)
+# a = complex(5, 6)
+# print(a)
 #
 # # 三目运算符
 # java中我们有形如下方的写法
@@ -106,9 +106,10 @@ print(a)
 #         break
 # else:
 #     print("没有遇见break执行")
-
+#
 # # 遇见break结束的循环不会执行else语句
 # a = [1, 2, 3]
+
 # for x in a:
 #     if x == 3:
 #         print(1)

@@ -21,8 +21,8 @@ flag = True
 while i < len(astr):
     while j < len(astr)-1:
         j = j + 1
-        print i, j
-        print astr[i], astr[j]
+        print(i, j)
+        print(astr[i], astr[j])
         if astr[i] == astr[j]:
             flag = False
             break
@@ -31,4 +31,4 @@ while i < len(astr):
     if flag == False:
         break
 
-print flag
+# print flag
