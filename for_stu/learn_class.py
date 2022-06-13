@@ -9,7 +9,9 @@ class User(object):
     # 全局属性 可以直接用类名点的方法调用，也可以通过对象调用，不同对象直接值也是一样的
     static_name = "test_name"
 
-    def __init__(self, email, password):
+    # # 如果我们有时想传参数有时不想传参数怎么办呢 todo 使用选填参数，测试一下看看
+    def __init__(self, email="", password=""):
+    # def __init__(self, email, password):
         """
         定义初始化类的方法(可以省略） ，这里表示该类有2个属性email和password（不同对象值是不一样的）
         :param email:
@@ -40,9 +42,14 @@ class User(object):
 
 # 会报错，因为我们定义了初始化方法需要传入参数
 # user = User()
+# 如果定义函数时选择选填参数 就不会报错了
+user = User(email='abc@test.com')
+user.password = input()
+user = User(password='1234')
 # 正确写法
-user_test1 = User("test@test.com", "testPassword")
-# 如果我们有时想传参数有时不想传参数怎么办呢 todo 使用选填参数，测试一下看看
+# user_test1 = User("。@test.com", "testPassword")
+
+
 
 # 获取私有属性，需要通过对象
 # print(user_test1.email)
