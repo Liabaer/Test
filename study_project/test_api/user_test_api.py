@@ -5,12 +5,15 @@ from  study_project.test_case.user_test_case import test_login_case
 from study_project.test_setting.setting import bese_url, hd
 
 class getUrl(object):
+    beas_url = ''
+    hd = {}
+    @staticmethod
     def user_get_auth(self, data=""):
         """
         登陆获取auth
         :return:
         """
-        res = requests.post(bese_url + '/api/user/pre-login', headers=hd, json=data)
+        res = requests.post(self.bese_url + '/api/user/pre-login', headers=self.hd, json=data)
         auth = res.json().get('data').get('authId')
         return auth
 
@@ -34,3 +37,4 @@ class getUrl(object):
                             headers=hd,
                             json={'authId': auth, 'authType': 'email_auth', 'authText': email_code, 'operator': 'login'})
         return lgn.json()
+
