@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import requests
 
-from study_project.test_case.user_test_case import User_test_case
-from study_project.test_setting.setting import base_url, hd
+from study_project.test_case.user_test_case import UserTestCase
+from study_project.test_setting.setting import Setting
 
 class UserTestApi(object):
-    base_url = base_url
-    hd = hd
+    base_url = Setting.set_url()
+    hd = Setting.set_hd()
 
     @staticmethod
     def user_get_auth(data=''):
@@ -15,7 +15,7 @@ class UserTestApi(object):
         :return:
         """
         # 这里的data，由于类User_test_case()的test_login_case()函数的是私有的，所以相当于要new一个对象来调用
-        data = User_test_case().test_login_case()
+        # data = UserTestCase().test_login_case()  这里注释，是因为函数直接使用动态传入，减少耦合
         res = requests.post(UserTestApi.base_url + '/api/user/pre-login', headers=UserTestApi.hd, json=data)
         auth = res.json().get('data').get('authId')
         return auth
