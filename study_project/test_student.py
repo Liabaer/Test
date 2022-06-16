@@ -12,9 +12,10 @@ print(age.age())
 info = Student()
 print(info.stinfo())
 # 4. 判断输入的姓名是否和当前对象的用户名称一致 （入参输入的姓名）（返参true/false）
-name = input()
-newname = Student.isStudent(name)
-print(newname)
+no = input()
+isno = Student.isStudent(no)
+print(isno)
 
 # 1. 返回学校名 （入参无）（返参学校名）
+print(Student.school)
 # 2. 比较两个学生是否是同一个年级的（入参有2个，学生a对象，学生b对象）（返参 true/false)
