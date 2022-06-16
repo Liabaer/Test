@@ -19,6 +19,7 @@
 # 定义一个test_student.py中需要调用类的所有函数,判断是否有误
 from study_project.test_case.student_test_case import Info
 
+
 class Student(object):
     school = "python_school"
 
@@ -28,26 +29,35 @@ class Student(object):
         self.grade = grade
         self.cls = cls
 
-    def no(self):
+    def get_no(self):
         return self.no
 
-    def age(self):
+    def get_age(self):
         return self.age
 
-    def stinfo(self):
-        print('{}:{}'.format(self.no, self.age, self.grade, self.cls))
+    def st_info(self):
+        print('{},{},{},{}'.format(self.no, self.age, self.grade, self.cls))
 
-    def isNo(self, no):
+    def is_no(self, no):
         return self.no == no
 
     @staticmethod
-    def school():
+    def get_school():
         return Student.school
 
     @staticmethod
-    def isgrade(a, b):
+    def is_grade(a, b):
+        return a.grade == b.grade
 
-        return a==b
 
 test_case = Info.student_test_case()
-student = Student(no=test_case['name'], age=test_case['no'], grade=test_case['grade'], cls=test_case['cls'])
+test_case2 = Info.student_test_case2()
+student = Student(no=test_case['no'], age=test_case['age'], grade=test_case['grade'], cls=test_case['cls'])
+student2 = Student(no=test_case2['no'], age=test_case2['age'], grade=test_case2['grade'], cls=test_case2['cls'])
+student.st_info()
+
+print(student.get_no())
+print(student.get_age())
+print(student.is_no(1))
+print(Student.get_school())
+print(Student.is_grade(student, student2))
