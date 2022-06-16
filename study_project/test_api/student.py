@@ -50,14 +50,4 @@ class Student(object):
         return a.grade == b.grade
 
 
-test_case = Info.student_test_case()
-test_case2 = Info.student_test_case2()
-student = Student(no=test_case['no'], age=test_case['age'], grade=test_case['grade'], cls=test_case['cls'])
-student2 = Student(no=test_case2['no'], age=test_case2['age'], grade=test_case2['grade'], cls=test_case2['cls'])
-student.st_info()
 
-print(student.get_no())
-print(student.get_age())
-print(student.is_no(1))
-print(Student.get_school())
-print(Student.is_grade(student, student2))

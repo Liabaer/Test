@@ -21,24 +21,39 @@ class UserTestApi(object):
         return auth
 
     @staticmethod
-    def user_get_code(auth):
+    def user_get_code(auth, emailType=''):
         """
         获取验证码
         :return:
         """
-        eml = requests.post(UserTestApi.base_url + '/api/user/auth-email', headers=UserTestApi.hd, json={'authId': auth, 'emailType': 'login_auth'})
+        eml = requests.post(UserTestApi.base_url + '/api/user/auth-email',
+                            headers=UserTestApi.hd, json={'authId': auth, 'emailType': emailType})
 
 
     @staticmethod
-    def user_login(email_code='', auth=''):
+    def user_login(email_code='', auth='', opt=''):
         """
         登陆
         :param email_code:
-        :param auth:
+        :param auth: 验证码
+        :param opt: 操作
         :return:
         """
         lgn = requests.post(UserTestApi.base_url + '/api/user/auth',
                             headers=UserTestApi.hd,
-                            json={'authId': auth, 'authType': 'email_auth', 'authText': email_code, 'operator': 'login'})
+                            json={'authId': auth, 'authType': 'email_auth', 'authText': email_code, 'operator': opt})
         return lgn.json()
 
+    @staticmethod
+    def update_passwod(token='', originPwd='', newPwd=''):
+        """
+        修改密码
+        :param token: 获取登陆的token
+        :param originPwd: 旧密码
+        :param newPwd: 新密码
+        :return: 返回修改后authId
+        """
+        update_pwd = requests.post(UserTestApi.base_url+'/api/user/update-password',
+                                   headers=UserTestApi.hd,
+                                   json={'authorization':token, 'originPassword':originPwd, 'newPasswod':newPwd})
+        return update_pwd.json()

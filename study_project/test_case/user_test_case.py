@@ -4,6 +4,10 @@
 class UserTestCase(object):
     def __init__(self):
         self.case = {'email': 'RenaTuT0401@gmail.com', 'password': '34dfsdAf324sf2@s'}
+        self.updatepwd = {'originPwd': '34dfsdAf324sf2@s','newPwd': '141242tt'}
 
     def test_login_case(self):
         return self.case
+
+    def test_update_pwd(self):
+        return self.updatepwd
