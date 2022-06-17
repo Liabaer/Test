@@ -6,6 +6,8 @@ class UserTestCase(object):
         self.case = {'email': 'RenaTuT0401@gmail.com', 'password': '34dfsdAf324sf2@s'}
         self.case1 = {'email': 'RenaTuT0401@gmail.com', 'password': '141242Tt@'}
         self.updatepwd = {'originPwd': '34dfsdAf324sf2@s','newPwd': '141242Tt@'}
+        self.email = {'email': '1358606689@qq.com'}
+        self.case2 = {'email': '1358606689@qq.com','password': '141242Tt@'}
 
     def test_login_case(self):
         return self.case
@@ -13,5 +15,11 @@ class UserTestCase(object):
     def test_login_case1(self):
         return self.case1
 
+    def test_login_case2(self):
+        return self.case2
+
     def test_update_pwd(self):
         return self.updatepwd
+
+    def test_update_eml(self):
+        return self.email

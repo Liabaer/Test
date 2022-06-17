@@ -70,3 +70,16 @@ class UserTestApi(object):
                                    headers=UserTestApi.hd,
                                    json={'originPassword':originPwd, 'newPassword':newPwd})
         return update_pwd.json()
+
+#     第六步
+# 确认修改密码接口 /api/user/update-email POST
+# 请求参数 email(等于新的邮箱)
+# header  language: cn device: tt-test Content-Type: application/json  authorization(等于登录后拿到的token)
+# 获取返回值中的authId字段
+    @staticmethod
+    def update_email(email=''):
+        update_eml = requests.post(UserTestApi.base_url +'/api/user/update-email',
+                                   headers=UserTestApi.hd,
+                                   json={'email': email})
+        print(update_eml.json())
+        return
