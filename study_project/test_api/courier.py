@@ -128,6 +128,7 @@ class Courier(object):
             order_list = self.uncompleted_order_id.split(',')
             if order_id in order_list:
                 order_list.remove(order_id)
+                self.uncompleted_order_id = ','.join(order_list)
                 print('完成订单id:' + order_id)
             else:
                 print('不存在该订单')
