@@ -82,7 +82,8 @@ class Courier(object):
         获取骑手未完成订单数
         :return:
         """
-        return len(self.uncompleted_order_id)
+        list_lenth = self.uncompleted_order_id.split(',')
+        return len(list_lenth)
 
     def get_order(self,user_location='', order_id=''):
         """
@@ -124,7 +125,9 @@ class Courier(object):
         :return:
         """
         if self.status == 'online' and self.get_uncompleted_order_list() != 0:
-            self.uncompleted_order_id = self.uncompleted_order_id - order_id
-            print('完成订单id:' + order_id)
-        else:
-            print('不存在该订单')
+            order_list = self.uncompleted_order_id.split(',')
+            if order_id in order_list:
+                order_list.remove(order_id)
+                print('完成订单id:' + order_id)
+            else:
+                print('不存在该订单')
