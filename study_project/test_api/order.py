@@ -4,8 +4,8 @@ import random
 from study_project.test_api.test_public import Job
 
 class Order(object):
-    def __init__(self, order_id='', distance='', order_price=0.00, courier_id='',
-                 order_status='', delivery_fee=0.00, user_location='', shop_location='', create_time='', accepted_time='',completed_time=''):
+    def __init__(self, order_id='', distance='', order_price=10.00, courier_id='',
+                 order_status='pending', delivery_fee=0, user_location = '131.4547,1.474', shop_location = '131.9999,1.999', create_time=Job.get_time(), accepted_time='',completed_time=''):
         """
         1. 私有属性
         1. 订单id
@@ -20,12 +20,15 @@ class Order(object):
         10. 接单时间
         11. 完成时间
         """
-        self.order_id = order_id
-        self.distance = distance
+        for i in range(11):
+            self.order_id = self.order_id + random.randint(0, 9)
+        x = self.user_location.split(',')
+        y = self.shop_location.split(',')
+        self.distance = Job.distance_haversine_simple(x[0], x[0], y[0], y[1])
         self.order_price = order_price
         self.courier_id = courier_id
         self.order_status = order_status
-        self.delivery_fee = delivery_fee
+        self.delivery_fee = Job.get_delivery_fee(distance)
         self.user_location = user_location
         self.shop_location = shop_location
         self.create_time = create_time
@@ -33,21 +36,6 @@ class Order(object):
         self.completed_time = Job.get_time()
 
 
-    def create_order(self, order_price=0.00, order_status='pending'):
-        """
-        1. 初始化函数 （即创建订单函数，入参如下，
-        创建时间为当前系统时间（调用工具类的获取当前时间）
-        、订单id随机11位数字、订单状态pending, 支付价格、用户经纬度、商家经纬度，配送距离由经纬度调用公共类计算，其他字段默认为空。
-        :return:
-        """
-        self.create_time = Job.get_time()
-        for i in range(11):
-            self.order_id = self.order_id + random.randint(0, 9)
-        self.user_location = '131.4547,1.474'
-        x = self.user_location.split(',')
-        self.shop_location = '131.9999,1.999'
-        y = self.shop_location.split(',')
-        self.distance = Job.distance_haversine_simple(x[0], x[0], y[0], y[1])
 
 
     def accepted_order(self, courier_id='', delivery_fee=0):
