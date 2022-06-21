@@ -6,7 +6,7 @@ from study_project.test_api.test_public import Job
 
 class Courier(object):
 
-    def __init__(self, courier_id='', location='', status='', uncompleted_order_id='', delivery_type='',comleted_order_id=''):
+    def __init__(self, courier_id='', courier_location='131.1111,1.111',status='offline',delivery_type='delivery',uncompleted_order_id='',comleted_order_id=''):
         """
         1. 骑手id
         2. 骑手经纬度（逗号分割 lng,lat)
@@ -20,20 +20,21 @@ class Courier(object):
         :param uncompleted_order_id:
         :param delivery_type:
         """
-        self.courier_id = id
-        self.location = ''
-        self.status = ''
-        self.uncompleted_order_id = ''
-        self.delivery_type = ''
-        self.comleted_order_id = ''
+        self.courier_id = courier_id
+        for i in range(5):
+            self.courier_id += str(random.randint(0, 9))
+        self.courier_location = courier_location
+        self.status = status
+        self.uncompleted_order_id = uncompleted_order_id
+        self.delivery_type = delivery_type
+        self.comleted_order_id = comleted_order_id
 
-    def be_courier(self, courier_id='',courier_location='131.1111,1.111',status='offline',delivery_type='delivery',uncompleted_order_id=''):
+    def be_courier(self, courier_id='',uncompleted_order_id=''):
         """
         1. 初始化方法 （即创建骑手，入参如下 骑手id随机五位数字，骑手经纬度写死，骑手状态offline，骑手类型delivery,未完成列表为空字符串）
         :return:
         """
-        for i in range(5):
-            self.courier_id += random.randint(0,9)
+
 
     def get_xy(self):
         """

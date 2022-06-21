@@ -2,6 +2,7 @@
 import datetime
 import random
 from study_project.test_api.test_public import Job
+from study_project.test_api.courier import Courier
 
 class Order(object):
     def __init__(self, order_id='', distance='', order_price=10.00, courier_id='',
@@ -20,8 +21,11 @@ class Order(object):
         10. 接单时间
         11. 完成时间
         """
+        self.order_id = ''
         for i in range(11):
-            self.order_id = self.order_id + random.randint(0, 9)
+            self.order_id = self.order_id + str(random.randint(0, 9))
+        self.user_location = user_location
+        self.shop_location = shop_location
         x = self.user_location.split(',')
         y = self.shop_location.split(',')
         self.distance = Job.distance_haversine_simple(x[0], x[0], y[0], y[1])
@@ -29,11 +33,9 @@ class Order(object):
         self.courier_id = courier_id
         self.order_status = order_status
         self.delivery_fee = Job.get_delivery_fee(distance)
-        self.user_location = user_location
-        self.shop_location = shop_location
-        self.create_time = create_time
-        self.accepted_time = accepted_time
-        self.completed_time = Job.get_time()
+        self.create_time = Job.get_time()
+        self.accepted_time = ''
+        self.completed_time = ''
 
 
 
@@ -81,3 +83,4 @@ class Order(object):
         self.courier_id = ''
         self.accepted_time = ''
         self.delivery_fee = ''
+        Courier.unassign_order(order_id=self.order_id)
