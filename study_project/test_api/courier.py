@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 # 1. 定义一个骑手类Courier
-import math
+import random
+
+from study_project.test_api.test_public import Job
+
 class Courier(object):
 
-    def __init__(self, courier_id='', location='', status='', uncompleted_order_id='', delivery_type=''):
+    def __init__(self, courier_id='', location='', status='', uncompleted_order_id='', delivery_type='',comleted_order_id=''):
         """
         1. 骑手id
         2. 骑手经纬度（逗号分割 lng,lat)
         3. 骑手状态 （online，offline)
         4. 骑手未完成订单id列表 （订单id逗号分割）
         5. 骑手类型 （delivery,shop_deliver)
+        6. 已完成订单列表 （订单id逗号分割）
         :param courier_id:
         :param location:
         :param status:
@@ -21,7 +25,15 @@ class Courier(object):
         self.status = ''
         self.uncompleted_order_id = ''
         self.delivery_type = ''
+        self.comleted_order_id = ''
 
+    def be_courier(self, courier_id='',courier_location='131.1111,1.111',status='offline',delivery_type='delivery',uncompleted_order_id=''):
+        """
+        1. 初始化方法 （即创建骑手，入参如下 骑手id随机五位数字，骑手经纬度写死，骑手状态offline，骑手类型delivery,未完成列表为空字符串）
+        :return:
+        """
+        for i in range(5):
+            self.courier_id += random.randint(0,9)
 
     def get_xy(self):
         """
@@ -60,23 +72,6 @@ class Courier(object):
         return self.status
 
 
-    @staticmethod
-    def distance_haversine_simple(lat1, lng1, lat2, lng2):
-        """
-        计算2个经纬度之间的直线距离（输入2个经纬度 输出距离） 参考下方代码计算
-        计算经纬度直线距离 （后面考虑多项式优化版本）
-        :param lng1:
-        :param lat2:
-        :param lng2:
-        :return:直线距离
-        """
-        dx = lng1 - lng2
-        dy = lat1 - lat2
-        b = (lat1 + lat2) / 2.0
-        lx = math.radians(dx) * 6367000.0 * math.cos(math.radians(b))
-        ly = 6367000.0 * math.radians(dy)
-        return math.sqrt(lx * lx + ly * ly)
-
     def get_uncompleted_order_list(self):
         """
         获取骑手未完成订单数
@@ -100,7 +95,7 @@ class Courier(object):
         """
         x = user_location.split(',')
         y = self.location.split(',')
-        distance = Courier.distance_haversine_simple(x[0],x[1],y[0],y[1])
+        distance = Job.distance_haversine_simple(x[0],x[1],y[0],y[1])
         if self.status != 'online':
             print('接单失败,骑手未上线')
         elif self.get_uncompleted_order_list() > 3:
