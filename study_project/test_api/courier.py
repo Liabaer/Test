@@ -127,3 +127,15 @@ class Courier(object):
                 print('完成订单id:' + order_id)
             else:
                 print('不存在该订单')
+
+    def unassign_order(self, order_id):
+        """
+        7. 撤单函数（传入需要撤销的订单id)
+            1. 未完成订单列表存在订单id
+            2. 满足以上条件则完成订单，并且将订单id从未完成列表中删除
+            3. 成功打印撤销订单id:xxx 成功，否则打印撤单失败
+        :param order_id:
+        :return:
+        """
+
+

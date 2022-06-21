@@ -25,3 +25,22 @@ class Job(object):
     def get_time():
         time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
         return time
+
+    @staticmethod
+    def get_delivery_fee(distance):
+        """
+        1. 配送费按照0-1000米收取5元，1000-2000米收取10元，超过2000米，每一千米按照20元收费。（不足1000米，算1000米）
+        :param distance:
+        :return:
+        """
+        if 0 <= distance <= 1000:
+            delivery_fee = 5
+        elif 1000 <= distance <= 2000:
+            delivery_fee = 10
+        else:
+            if distance%1000 != 0:
+                delivery_fee = 20*(distance%1000+1)
+            else:
+                delivery_fee = 20 * (distance % 1000)
+        return delivery_fee
+
