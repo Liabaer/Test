@@ -14,6 +14,10 @@ class Job(object):
         :param lng2:
         :return:直线距离
         """
+        lat1 = float(lat1)
+        lng1 = float(lng1)
+        lat2 = float(lat2)
+        lng2 = float(lng2)
         dx = lng1 - lng2
         dy = lat1 - lat2
         b = (lat1 + lat2) / 2.0

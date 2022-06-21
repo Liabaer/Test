@@ -2,11 +2,10 @@
 import datetime
 import random
 from study_project.test_api.test_public import Job
-from study_project.test_api.courier import Courier
+
 
 class Order(object):
-    def __init__(self, order_id='', distance='', order_price=10.00, courier_id='',
-                 order_status='pending', delivery_fee=0, user_location = '131.4547,1.474', shop_location = '131.9999,1.999', create_time=Job.get_time(), accepted_time='',completed_time=''):
+    def __init__(self, order_price=0, courier_id='', user_location='', shop_location=''):
         """
         1. 私有属性
         1. 订单id
@@ -31,14 +30,11 @@ class Order(object):
         self.distance = Job.distance_haversine_simple(x[0], x[0], y[0], y[1])
         self.order_price = order_price
         self.courier_id = courier_id
-        self.order_status = order_status
-        self.delivery_fee = Job.get_delivery_fee(distance)
+        self.order_status = 'pending'
+        self.delivery_fee = 0
         self.create_time = Job.get_time()
         self.accepted_time = ''
         self.completed_time = ''
-
-
-
 
     def accepted_order(self, courier_id='', delivery_fee=0):
         """
@@ -56,7 +52,6 @@ class Order(object):
         self.delivery_fee = delivery_fee
         self.accepted_time = Job.get_time()
 
-
     def completed_order(self):
         """
         3. 完成 （入参无）
@@ -67,8 +62,7 @@ class Order(object):
         self.order_status = 'completed'
         self.completed_time = Job.get_time()
 
-
-    def unassign(self, courier_id):
+    def unassign(self):
         """
         4. 取消分配（入参，取消分配的配送员对象）
             1. 修改订单的状态为pending
@@ -83,4 +77,3 @@ class Order(object):
         self.courier_id = ''
         self.accepted_time = ''
         self.delivery_fee = ''
-        Courier.unassign_order(order_id=self.order_id)
