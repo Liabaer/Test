@@ -29,8 +29,8 @@ class SendEmail(object):
         receive_email_list = receive_email
         # 创建邮件的内容
         msg = MIMEText(note, 'plain', _charset="utf-8")
-        msg['from'] = receive_name  # 这个key自定义发件人姓名
-        msg['to'] = 'yanxu'  # 这个key自定义制件人姓名
+        msg['from'] = '我是发件人'  # 这个key自定义发件人姓名
+        msg['to'] = receive_name  # 这个key自定义制件人姓名
         msg['subject'] = title  # 定制邮件的标题
         # 这里我们使用的是google的发邮件的中转站服务（相当于我们电脑投递到他这里，他再投递到其他邮件）
         server = smtplib.SMTP("smtp.gmail.com", 587)

@@ -4,24 +4,23 @@ import random
 
 from study_project.test_api.order import Order
 from study_project.test_api.test_public import Job
+from study_project.test_api.courier_package import CourierPackage
 
 
 class Courier(object):
 
     def __init__(self, courier_location='131.1111,1.111', delivery_type='delivery', uncompleted_order_id='',
-                 comleted_order_id=''):
+                 comleted_order_id='',courier_tag_id=[],couier_package=None,driver_type=[]):
         """
-        1. 骑手id
-        2. 骑手经纬度（逗号分割 lng,lat)
-        3. 骑手状态 （online，offline)
-        4. 骑手未完成订单id列表 （订单id逗号分割）
-        5. 骑手类型 （delivery,shop_deliver)
-        6. 已完成订单列表 （订单id逗号分割）
         :param courier_id:
-        :param location:
-        :param status:
-        :param uncompleted_order_id:
-        :param delivery_type:
+        :param location:骑手经纬度（逗号分割 lng,lat)
+        :param status: 骑手状态 （online，offline)
+        :param uncompleted_order_id:骑手未完成订单id列表 （订单id逗号分割）
+        :param delivery_type:骑手类型 （delivery,shop_deliver)
+        :param comleted_order_id:已完成订单列表 （订单id逗号分割）
+        :param courier_tag_id:骑手标签id
+        :param couier_package:骑手背包对象
+        :param driver_type: 车型 数字（1表示步行，2表示非机动车，3表示机动车）
         """
         self.courier_id = ''
         for i in range(5):
@@ -31,6 +30,9 @@ class Courier(object):
         self.uncompleted_order_id = uncompleted_order_id
         self.delivery_type = delivery_type
         self.comleted_order_id = comleted_order_id
+        self.courier_tag_id = courier_tag_id
+        self.driver_type = [1, 2, 3]
+        self.couier_package = couier_package
 
 
     def get_location(self):
@@ -68,6 +70,36 @@ class Courier(object):
             self.status = 'online'
         return self.status
 
+    def add_courier_tag(self,tag_id):
+        """
+        新增配送员标签
+        :param tag_id:
+        :return:
+        """
+        if tag_id not in self.courier_tag_id:
+            self.courier_tag_id.append(tag_id)
+        else:
+            print('该标签已经存在')
+
+    def del_courier_tag(self, tag_id):
+        """
+        删除配送员标签
+        :param tag_id:
+        :return:
+        """
+        if tag_id in self.courier_tag_id:
+            self.courier_tag_id.remove(tag_id)
+        else:
+            print('该标签不存在')
+
+    def update_courier_package(self, package_id):
+        if self.couier_package is None:
+            self.couier_package == package_id
+            print('设置成功')
+        else:
+            self.couier_package == package_id
+            print('修改成功')
+
     def get_uncompleted_order_list(self):
         """
         获取骑手未完成订单数
@@ -75,6 +107,22 @@ class Courier(object):
         """
         list_lenth = self.uncompleted_order_id.split(',')
         return len(list_lenth)
+
+    def isable_get_order(self,order=None):
+        """
+         能否接单
+         1. 骑手状态等于online
+         2. 未完成订单数小于当前配置的背包对象
+         3. 骑手类型等于delivery
+        :param order:入参 订单对象
+        :return:
+        """
+        un_order_list = self.uncompleted_order_id.split(',')
+        if self.status == 'online' and len(self.couier_package ) > len(un_order_list) and self.delivery_type=='delivery':
+            return True
+        else:
+            return False
+
 
     def get_order(self, user_location='', order=None):
         """
