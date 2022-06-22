@@ -94,10 +94,10 @@ class Courier(object):
 
     def update_courier_package(self, package):
         if self.couier_package is None:
-            self.couier_package = package.package_id
+            self.couier_package = package
             print('设置成功')
         else:
-            self.couier_package = package.package_id
+            self.couier_package = package
             print('修改成功')
 
     def get_uncompleted_order_list(self):
@@ -146,10 +146,12 @@ class Courier(object):
         x = user_location.split(',')
         y = self.courier_location.split(',')
         distance = Job.distance_haversine_simple(x[0], x[1], y[0], y[1])
-
+        res = self.isable_get_order(order)
+        # res = Courier()
+        # res.isable_get_order(order)
         if distance > 3000:
             print('接单失败,距离大于3000米')
-        else:
+        elif res:
             self.uncompleted_order_id = self.uncompleted_order_id + ',' + order.order_id
             print('接单成功，接单ID为' + order.order_id)
             order.accepted_order(self.courier_id, Job.get_delivery_fee(order.distance))
