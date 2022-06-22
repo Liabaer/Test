@@ -31,8 +31,8 @@ class Courier(object):
         self.delivery_type = delivery_type
         self.comleted_order_id = comleted_order_id
         self.courier_tag_id = courier_tag_id
-        self.driver_type = [1, 2, 3]
-        self.couier_package = couier_package
+        self.driver_type = driver_type
+        self.courier_package = couier_package
 
 
     def get_location(self):
@@ -92,12 +92,12 @@ class Courier(object):
         else:
             print('该标签不存在')
 
-    def update_courier_package(self, package_id):
+    def update_courier_package(self, package):
         if self.couier_package is None:
-            self.couier_package == package_id
+            self.couier_package = package.package_id
             print('设置成功')
         else:
-            self.couier_package == package_id
+            self.couier_package = package.package_id
             print('修改成功')
 
     def get_uncompleted_order_list(self):
@@ -117,11 +117,17 @@ class Courier(object):
         :param order:入参 订单对象
         :return:
         """
-        un_order_list = self.uncompleted_order_id.split(',')
-        if self.status == 'online' and len(self.couier_package ) > len(un_order_list) and self.delivery_type=='delivery':
-            return True
-        else:
+        if self.status != 'online':
+            print('接单失败,骑手未上线')
             return False
+        elif self.get_uncompleted_order_list() > self.courier_package.package_param.get(self.driver_type):
+            print('接单失败,未完成订单数量大于背包数')
+            return False
+        elif self.delivery_type != 'delivery':
+            print('接单失败,骑手类型不匹配')
+            return False
+        else:
+            return True
 
 
     def get_order(self, user_location='', order=None):
@@ -140,13 +146,8 @@ class Courier(object):
         x = user_location.split(',')
         y = self.courier_location.split(',')
         distance = Job.distance_haversine_simple(x[0], x[1], y[0], y[1])
-        if self.status != 'online':
-            print('接单失败,骑手未上线')
-        elif self.get_uncompleted_order_list() > 3:
-            print('接单失败,未完成订单数量大于3')
-        elif self.delivery_type != 'delivery':
-            print('接单失败,骑手类型不匹配')
-        elif distance > 3000:
+
+        if distance > 3000:
             print('接单失败,距离大于3000米')
         else:
             self.uncompleted_order_id = self.uncompleted_order_id + ',' + order.order_id
