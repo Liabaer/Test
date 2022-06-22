@@ -2,10 +2,11 @@
 import datetime
 import random
 from study_project.test_api.test_public import Job
+from study_project.test_api.email_utils import SendEmail
 
 
 class Order(object):
-    def __init__(self, order_price=0, courier_id='', user_location='', shop_location=''):
+    def __init__(self, order_price=0, courier_id='', user_location='', shop_location='',email='',shop_tag_id=[]):
         """
         1. 私有属性
         1. 订单id
@@ -35,6 +36,42 @@ class Order(object):
         self.create_time = Job.get_time()
         self.accepted_time = ''
         self.completed_time = ''
+        self.email = email
+        self.shop_tag_id = shop_tag_id
+
+
+    def update_email(self, email):
+        """
+         修改邮箱
+        :param email:
+        :return:
+        """
+        self.email = email
+        return self.email
+
+    def add_shop_tag(self, tag_id):
+        """
+        新增商家标签id
+        :param tag_id:
+        :return:
+        """
+        if tag_id not in self.shop_tag_id:
+            self.shop_tag_id.append(tag_id)
+        else:
+            print('该标签已经存在')
+
+    def del_shop_tag(self, tag_id):
+        """
+        删除商家标签id
+        :param tag_id:
+        :return:
+        """
+        if tag_id in self.shop_tag_id:
+            self.shop_tag_id.remove(tag_id)
+        else:
+            print('该标签不存在')
+
+
 
     def accepted_order(self, courier_id='', delivery_fee=0):
         """
@@ -51,6 +88,10 @@ class Order(object):
         self.courier_id = courier_id
         self.delivery_fee = delivery_fee
         self.accepted_time = Job.get_time()
+        SendEmail.send_msg_email(self.order_id, self.email,
+                                 title='订单：'+self.order_id+'已接单',
+                                 note='订单id'+self.order_id+'于'+self.accepted_time+'已接单，准备开始配送')
+
 
     def completed_order(self):
         """
@@ -61,6 +102,9 @@ class Order(object):
         """
         self.order_status = 'completed'
         self.completed_time = Job.get_time()
+        SendEmail.send_msg_email(self.order_id, self.email,
+                                 title='订单：' + self.order_id + '已完成',
+                                 note='订单id' + self.order_id + '于' + self.accepted_time + '完成')
 
     def unassign(self):
         """
