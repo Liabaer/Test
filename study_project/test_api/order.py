@@ -6,7 +6,7 @@ from study_project.test_api.email_utils import SendEmail
 
 
 class Order(object):
-    def __init__(self, order_price=0, courier_id='', user_location='', shop_location='',email='',shop_tag_id=[]):
+    def __init__(self, order_price=0, courier_id='', user_location='', shop_location='',email=[],shop_tag_id=[]):
         """
         1. 私有属性
         1. 订单id
