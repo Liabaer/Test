@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from study_project.test_api.courier import Courier
+from study_project.test_api.courier_package import CourierPackage
 from study_project.test_api.order import Order
 from study_project.test_api.test_public import Job
 
@@ -42,13 +43,14 @@ class AutoDispatch(object):
             if min_courier is not None:
                 min_courier.get_order(user_location=order.user_location,order=order)
 
-
-courier = Courier(courier_location='131.2222,1.444', couier_package=3, courier_tag_id=[1])
-print(courier)
+courier_package = CourierPackage(package_name='测试背包',package_param={1:3,2:4})
+courier = Courier(courier_location='131.2222,1.444', courier_package=courier_package, courier_tag_id=[1])
+# print(courier)
 order = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999', shop_tag_id=[1])
-print(order)
+# print(order)
 
-
+courier.update_status()
+print(courier.isable_get_order(order))
 
 
 

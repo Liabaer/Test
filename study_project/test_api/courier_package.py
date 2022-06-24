@@ -14,7 +14,7 @@ class CourierPackage(object):
         for i in range(4):
             self.package += str(random.randint(0,9))
         self.package_name = package_name
-        self.package_pram = package_param
+        self.package_param = package_param
 
     def update_package_param(self, new_param):
         """

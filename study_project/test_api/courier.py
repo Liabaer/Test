@@ -10,7 +10,7 @@ from study_project.test_api.courier_package import CourierPackage
 class Courier(object):
 
     def __init__(self, courier_location='131.1111,1.111', delivery_type='delivery', uncompleted_order_id='',
-                 comleted_order_id='',courier_tag_id=[],couier_package=None,driver_type=[]):
+                 comleted_order_id='',courier_tag_id=[], courier_package: CourierPackage = None, driver_type: int = 1):
         """
         :param courier_id:
         :param location:骑手经纬度（逗号分割 lng,lat)
@@ -32,7 +32,7 @@ class Courier(object):
         self.comleted_order_id = comleted_order_id
         self.courier_tag_id = courier_tag_id
         self.driver_type = driver_type
-        self.courier_package = couier_package
+        self.courier_package = courier_package
 
 
     def get_location(self):
@@ -198,19 +198,19 @@ class Courier(object):
             print('无可操作订单')
 
 
-courier = Courier(courier_location='131.2222,1.444')
-print(courier.courier_id)
-order = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999')
-print(order.order_id)
-courier.update_status()
-courier.update_location('131.3333,1.2222')
-courier.get_order(user_location='131.3333,1.2222', order=order)
-print(courier.uncompleted_order_id)
-print(order.courier_id, order.order_status, order.delivery_fee)
-# courier.unassign_order(order)
+# courier = Courier(courier_location='131.2222,1.444')
+# print(courier.courier_id)
+# order = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999')
+# print(order.order_id)
+# courier.update_status()
+# courier.update_location('131.3333,1.2222')
+# courier.get_order(user_location='131.3333,1.2222', order=order)
 # print(courier.uncompleted_order_id)
-# print(order.courier_id,order.order_status)
-order1 = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999')
-courier.get_order(user_location='131.3333,1.2222', order=order1)
-courier.completed_order(order1)
-print(order1.order_status, courier.comleted_order_id, courier.uncompleted_order_id, order.delivery_fee)
+# print(order.courier_id, order.order_status, order.delivery_fee)
+# # courier.unassign_order(order)
+# # print(courier.uncompleted_order_id)
+# # print(order.courier_id,order.order_status)
+# order1 = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999')
+# courier.get_order(user_location='131.3333,1.2222', order=order1)
+# courier.completed_order(order1)
+# print(order1.order_status, courier.comleted_order_id, courier.uncompleted_order_id, order.delivery_fee)

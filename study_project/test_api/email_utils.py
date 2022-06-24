@@ -22,9 +22,9 @@ class SendEmail(object):
         # 首先登录发件邮件，然后使用邮件中转站进行转发邮件
         # 具体流程如下
         # 创建发邮件的邮箱（我创建的公共邮箱，不用怕上传）
-        send_email = 'tt@advx.xyz'
+        send_email = 'a1157790064@gmail.com'
         # 对应的密码（这个不是登录密码，如果发件的是google email的话就要去配置这个密码）
-        send_email_password = 'yblisleuedhnqmwo'
+        send_email_password = 'pcdsxhjzuhjimbsm'
         # 收件人列表
         receive_email_list = receive_email
         # 创建邮件的内容
@@ -43,4 +43,4 @@ class SendEmail(object):
         server.quit()
 
 
-SendEmail.send_msg_email(receive_name='liabaer', receive_email=['RenaTuT0401@gmail.com'], title='这里是标标标题', note='这里是正文正文正文')
+# SendEmail.send_msg_email(receive_name='liabaer', receive_email=['RenaTuT0401@gmail.com'], title='这里是标标标题', note='这里是正文正文正文')
