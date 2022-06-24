@@ -32,7 +32,7 @@ class Order(object):
         self.order_price = order_price
         self.courier_id = courier_id
         self.order_status = 'pending'
-        self.delivery_fee = 0
+        self.delivery_fee = 0.00
         self.create_time = Job.get_time()
         self.accepted_time = ''
         self.completed_time = ''

@@ -10,7 +10,7 @@ from study_project.test_api.courier_package import CourierPackage
 class Courier(object):
 
     def __init__(self, courier_location='131.1111,1.111', delivery_type='delivery', uncompleted_order_id='',
-                 comleted_order_id='',courier_tag_id=[], courier_package: CourierPackage = None, driver_type: int = 1):
+                 comleted_order_id='', courier_tag_id= [], courier_package: CourierPackage = None, driver_type: int = 1):
         """
         :param courier_id:
         :param location:骑手经纬度（逗号分割 lng,lat)
