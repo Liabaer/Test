@@ -28,26 +28,19 @@ class AutoDispatch(object):
             min_courier = None
             for courier in couriers:
                 print('000')
+                flag = False
                 if courier.isable_get_order(order) == True:
                     # 单的商家标签id为1可以分配给骑手标签为1或者2或者3的骑手
                     if 1 in order.shop_tag_id and set(courier.courier_tag_id) & {1, 2, 3}:
-                        dis1 = order.shop_location.split(',')
-                        dis2 = courier.courier_location.split(',')
-                        temp = Job.distance_haversine_simple(dis1[0], dis1[1], dis2[0], dis2[1])
-                        if temp < min_dis:
-                            min_dis = temp
-                            min_courier = courier
                         print('111', min_courier)
+                        flag =True
                     if 2 in order.shop_tag_id and courier.courier_id == 3252:
-                        dis1 = order.shop_location.split(',')
-                        dis2 = courier.courier_location.split(',')
-                        temp = Job.distance_haversine_simple(dis1[0], dis1[1], dis2[0], dis2[1])
-                        if temp < min_dis:
-                            min_dis = temp
-                            min_courier = courier
                         print('222', min_courier)
+                        flag = True
                     if (order.shop_tag_id is None):
                         print('333', min_courier)
+                        flag = True
+                    if flag:
                         # 这里找到对于每个订单来说最近的那个骑手(最近指的是订单的商家距离到骑手距离最近）
                         dis1 = order.shop_location.split(',')
                         dis2 = courier.courier_location.split(',')
@@ -55,8 +48,10 @@ class AutoDispatch(object):
                         if temp < min_dis:
                             min_dis = temp
                             min_courier = courier
+
                 else:
                     continue
+
             if min_courier is not None:
                 min_courier.get_order(user_location=order.user_location, order=order)
                 print('骑手id:' + min_courier.courier_id + '接单中')
