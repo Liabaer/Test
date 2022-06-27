@@ -10,6 +10,7 @@ class CourierService(object):
         MysqlClient.db.execute("insert into courier(id) values (%s,%s,%s,%s,%s,%s,%s)",
                                (courier.id,courier.status,courier.delivery_type,courier.courier_location,
                                 courier.create_time,courier.last_online_time,courier.courier_email))
+
         print('注册成功，注册的骑手id：'+str(courier.courier_id))
 
 
