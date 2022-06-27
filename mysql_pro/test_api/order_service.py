@@ -25,7 +25,7 @@ class OrderService(object):
         connection.commit()
 
         # 下单成功通知用户邮件
-        SendEmail.send_msg_email(receive_name=order.user_email.split('@')[0], receive_email=order.user_email,
+        SendEmail.send_msg_email(receive_name=order.user_email.split('@')[0], receive_email=[order.user_email],
                                  title='下单成功', note='于' + order.create_time + '时间下单成功')
 
     @staticmethod
@@ -42,7 +42,7 @@ class OrderService(object):
         db.execute("select distance from `order` where id = %s",(order_id))
         res = db.fetchone()
         # 调用方法计算配送费
-        fee = Job.get_delivery_fee(distance=res)
+        fee = Job.get_delivery_fee(distance=res['distance'])
         # 1,状态修改为accepted 2. courier_id修改为接单id 3. 配送费修改为实际配送费 4. 修改接单时间为当前时间
         db.execute("update `order` set status = %s, courier_id=%s, delivery_fee=%s where id = %s",('accepted',order_id,courier_id,fee))
 
@@ -56,6 +56,6 @@ class OrderService(object):
         res = db.fetchall()
         uncompleted_list = []
         for i in res:
-            uncompleted_list.append(i[id])
+            uncompleted_list.append(str(i['id']))
         return ','.join(uncompleted_list)
 
