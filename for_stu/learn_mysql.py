@@ -15,6 +15,7 @@ db.execute("select * from t_order")
 # db.execute("select * from t_order")
 # # 获取执行sql的第一条结果
 # result = db.fetchone()
+# db.fetchone()这个是获取一条结果， db.fetchall()这个是获取查出来的所有结果。
 # # 结果是一个字典
 # print(result)
 # #
