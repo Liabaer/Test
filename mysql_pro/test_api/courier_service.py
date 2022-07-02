@@ -9,14 +9,13 @@ from mysql_pro.test_api.mysql_Courier import MySQLCourier
 from study_project.test_api.email_utils import SendEmail
 from study_project.test_api.test_public import Job
 from mysql_pro.test_api.order_service import OrderService
+from mysql_pro.test_api.redis import RedisClient
+
 
 class CourierService(object):
-    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
-    redis_client = redis.Redis(connection_pool=pool)
 
     @staticmethod
     def register_courier(courier: MySQLCourier):
-
 
         """
         创建新骑手
@@ -37,7 +36,8 @@ class CourierService(object):
         # 自增长id
         print('注册成功，注册的骑手id：' + str(db.lastrowid))
         # 发送邮件通知骑手注册成功
-        SendEmail.send_msg_email(receive_name=courier.courier_email.split('@')[0], receive_email=[courier.courier_email],
+        SendEmail.send_msg_email(receive_name=courier.courier_email.split('@')[0],
+                                 receive_email=[courier.courier_email],
                                  title='骑手注册成功', note='于' + courier.create_time + '时间注册成功')
 
     @staticmethod
@@ -53,9 +53,9 @@ class CourierService(object):
         # 执行sql 查询数据库表该订单id的数据
         db.execute("select * from `order` where id = %s", (order_id))
         # 获取结果（结果是字典）
-        res = db.fetchall()
+        res = db.fetchone()
         # 满足以下条件则接单成功，失败打印具体的失败原因
-        uncompleted_order = {}
+        # uncompleted_order = {}
         if res is not None:
             x = res.get('user_location').split(',')
             y = courier.courier_location.split(',')
@@ -70,11 +70,12 @@ class CourierService(object):
                 # 调用订单接单方法
                 OrderService.accept_order(order_id, courier.courier_id)
                 print('接单成功')
-                uncompleted_order.pop(order_id)
+                RedisClient.create_redis_client().sadd('courier_uncompleted_order_' + str(courier.courier_id), order_id)
+                RedisClient.create_redis_client().expire('courier_uncompleted_order_' + str(courier.courier_id), 3600)
+
         else:
             print('订单不存在')
-        uncompleted_order_info = json.dumps(uncompleted_order)
-        CourierService.redis_client.set('courier_uncompleted_order_{courier_id}', uncompleted_order_info, ex=3600)
+        # uncompleted_order_info = json.dumps(uncompleted_order)
 
     @staticmethod
     def get_courier_online_list():
@@ -88,14 +89,13 @@ class CourierService(object):
         courier_online_list = []
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
-        db.execute("select * from courier where status = %s",('online'))
+        db.execute("select * from courier where status = %s", ('online'))
         res = db.fetchall()
         # res 没有limit，所以是个数组，循环这个数组，i是字典
         for i in res:
             # 查出来的都是在线的，所以直接通过字典[key]查出对应的value
             courier_online_list.append(i['id'])
         return courier_online_list
-
 
     @staticmethod
     def updata_courier_status(courier_id):
@@ -108,26 +108,23 @@ class CourierService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("select * from courier where  id = %s", (courier_id))
-        res = db.fetchall()
-        courier = {}
+        res = db.fetchone()
+        # courier = {}
         # 修改骑手的状态
         if res['status'] == "online":
-            db.execute("update courier set status=%s",('offline'))
+            db.execute("update courier set status=%s where id = %s", ('offline', courier_id))
         else:
-            db.execute("update courier set status=%s", ('online'))
-            courier.pop(courier_id)
+            db.execute("update courier set status=%s where id = %s", ('online', courier_id))
+            RedisClient.create_redis_client().sadd("courier_online_list", courier_id)
+            RedisClient.create_redis_client().expire("courier_online_list", 86400)
 
-
-        courier_online = json.dumps(courier)
-        CourierService.redis_client.set("courier_online_list", courier_online, ex=86400)
-
-        courier_data = {'id': res['id'],'courier_email':res['courier_email'],'create_time':res['create_time'],'delivery_type':res['delivery_type'],'courier_location':res['courier_location']}
-        courier_info = json.dumps(courier_data)
-        CourierService.redis_client.set("courier_cache_data_{courier_id}", courier_info, ex=86400)
-
+            courier_data = {'id': res['id'], 'courier_email': res['courier_email'], 'create_time': res['create_time'],
+                            'delivery_type': res['delivery_type'], 'courier_location': res['courier_location']}
+            courier_info = json.dumps(courier_data)
+            RedisClient.create_redis_client().set("courier_cache_data_" + str(courier_id), courier_info, ex=86400)
 
     @staticmethod
-    def start_delivery(courier,order_id):
+    def start_delivery(courier, order_id):
         """
         始配送函数
         :param courier:骑手对象
@@ -150,22 +147,21 @@ class CourierService(object):
         res = db.fetchall()
         if res['status'] == 'accept' and courier.courier_id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
-            CourierService.redis_client.get('courier_uncompleted_order_{}')
+            # 存的是集合，我们就用srem(key,  data)把这data从这个key的集合中移出
+            RedisClient.create_redis_client().srem('courier_uncompleted_order_' + str(courier.courier_id), order_id)
 
     @staticmethod
     def get_courier_online():
-        res = CourierService.redis_client.get('courier_online_list')
-        return res.split(',')
-
+        res = RedisClient.create_redis_client().smembers('courier_online_list')
+        return ','.join(res)
 
     @staticmethod
     def get_courier_info(courier_id):
-        CourierService.redis_client.get('')
+        res = RedisClient.create_redis_client().get("courier_cache_data_" + str(courier_id))
+        return ','.join(res)
 
-
-
-
-
-
-
-
+    @staticmethod
+    def get_uncompleted_order(courier):
+        # smembers获取数据，返回一个set集合
+        res = RedisClient.create_redis_client().smembers('courier_uncompleted_order_' + str(courier.courier_id))
+        return ','.join(res)
