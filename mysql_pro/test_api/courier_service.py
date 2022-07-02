@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
+
 import pymysql.cursors
+import redis
 
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.mysql_Courier import MySQLCourier
@@ -8,9 +11,13 @@ from study_project.test_api.test_public import Job
 from mysql_pro.test_api.order_service import OrderService
 
 class CourierService(object):
+    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
+    redis_client = redis.Redis(connection_pool=pool)
 
     @staticmethod
     def register_courier(courier: MySQLCourier):
+
+
         """
         创建新骑手
         :param courier: 骑手对象
@@ -46,8 +53,9 @@ class CourierService(object):
         # 执行sql 查询数据库表该订单id的数据
         db.execute("select * from `order` where id = %s", (order_id))
         # 获取结果（结果是字典）
-        res = db.fetchone()
+        res = db.fetchall()
         # 满足以下条件则接单成功，失败打印具体的失败原因
+        uncompleted_order = {}
         if res is not None:
             x = res.get('user_location').split(',')
             y = courier.courier_location.split(',')
@@ -62,8 +70,11 @@ class CourierService(object):
                 # 调用订单接单方法
                 OrderService.accept_order(order_id, courier.courier_id)
                 print('接单成功')
+                uncompleted_order.pop(order_id)
         else:
             print('订单不存在')
+        uncompleted_order_info = json.dumps(uncompleted_order)
+        CourierService.redis_client.set('courier_uncompleted_order_{courier_id}', uncompleted_order_info, ex=3600)
 
     @staticmethod
     def get_courier_online_list():
@@ -84,3 +95,77 @@ class CourierService(object):
             # 查出来的都是在线的，所以直接通过字典[key]查出对应的value
             courier_online_list.append(i['id'])
         return courier_online_list
+
+
+    @staticmethod
+    def updata_courier_status(courier_id):
+        """
+        切换上下线（新增函数 传入骑手id)
+        :param courier_id:
+        :return:
+        """
+        # 链接数据库，查询骑手的状态
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.Cursor)
+        db.execute("select * from courier where  id = %s", (courier_id))
+        res = db.fetchall()
+        courier = {}
+        # 修改骑手的状态
+        if res['status'] == "online":
+            db.execute("update courier set status=%s",('offline'))
+        else:
+            db.execute("update courier set status=%s", ('online'))
+            courier.pop(courier_id)
+
+
+        courier_online = json.dumps(courier)
+        CourierService.redis_client.set("courier_online_list", courier_online, ex=86400)
+
+        courier_data = {'id': res['id'],'courier_email':res['courier_email'],'create_time':res['create_time'],'delivery_type':res['delivery_type'],'courier_location':res['courier_location']}
+        courier_info = json.dumps(courier_data)
+        CourierService.redis_client.set("courier_cache_data_{courier_id}", courier_info, ex=86400)
+
+
+    @staticmethod
+    def start_delivery(courier,order_id):
+        """
+        始配送函数
+        :param courier:骑手对象
+        :param order_id:
+        :return:
+        """
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.Cursor)
+        db.execute("select courier_id from `order` where  id = %s", (order_id))
+        res = db.fetchone()
+        if courier.courier_id == res['courier_id']:
+            # 调用订单服务类的开始配送的订单方法
+            pass
+
+    @staticmethod
+    def complete_delivery(courier, order_id):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.Cursor)
+        db.execute("select * from `order` where  id = %s", (order_id))
+        res = db.fetchall()
+        if res['status'] == 'accept' and courier.courier_id == res['courier_id']:
+            # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
+            CourierService.redis_client.get('courier_uncompleted_order_{}')
+
+    @staticmethod
+    def get_courier_online():
+        res = CourierService.redis_client.get('courier_online_list')
+        return res.split(',')
+
+
+    @staticmethod
+    def get_courier_info(courier_id):
+        CourierService.redis_client.get('')
+
+
+
+
+
+
+
+
