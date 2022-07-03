@@ -41,7 +41,7 @@ class CourierService(object):
                                  title='骑手注册成功', note='于' + courier.create_time + '时间注册成功')
 
     @staticmethod
-    def get_order(courier, order_id):
+    def get_order(courier:MySQLCourier, order_id):
         """
          接单
         :param courier:骑手对象
@@ -68,10 +68,10 @@ class CourierService(object):
                 print('接单失败，骑手距离商家距离大于3000米')
             else:
                 # 调用订单接单方法
-                OrderService.accept_order(order_id, courier.courier_id)
+                OrderService.accept_order(order_id, courier.id)
                 print('接单成功')
-                RedisClient.create_redis_client().sadd('courier_uncompleted_order_' + str(courier.courier_id), order_id)
-                RedisClient.create_redis_client().expire('courier_uncompleted_order_' + str(courier.courier_id), 3600)
+                RedisClient.create_redis_client().sadd('courier_uncompleted_order_' + str(courier.id), order_id)
+                RedisClient.create_redis_client().expire('courier_uncompleted_order_' + str(courier.id), 3600)
 
         else:
             print('订单不存在')
@@ -113,6 +113,8 @@ class CourierService(object):
         # 修改骑手的状态
         if res['status'] == "online":
             db.execute("update courier set status=%s where id = %s", ('offline', courier_id))
+            RedisClient.create_redis_client().srem("courier_online_list",courier_id)
+            RedisClient.create_redis_client().srem("courier_cache_data_" + str(courier_id))
         else:
             db.execute("update courier set status=%s where id = %s", ('online', courier_id))
             RedisClient.create_redis_client().sadd("courier_online_list", courier_id)
@@ -124,7 +126,7 @@ class CourierService(object):
             RedisClient.create_redis_client().set("courier_cache_data_" + str(courier_id), courier_info, ex=86400)
 
     @staticmethod
-    def start_delivery(courier, order_id):
+    def start_delivery(courier:MySQLCourier, order_id):
         """
         始配送函数
         :param courier:骑手对象
@@ -135,21 +137,21 @@ class CourierService(object):
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("select courier_id from `order` where  id = %s", (order_id))
         res = db.fetchone()
-        if courier.courier_id == res['courier_id']:
+        if courier.id == res['courier_id']:
             # 调用订单服务类的开始配送的订单方法
             pass
 
     @staticmethod
-    def complete_delivery(courier, order_id):
+    def complete_delivery(courier:MySQLCourier, order_id):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("select * from `order` where  id = %s", (order_id))
         res = db.fetchall()
-        if res['status'] == 'accept' and courier.courier_id == res['courier_id']:
+        if res['status'] == 'accept' and courier.id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
             OrderService.complete_order(order_id)
             # 存的是集合，我们就用srem(key,  data)把这data从这个key的集合中移出
-            RedisClient.create_redis_client().srem('courier_uncompleted_order_' + str(courier.courier_id), order_id)
+            RedisClient.create_redis_client().srem('courier_uncompleted_order_' + str(courier.id), order_id)
 
     @staticmethod
     def get_courier_online():
@@ -162,7 +164,7 @@ class CourierService(object):
         return ','.join(res)
 
     @staticmethod
-    def get_uncompleted_order(courier):
+    def get_uncompleted_order(courier:MySQLCourier):
         # smembers获取数据，返回一个set集合
-        res = RedisClient.create_redis_client().smembers('courier_uncompleted_order_' + str(courier.courier_id))
+        res = RedisClient.create_redis_client().smembers('courier_uncompleted_order_' + str(courier.id))
         return ','.join(res)
