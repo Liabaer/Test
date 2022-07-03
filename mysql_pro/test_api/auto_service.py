@@ -7,13 +7,14 @@ from mysql_pro.test_api.mysql_Courier import MySQLCourier
 from mysql_pro.test_api.mysql_order import MysqlOrder
 from study_project.test_api.test_public import Job
 
+
 class AutoService(object):
     @staticmethod
     def auto_service():
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         # 1. 查找order表里面状态是待分配的订单，以及assign_type是1的订单，组成成订单列表
-        db.execute("select * from `order` where status=%s and assign_type=%s",('pending',1))
+        db.execute("select * from `order` where status=%s and assign_type=%s", ('pending', 1))
         res = db.fetchall()
         order_list = [x for x in res]
         #  2. 查找在线骑手列表（从redis中读取）
@@ -27,16 +28,17 @@ class AutoService(object):
             courier_list.append(courier_online_cache)
 
         # 1. 找到对于每个订单来说最近的那个骑手(最近指的是订单的商家距离到骑手距离最近），并且满足以下条件则直接分配订单
-            # 1. 未完成订单数小于5（这里要查询骑手的未完成订单缓存）
-            # 2. 骑手距离用户距离小于5000米
-            # 3. 骑手在线（骑手肯定是在线的所以不用判断）
-            # 4. 骑手的delivery_type为delivery
-            # 5. 满足以上条件，则调用接单
+        # 1. 未完成订单数小于5（这里要查询骑手的未完成订单缓存）
+        # 2. 骑手距离用户距离小于5000米
+        # 3. 骑手在线（骑手肯定是在线的所以不用判断）
+        # 4. 骑手的delivery_type为delivery
+        # 5. 满足以上条件，则调用接单
 
         for i in courier_list:
-            courier = MySQLCourier(id=i['id'],courier_email=i['courier_email'],create_time=i['create_time'],delivery_type=i['delivery_type'],courier_location=i['courier_location'])
+            courier = MySQLCourier(id=i['id'], courier_email=i['courier_email'], create_time=i['create_time'],
+                                   delivery_type=i['delivery_type'], courier_location=i['courier_location'])
             x1 = courier.courier_location.split(',')[0]
-            x2 = courier.courier_location.split(',')[0]
+            x2 = courier.courier_location.split(',')[1]
             min_distance = 5000
             flag = False
             for j in order_list:
@@ -49,9 +51,9 @@ class AutoService(object):
                 if shop_distance < min_distance:
                     min_distance = shop_distance
                     flag = True
-                user_distance= Job.distance_haversine_simple(x1,x2,z1,z2)
+                user_distance = Job.distance_haversine_simple(x1, x2, z1, z2)
                 temp = CourierService.get_uncompleted_order(courier.id)
-                courier_uncomplete_order =temp.split(',')
+                courier_uncomplete_order = temp.split(',')
                 if len(courier_uncomplete_order) > 5:
                     print('未完成订单数超过5')
                     continue
@@ -60,17 +62,11 @@ class AutoService(object):
                     continue
                 elif user_distance > 5000:
                     print('骑手距离用户距离大于5000米')
+                    continue
                 elif flag:
                     print('找到骑手')
-                    CourierService.get_order(courier,order.id)
+                    CourierService.get_order(courier, order.id)
                 else:
                     # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
-                    db.execute("update `order` set assign_type=%s where id =%s",(0,order.id))
+                    db.execute("update `order` set assign_type=%s where id =%s", (0, order.id))
                     connection.commit()
-
-
-
-
-
-
-

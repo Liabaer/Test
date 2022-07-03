@@ -12,4 +12,5 @@ class ReadCsv(object):
             # i是每一列csv的数组
             res.append(i)
         f.close()
-        return res
+        # 第一行是标题不要
+        return res[1:]

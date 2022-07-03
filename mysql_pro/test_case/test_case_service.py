@@ -13,23 +13,23 @@ from mysql_pro.test_api.mysql_api import MysqlClient
 
 class TestCaseService(object):
     @staticmethod
-    def generate_order():
-        res = ReadCsv.read_csv('create_order.csv')
+    def generate_order(url='create_order.csv'):
+        res = ReadCsv.read_csv(url)
         for i in res:
             order = MysqlOrder(user_email=i[0], user_location=i[1], shop_location=i[2], order_price=i[3],
                                assign_type=i[4])
             OrderService.insert_order(order)
 
     @staticmethod
-    def generate_courier():
-        res = ReadCsv.read_csv('register.csv')
+    def generate_courier(url='register.csv'):
+        res = ReadCsv.read_csv(url)
         for i in res:
             courier = MySQLCourier(courier_email=i[0], delivery_type=i[1], courier_location=i[2])
             CourierService.register_courier(courier)
 
     @staticmethod
-    def update_order_info():
-        res = ReadCsv.read_csv('update_order_status.csv')
+    def update_order_info(url='update_order_status.csv'):
+        res = ReadCsv.read_csv(url)
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         for i in res:
