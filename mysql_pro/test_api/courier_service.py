@@ -98,7 +98,7 @@ class CourierService(object):
         return courier_online_list
 
     @staticmethod
-    def updata_courier_status(courier_id):
+    def update_courier_status(courier_id):
         """
         切换上下线（新增函数 传入骑手id)
         :param courier_id:
@@ -113,8 +113,9 @@ class CourierService(object):
         # 修改骑手的状态
         if res['status'] == "online":
             db.execute("update courier set status=%s where id = %s", ('offline', courier_id))
+            # （set ,delete,get） （sadd,srem, smembers）   set进去的就用delete删除   sadd进去的就用srem删除
             RedisClient.create_redis_client().srem("courier_online_list",courier_id)
-            RedisClient.create_redis_client().srem("courier_cache_data_" + str(courier_id))
+            RedisClient.create_redis_client().delete("courier_cache_data_" + str(courier_id))
         else:
             db.execute("update courier set status=%s where id = %s", ('online', courier_id))
             RedisClient.create_redis_client().sadd("courier_online_list", courier_id)
@@ -124,11 +125,12 @@ class CourierService(object):
                             'delivery_type': res['delivery_type'], 'courier_location': res['courier_location']}
             courier_info = json.dumps(courier_data)
             RedisClient.create_redis_client().set("courier_cache_data_" + str(courier_id), courier_info, ex=86400)
+        connection.commit()
 
     @staticmethod
     def start_delivery(courier:MySQLCourier, order_id):
         """
-        始配送函数
+        开始配送函数
         :param courier:骑手对象
         :param order_id:
         :return:
@@ -139,14 +141,21 @@ class CourierService(object):
         res = db.fetchone()
         if courier.id == res['courier_id']:
             # 调用订单服务类的开始配送的订单方法
-            pass
+            OrderService.start_delivery(order_id)
 
     @staticmethod
     def complete_delivery(courier:MySQLCourier, order_id):
+        """
+        完成订单
+        查询订单的信息，判断订单是不是在未完成，并且已接单，并且骑手id是传入的骑手对象
+        :param courier:
+        :param order_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("select * from `order` where  id = %s", (order_id))
-        res = db.fetchall()
+        res = db.fetchone()
         if res['status'] == 'accept' and courier.id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
             OrderService.complete_order(order_id)
@@ -155,16 +164,34 @@ class CourierService(object):
 
     @staticmethod
     def get_courier_online():
+        """
+        获取在线配送员id列表
+        查询缓存中有那些骑手id列表
+        :return:
+        """
         res = RedisClient.create_redis_client().smembers('courier_online_list')
         return ','.join(res)
 
     @staticmethod
     def get_courier_info(courier_id):
+        """
+        获取在线配送员数据
+        查询缓存中有那些骑手id列表
+        :param courier_id:
+        :return:返回一个字典，字典有以下keyid,courier_email,create_time,delivery_type,courier_location
+        """
+
         res = RedisClient.create_redis_client().get("courier_cache_data_" + str(courier_id))
         return ','.join(res)
 
     @staticmethod
     def get_uncompleted_order(courier:MySQLCourier):
+        """
+        获取配送员未完成订单列表
+        查询骑手未完成订单缓存
+        :param courier:
+        :return:一个字符串订单id逗号分割
+        """
         # smembers获取数据，返回一个set集合
         res = RedisClient.create_redis_client().smembers('courier_uncompleted_order_' + str(courier.id))
         return ','.join(res)

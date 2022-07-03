@@ -47,6 +47,7 @@ class OrderService(object):
         # 1,状态修改为accepted 2. courier_id修改为接单id 3. 配送费修改为实际配送费 4. 修改接单时间为当前时间
         db.execute("update `order` set status = %s, courier_id=%s, delivery_fee=%s where id = %s",
                    ('accepted', order_id, courier_id, fee))
+        connection.commit()
 
     @staticmethod
     def get_uncompleted_list(courier_id):
@@ -71,6 +72,7 @@ class OrderService(object):
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("update `order` set status = %s , completed_time = %s where id = %s",
                    ('completed', Job.get_time(), order_id))
+        connection.commit()
         db.execute("select * from `order` where id = %s", (order_id))
         res = db.fetchone()
         # 发送邮件
@@ -79,13 +81,21 @@ class OrderService(object):
 
     @staticmethod
     def cancel_order(order_id):
+        """
+        撤单方法
+        :param order_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute("select * from `order` where id = %s", (order_id))
         res = db.fetchone()
+        # 查询订单信息判断是否已经接单
         if res['status'] not in('pending','completed'):
+            # 状态修改为pending  courier_id修改为空 accepted_time 修改为空 start_delivery_time 修改为空
             db.execute("update `order` set status = %s, courier_id = %s, accepted_time = %s, start_delivery_time = %s where id = %s",
                     ('pending', '','','', order_id))
+            connection.commit()
         else:
             print("不满足撤单条件")
 
@@ -95,11 +105,18 @@ class OrderService(object):
 
     @staticmethod
     def start_delivery(order_id):
+        """
+        开始配送
+        :param order_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
         db.execute(
+            # 修改订单的状态为delivering  修改start_delivery_time为当前时间
             "update `order` set status = %s, start_delivery_time = %s where id = %s",
             ('delivering', Job.get_time(), order_id))
+        connection.commit()
         db.execute("select * from `order` where id = %s", (order_id))
         res = db.fetchone()
         # 发送邮件
