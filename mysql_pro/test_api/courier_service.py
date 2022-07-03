@@ -147,6 +147,7 @@ class CourierService(object):
         res = db.fetchall()
         if res['status'] == 'accept' and courier.courier_id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
+            OrderService.complete_order(order_id)
             # 存的是集合，我们就用srem(key,  data)把这data从这个key的集合中移出
             RedisClient.create_redis_client().srem('courier_uncompleted_order_' + str(courier.courier_id), order_id)
 
