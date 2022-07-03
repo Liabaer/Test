@@ -69,7 +69,7 @@ class OrderService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.Cursor)
-        db.execute("update `order` set status = %s and completed_time = %s where id = %s",
+        db.execute("update `order` set status = %s , completed_time = %s where id = %s",
                    ('completed', Job.get_time(), order_id))
         db.execute("select * from `order` where id = %s", (order_id))
         res = db.fetchone()
