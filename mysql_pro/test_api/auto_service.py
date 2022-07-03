@@ -43,7 +43,7 @@ class AutoService(object):
             z2 = order.user_location.split(',')[1]
             min_distance = 5000
             min_courier = ''
-            flag = True
+            flag = False
             for i in courier_list:
                 courier = MySQLCourier(id=i['id'], courier_email=i['courier_email'], create_time=i['create_time'],
                                        delivery_type=i['delivery_type'], courier_location=i['courier_location'])
@@ -52,27 +52,25 @@ class AutoService(object):
                 shop_distance = Job.distance_haversine_simple(x1, x2, y1, y2)
                 if shop_distance < min_distance:
                     min_distance = shop_distance
-                    min_courier = i['id']
-
+                    # 这里是要等于对象courier
+                    min_courier = courier
+                    flag = False
                 user_distance = Job.distance_haversine_simple(x1, x2, z1, z2)
                 temp = CourierService.get_uncompleted_order(courier.id)
                 courier_uncomplete_order = temp.split(',')
                 if len(courier_uncomplete_order) > 5:
                     print('未完成订单数超过5')
-                    flag = False
                     continue
                 elif courier.delivery_type != 'delivery':
                     print('骑手配送方式不匹配')
-                    flag = False
                     continue
                 elif user_distance > 5000:
                     print('骑手距离用户距离大于5000米')
-                    flag = False
                     continue
             if flag:
                 print('找到骑手')
                 CourierService.get_order(min_courier, order.id)
             else:
-            # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
+                # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
                 db.execute("update `order` set assign_type=%s where id =%s", (0, order.id))
                 connection.commit()
