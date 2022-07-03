@@ -66,6 +66,7 @@ class AutoService(object):
                 else:
                     # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
                     db.execute("update `order` set assign_type=%s where id =%s",(0,order.id))
+                    connection.commit()
 
 
 
