@@ -23,6 +23,8 @@ class AutoService(object):
         temp = CourierService.get_courier_online()
         courier_online = temp.split(',')
         courier_list = []
+
+
         for courier in courier_online:
             courier_online_cache = CourierService.get_courier_info(courier)
             courier_list.append(courier_online_cache)
@@ -33,40 +35,44 @@ class AutoService(object):
         # 3. 骑手在线（骑手肯定是在线的所以不用判断）
         # 4. 骑手的delivery_type为delivery
         # 5. 满足以上条件，则调用接单
-
-        for i in courier_list:
-            courier = MySQLCourier(id=i['id'], courier_email=i['courier_email'], create_time=i['create_time'],
-                                   delivery_type=i['delivery_type'], courier_location=i['courier_location'])
-            x1 = courier.courier_location.split(',')[0]
-            x2 = courier.courier_location.split(',')[1]
+        for j in order_list:
+            order = MysqlOrder(id=j['id'], user_location=j['user_location'], shop_location=j['shop_location'])
+            y1 = order.shop_location.split(',')[0]
+            y2 = order.shop_location.split(',')[1]
+            z1 = order.user_location.split(',')[0]
+            z2 = order.user_location.split(',')[1]
             min_distance = 5000
-            flag = False
-            for j in order_list:
-                order = MysqlOrder(id=j['id'], user_location=j['user_location'], shop_location=j['shop_location'])
-                y1 = order.shop_location.split(',')[0]
-                y2 = order.shop_location.split(',')[1]
-                z1 = order.user_location.split(',')[0]
-                z2 = order.user_location.split(',')[1]
+            min_courier = ''
+            flag = True
+            for i in courier_list:
+                courier = MySQLCourier(id=i['id'], courier_email=i['courier_email'], create_time=i['create_time'],
+                                       delivery_type=i['delivery_type'], courier_location=i['courier_location'])
+                x1 = courier.courier_location.split(',')[0]
+                x2 = courier.courier_location.split(',')[1]
                 shop_distance = Job.distance_haversine_simple(x1, x2, y1, y2)
                 if shop_distance < min_distance:
                     min_distance = shop_distance
-                    flag = True
+                    min_courier = i['id']
+
                 user_distance = Job.distance_haversine_simple(x1, x2, z1, z2)
                 temp = CourierService.get_uncompleted_order(courier.id)
                 courier_uncomplete_order = temp.split(',')
                 if len(courier_uncomplete_order) > 5:
                     print('未完成订单数超过5')
+                    flag = False
                     continue
                 elif courier.delivery_type != 'delivery':
                     print('骑手配送方式不匹配')
+                    flag = False
                     continue
                 elif user_distance > 5000:
                     print('骑手距离用户距离大于5000米')
+                    flag = False
                     continue
-                elif flag:
-                    print('找到骑手')
-                    CourierService.get_order(courier, order.id)
-                else:
-                    # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
-                    db.execute("update `order` set assign_type=%s where id =%s", (0, order.id))
-                    connection.commit()
+            if flag:
+                print('找到骑手')
+                CourierService.get_order(min_courier, order.id)
+            else:
+            # 6. 如果订单没有找到任何骑手，则将订单的assign_type修改为0
+                db.execute("update `order` set assign_type=%s where id =%s", (0, order.id))
+                connection.commit()
