@@ -178,11 +178,12 @@ class CourierService(object):
         获取在线配送员数据
         查询缓存中有那些骑手id列表
         :param courier_id:
-        :return:返回一个字典，字典有以下keyid,courier_email,create_time,delivery_type,courier_location
+        :return:返回一个字典，字典有以下key id,courier_email,create_time,delivery_type,courier_location
         """
 
         res = RedisClient.create_redis_client().get("courier_cache_data_" + str(courier_id))
-        return ','.join(res)
+        # res是一个json字符串 json.loads把字符串转成字典 json.dumps把字典或者数组变成字符串
+        return json.loads(res)
 
     @staticmethod
     def get_uncompleted_order(courier:MySQLCourier):

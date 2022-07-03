@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class MysqlOrder(object):
-    def __init__(self, id='',order_price=0, courier_id='', user_location='', shop_location='',distance='', start_delivery_time='', user_email=''):
+    def __init__(self, id='',order_price=0, courier_id='', user_location='', shop_location='',distance='', start_delivery_time='', user_email='',assign_type=0):
         """
         1. id
         2. user_location
@@ -15,6 +15,8 @@ class MysqlOrder(object):
         11. start_delivery_time 开始配送时间
         12. completed_time 完成时间
         13. user_email 骑手邮件
+        14.assign_typ 0人工分单，1自动分单
+
         """
         self.id = id
         self.user_location = user_location
@@ -29,3 +31,4 @@ class MysqlOrder(object):
         self.completed_time = ''
         self.start_delivery_time = start_delivery_time
         self.user_email = user_email
+        self.assign_type = assign_type
