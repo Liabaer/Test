@@ -94,7 +94,7 @@ class OrderService(object):
         if res['status'] not in('pending','completed'):
             # 状态修改为pending  courier_id修改为空 accepted_time 修改为空 start_delivery_time 修改为空
             db.execute("update `order` set status = %s, courier_id = %s, accepted_time = %s, start_delivery_time = %s where id = %s",
-                    ('pending', '','','', order_id))
+                    ('pending', None, '', '', order_id))
             connection.commit()
         else:
             print("不满足撤单条件")

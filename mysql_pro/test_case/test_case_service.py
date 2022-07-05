@@ -34,5 +34,5 @@ class TestCaseService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         for i in res:
-            db.execute("update `order` set status =%s where id=%s", (i[0], i[1]))
+            db.execute("update `order` set status =%s where id=%s", (i[1],i[0]))
             connection.commit()

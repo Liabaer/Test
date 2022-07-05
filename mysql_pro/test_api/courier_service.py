@@ -156,7 +156,7 @@ class CourierService(object):
         db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from `order` where  id = %s", (order_id))
         res = db.fetchone()
-        if res['status'] == 'accept' and courier.id == res['courier_id']:
+        if (res['status'] == 'delivering' or res['status'] == 'accepted') and courier.id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
             OrderService.complete_order(order_id)
             # 存的是集合，我们就用srem(key,  data)把这data从这个key的集合中移出
