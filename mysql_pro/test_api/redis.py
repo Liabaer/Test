@@ -4,7 +4,7 @@ import redis
 
 class RedisClient(object):
     host = '127.0.0.1'
-    port = 6397
+    port = 6379
 
     @staticmethod
     def create_redis_client():

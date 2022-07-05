@@ -24,7 +24,7 @@ class CourierService(object):
         """
         connection = MysqlClient.get_connection()
         # 获取数据库操作对象
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         # 把骑手对象中的值，插入到t_courier表中
         db.execute(
             "insert into courier(status,delivery_type,courier_location,create_time,last_online_time,courier_email) values (%s,%s,%s,%s,%s,%s)",
@@ -36,9 +36,9 @@ class CourierService(object):
         # 自增长id
         print('注册成功，注册的骑手id：' + str(db.lastrowid))
         # 发送邮件通知骑手注册成功
-        SendEmail.send_msg_email(receive_name=courier.courier_email.split('@')[0],
-                                 receive_email=[courier.courier_email],
-                                 title='骑手注册成功', note='于' + courier.create_time + '时间注册成功')
+        # SendEmail.send_msg_email(receive_name=courier.courier_email.split('@')[0],
+        #                          receive_email=[courier.courier_email],
+        #                          title='骑手注册成功', note='于' + courier.create_time + '时间注册成功')
 
     @staticmethod
     def get_order(courier:MySQLCourier, order_id):
@@ -49,7 +49,7 @@ class CourierService(object):
         :return:
         """
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         # 执行sql 查询数据库表该订单id的数据
         db.execute("select * from `order` where id = %s", (order_id))
         # 获取结果（结果是字典）
@@ -88,7 +88,7 @@ class CourierService(object):
         """
         courier_online_list = []
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from courier where status = %s", ('online'))
         res = db.fetchall()
         # res 没有limit，所以是个数组，循环这个数组，i是字典
@@ -106,7 +106,7 @@ class CourierService(object):
         """
         # 链接数据库，查询骑手的状态
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from courier where  id = %s", (courier_id))
         res = db.fetchone()
         # courier = {}
@@ -136,7 +136,7 @@ class CourierService(object):
         :return:
         """
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select courier_id from `order` where  id = %s", (order_id))
         res = db.fetchone()
         if courier.id == res['courier_id']:
@@ -153,7 +153,7 @@ class CourierService(object):
         :return:
         """
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from `order` where  id = %s", (order_id))
         res = db.fetchone()
         if res['status'] == 'accept' and courier.id == res['courier_id']:

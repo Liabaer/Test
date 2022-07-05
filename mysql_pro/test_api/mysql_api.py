@@ -3,11 +3,11 @@ import pymysql
 
 
 class MysqlClient(object):
-    host = '127.9.0.1'
+    host = '127.0.0.1'
     port = 3306
     user = 'root'
     password = ''
-    db = 'learn_db'
+    db = 'learn_database'
 
     @staticmethod
     def get_connection():

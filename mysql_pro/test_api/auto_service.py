@@ -12,7 +12,7 @@ class AutoService(object):
     @staticmethod
     def auto_service():
         connection = MysqlClient.get_connection()
-        db = connection.cursor(pymysql.cursors.Cursor)
+        db = connection.cursor(pymysql.cursors.DictCursor)
         # 1. 查找order表里面状态是待分配的订单，以及assign_type是1的订单，组成成订单列表
         db.execute("select * from `order` where status=%s and assign_type=%s", ('pending', 1))
         res = db.fetchall()

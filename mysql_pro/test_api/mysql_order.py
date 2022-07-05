@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class MysqlOrder(object):
-    def __init__(self, id='',order_price=0, courier_id='', user_location='', shop_location='',distance='', start_delivery_time='', user_email='',assign_type=0):
+    def __init__(self, id='',order_price=0, courier_id=None, user_location='', shop_location='',distance=0, start_delivery_time='', user_email='',assign_type=0):
         """
         1. id
         2. user_location
