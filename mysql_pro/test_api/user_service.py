@@ -34,7 +34,7 @@ class UserService(object):
         else:
             db.execute(
                 "insert into user(name,email,phone_number,password,amount,create_time,is_login,last_login_time) values(%s,%s,%s,%s,%s,%s,%s,%s) ",
-                (user.name, user.email, user.phone_number, user.password, user.amount, user.create_time,
+                (user.name, user.email, user.phone_number, user.password, user.amount, user.create_time,user.is_login,
                  user.last_login_time))
             connection.commit()
             flag = True
@@ -54,7 +54,7 @@ class UserService(object):
         # flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from user where name = %s", (user_name))
+        db.execute("select * from user where name = %s and password=%s", (user_name,pwd))
         res = db.fetchone()
         if res is None:
             print('用户名或者密码错误')
@@ -68,7 +68,6 @@ class UserService(object):
             flag = True
             print("登陆成功")
             token = ''
-
             i = 0
             while i != 15:
                 token += chr(random.randint(ord('a'), ord('z')))
@@ -76,22 +75,22 @@ class UserService(object):
                 token += str(random.randint(0, 9))
                 i += 1
                 # i += 2
-
-
             RedisClient.create_redis_client().set("user_login_cache_" + str(token), res['id'])
+            return token
 
     @staticmethod
     def update_pwd(token, pwd, new_pwd):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-
+        # 这个res就是这个缓存key的values，就是id  RedisClient.create_redis_client().set("user_login_cache_" + str(token), res['id'])
         res = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
         if res is None:
             print("用户未登录")
         else:
-            json.load(res)
-            res_id = res['id']
-            db.execute("select * from user where id = %s", (res_id))
+            #这个res就是这个缓存key的values，就是id 所以不需要单独处理
+            # json.load(res)
+            # res_id = res
+            db.execute("select * from user where id = %s", (res))
             user = db.fetchone()
             if user['password'] != pwd:
                 print("密码输入错误")
@@ -104,7 +103,7 @@ class UserService(object):
                 flag = VerificationCodeService.check_code(code.email,code.email_code)
                 if flag:
                     VerificationCodeService.use_code(code.email,code.email_code)
-                    db.execute("update user set password = %s where id = %s", (new_pwd, res_id))
+                    db.execute("update user set password = %s where id = %s", (new_pwd, res))
                     connection.commit()
                 else:
                     print("验证码错误")
@@ -124,5 +123,5 @@ class UserService(object):
             print("用户未登录")
         else:
             RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
-            res_id = json.loads(res)['id']
-            db.execute("update user set last_login_time = %s where id = %s", (Job.get_time(), res_id))
+            # res_id = json.loads(res)['id']
+            db.execute("update user set last_login_time = %s where id = %s", (Job.get_time(), res))

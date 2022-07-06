@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class User(object):
-    def __init__(self, id='', name='', email='', phone_number='', password='', amount='', create_time='', is_login=0,
+    def __init__(self, id=None, name='', email='', phone_number='', password='', amount=0, create_time='', is_login=0,
                  last_login_time=''):
         """
         :param id:

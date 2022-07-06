@@ -18,11 +18,11 @@ class VerificationCodeService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        for i in range(3):
+        for i in range(6):
             smscode.email_code += random.randint(0, 9)
         smscode.create_time = Job.get_time()
         smscode.status = 0
-        db.execute("insert into email_code(email,email_code,create_time,status) values(%s,%s,%s,%s)",(smscode.email,smscode.email_code,smscode.status,smscode.create_time))
+        db.execute("insert into email_code(email,email_code,status,create_time) values(%s,%s,%s,%s)",(smscode.email,smscode.email_code,smscode.status,smscode.create_time))
         connection.commit()
         # # 发送邮件
         # SendEmail.send_msg_email(receive_name=smscode.email.split('@')[0],
