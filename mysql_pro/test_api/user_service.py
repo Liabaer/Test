@@ -19,6 +19,11 @@ class UserService(object):
 
     @staticmethod
     def register_user(user):
+        """
+        注册用户
+        :param user:
+        :return:
+        """
         flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
@@ -53,6 +58,12 @@ class UserService(object):
 
     @staticmethod
     def user_login(user_name, pwd):
+        """
+        登陆
+        :param user_name:
+        :param pwd:
+        :return:
+        """
         # flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
@@ -82,6 +93,13 @@ class UserService(object):
 
     @staticmethod
     def update_pwd(token, pwd, new_pwd):
+        """
+        修改密码
+        :param token:
+        :param pwd:
+        :param new_pwd:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 这个res就是这个缓存key的values，就是id  RedisClient.create_redis_client().set("user_login_cache_" + str(token), res['id'])
@@ -119,7 +137,6 @@ class UserService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-
         res = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
         if res is None:
             print("用户未登录")
@@ -130,9 +147,18 @@ class UserService(object):
 
     @staticmethod
     def add_user_address(token,location,addr_text):
+        """
+        添加用户地址
+        :param token:
+        :param location:
+        :param addr_text:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        if token is None:
+        # 使用token查缓存 userid是否存在
+        res = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
+        if res is None:
             print("用户未登录")
         else:
             db.execute("insert into user_address(address_location,address_text,create_time) values (%s,%s,%s)",(location,addr_text,Job.get_time()))
@@ -140,24 +166,40 @@ class UserService(object):
 
     @staticmethod
     def user_recharge(token,amout):
+        """
+        用户充值
+        :param token:
+        :param amout:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        if token is None:
+        # 使用token查缓存 userid是否存在
+        user_id = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
+        if user_id is None:
             print("用户未登录")
         else:
-            user_id = RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
             db.execute("update user set amount = %s where id = %s", (amout, user_id))
             connection.commit()
 
 
     @staticmethod
     def place_order(token,sale_amount,user_addr_id,shop_id):
+        """
+        用户下单
+        :param token:
+        :param sale_amount:
+        :param user_addr_id:
+        :param shop_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        if token is None:
+        # 使用token查缓存 userid是否存在
+        user_id = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
+        if user_id is None:
             print("用户未登录")
         else:
-            user_id = RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
             db.execute("select * from user where id = %s", (user_id))
             user = db.fetchone()
             db.execute("select * from shop where id = %s", (shop_id))
@@ -169,6 +211,7 @@ class UserService(object):
             user_location = db.fetchone()['address_location']
             y1 = user_location.split(',')[0]
             y2 = user_location.split(',')[1]
+            # 获取用户到商家经纬度
             distance = Job.distance_haversine_simple(x1,x2,y1,y2)
             if user['amount'] < sale_amount:
                 print("金额不足")

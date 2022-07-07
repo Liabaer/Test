@@ -50,9 +50,9 @@ class TestCaseService(object):
             UserService.register_user(user)
 
     @staticmethod
-    def generate_shop(url='create_shop.csv'):
+    def generate_shop(url='create_shop.csv', token=''):
         res = ReadCsv.read_csv(url)
         for i in res:
             # 这里不知道有几个列
             shop = Shop()
-            ShopService.create_shop(shop)
+            ShopService.create_shop(shop,token)
