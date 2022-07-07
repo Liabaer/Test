@@ -11,6 +11,8 @@ from study_project.test_api.email_utils import SendEmail
 from study_project.test_api.test_public import Job
 from mysql_pro.test_api.verification_code import VerificationCode
 from mysql_pro.test_api.verification_code_service import VerificationCodeService
+from mysql_pro.test_api.order_service import OrderService
+from mysql_pro.test_api.mysql_order import MysqlOrder
 
 
 class UserService(object):
@@ -125,3 +127,57 @@ class UserService(object):
             RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
             # res_id = json.loads(res)['id']
             db.execute("update user set last_login_time = %s where id = %s", (Job.get_time(), res))
+
+    @staticmethod
+    def add_user_address(token,location,addr_text):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        if token is None:
+            print("用户未登录")
+        else:
+            db.execute("insert into user_address(address_location,address_text,create_time) values (%s,%s,%s)",(location,addr_text,Job.get_time()))
+            connection.commit()
+
+    @staticmethod
+    def user_recharge(token,amout):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        if token is None:
+            print("用户未登录")
+        else:
+            user_id = RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
+            db.execute("update user set amount = %s where id = %s", (amout, user_id))
+            connection.commit()
+
+
+    @staticmethod
+    def place_order(token,sale_amount,user_addr_id,shop_id):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        if token is None:
+            print("用户未登录")
+        else:
+            user_id = RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
+            db.execute("select * from user where id = %s", (user_id))
+            user = db.fetchone()
+            db.execute("select * from shop where id = %s", (shop_id))
+            shop_status = db.fetchone()['status']
+            shop_location = db.fetchone()['address_location']
+            x1 = shop_location.split(',')[0]
+            x2 = shop_location.split(',')[1]
+            db.execute("select * from user_adrress where id = %s", (user_addr_id))
+            user_location = db.fetchone()['address_location']
+            y1 = user_location.split(',')[0]
+            y2 = user_location.split(',')[1]
+            distance = Job.distance_haversine_simple(x1,x2,y1,y2)
+            if user['amount'] < sale_amount:
+                print("金额不足")
+            elif shop_status == 1:
+                print("商家未营业")
+            elif distance > 10000:
+                print("距离太远")
+            else:
+                order = MysqlOrder(order_price=sale_amount,distance=distance,user_location=user_location,shop_location=shop_location,user_id=user_id,status='pending',create_time=Job.get_time())
+                OrderService.insert_order(order)
+
+

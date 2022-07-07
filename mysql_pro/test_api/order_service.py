@@ -19,10 +19,10 @@ class OrderService(object):
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 把订单对象中的值，插入到t_order表中
         db.execute(
-            "insert into `order`(status,order_price,courier_id,user_location,shop_location,distance,delivery_fee,create_time,accepted_time,start_delivery_time,completed_time,user_email,assign_type) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "insert into `order`(status,order_price,courier_id,user_location,shop_location,distance,delivery_fee,create_time,accepted_time,start_delivery_time,completed_time,user_email,assign_type,user_id) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (order.order_status, order.order_price, order.courier_id, order.user_location, order.shop_location,
              order.distance, order.delivery_fee, order.create_time, order.accepted_time, order.start_delivery_time,
-             order.completed_time, order.user_email,order.assign_type))
+             order.completed_time, order.user_email,order.assign_type,order.user_id))
         connection.commit()
 
         # # 下单成功通知用户邮件
@@ -122,3 +122,19 @@ class OrderService(object):
         # 发送邮件
         # SendEmail.send_msg_email(receive_name=res['user_email'].split('@')[0], receive_email=[res['user_email']],
         #                          title='订单开始配送', note='于' + res['start_delivery_time'] + '开始配送')
+
+
+    @staticmethod
+    def delete_order(order_id,user_id):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        db.execute("select * from `order` where id = %s", (order_id))
+        res = db.fetchone()
+        if res is None:
+            print("订单不存在")
+        elif res['user_id'] == user_id:
+            db.execute("update `order` set status = %s where id = %s",('delete',order_id))
+            connection.commit()
+            print("订单"+str(order_id)+"取消成功")
+        else:
+            print("订单不属于该用户")
