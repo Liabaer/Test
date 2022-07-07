@@ -9,6 +9,8 @@ from mysql_pro.test_api.mysql_order import MysqlOrder
 from mysql_pro.test_api.mysql_Courier import MySQLCourier
 from mysql_pro.test_api.courier_service import CourierService
 from mysql_pro.test_api.mysql_api import MysqlClient
+from mysql_pro.test_api.shop_service import ShopService
+from mysql_pro.test_api.user_service import UserService
 
 
 class TestCaseService(object):
@@ -36,3 +38,21 @@ class TestCaseService(object):
         for i in res:
             db.execute("update `order` set status =%s where id=%s", (i[1],i[0]))
             connection.commit()
+
+    @staticmethod
+    def generate_user(url='create_user.csv'):
+        res = ReadCsv.read_csv(url)
+        for i in res:
+            # 这里不知道有几个列
+            user = MysqlOrder(user_email=i[0], user_location=i[1], shop_location=i[2], order_price=i[3],
+                               assign_type=i[4])
+            UserService.register_user(user)
+
+    @staticmethod
+    def generate_shop(url='create_shop.csv'):
+        res = ReadCsv.read_csv(url)
+        for i in res:
+            # 这里不知道有几个列
+            shop = MysqlOrder(user_email=i[0], user_location=i[1], shop_location=i[2], order_price=i[3],
+                              assign_type=i[4])
+            ShopService.create_shop(shop)
