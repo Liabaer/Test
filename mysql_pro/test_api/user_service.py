@@ -181,7 +181,7 @@ class UserService(object):
         else:
             db.execute("select amount from user where id = %s", (user_id))
             amount_old = db.fetchone()
-            db.execute("update user set amount = %s where id = %s", (amout+amount_old, user_id))
+            db.execute("update user set amount = %s where id = %s", (amout+amount_old['amout'], user_id))
             connection.commit()
 
 
@@ -226,7 +226,7 @@ class UserService(object):
                 OrderService.insert_order(order)
                 db.execute("select amount from user where id = %s", (user_id))
                 amount_old = db.fetchone()
-                db.execute("update user set amount = %s where id = %s", (amount_old-sale_amount, user_id))
+                db.execute("update user set amount = %s where id = %s", (amount_old['amount']-sale_amount, user_id))
                 connection.commit()
 
     @staticmethod
@@ -244,5 +244,8 @@ class UserService(object):
         elif res['courier_id'] is not None:
             OrderService.cancel_order(order_id)
             OrderService.delete_order(order_id,user_id)
+            print("订单" + str(order_id) + "删除成功")
+        else:
+            OrderService.delete_order(order_id, user_id)
             print("订单" + str(order_id) + "删除成功")
 
