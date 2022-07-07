@@ -179,7 +179,9 @@ class UserService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("update user set amount = %s where id = %s", (amout, user_id))
+            db.execute("select amount from user where id = %s", (user_id))
+            amount_old = db.fetchone()
+            db.execute("update user set amount = %s where id = %s", (amout+amount_old, user_id))
             connection.commit()
 
 
@@ -222,5 +224,25 @@ class UserService(object):
             else:
                 order = MysqlOrder(order_price=sale_amount,distance=distance,user_location=user_location,shop_location=shop_location,user_id=user_id,status='pending',create_time=Job.get_time())
                 OrderService.insert_order(order)
+                db.execute("select amount from user where id = %s", (user_id))
+                amount_old = db.fetchone()
+                db.execute("update user set amount = %s where id = %s", (amount_old-sale_amount, user_id))
+                connection.commit()
 
+    @staticmethod
+    def delete_order(token, order_id):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        db.execute("select * from `order` where id = %s", (order_id))
+        res = db.fetchone()
+        # 使用token查缓存 userid是否存在
+        user_id = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
+        if user_id is None:
+            print("用户未登录")
+        elif res['status'] == 'completed':
+            print("订单无法取消")
+        elif res['courier_id'] is not None:
+            OrderService.cancel_order(order_id)
+            OrderService.delete_order(order_id,user_id)
+            print("订单" + str(order_id) + "删除成功")
 

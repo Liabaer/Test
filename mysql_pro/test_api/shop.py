@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Shop(object):
     def __init__(self, id=None, address_text='', address_location='', create_time='', name='',
-                 status=0):
+                 status=1):
         """
         商家类
         :param id:

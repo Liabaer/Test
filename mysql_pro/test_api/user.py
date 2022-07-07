@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class User(object):
     def __init__(self, id=None, name='', email='', phone_number='', password='', amount=0, create_time='', is_login=0,
-                 last_login_time=''):
+                 last_login_time='',type=''):
         """
         :param id:
         :param name: 姓名
@@ -23,4 +23,4 @@ class User(object):
         self.create_time = create_time
         self.is_login = is_login
         self.last_login_time = last_login_time
-        self.type = 'normal'
+        self.type = type

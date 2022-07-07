@@ -3,6 +3,7 @@ import pymysql.cursors
 
 from mysql_pro.test_api.mysql_order import MysqlOrder
 from mysql_pro.test_api.mysql_api import MysqlClient
+from mysql_pro.test_api.redis import RedisClient
 from study_project.test_api.email_utils import SendEmail
 from study_project.test_api.test_public import Job
 
@@ -123,9 +124,8 @@ class OrderService(object):
         # SendEmail.send_msg_email(receive_name=res['user_email'].split('@')[0], receive_email=[res['user_email']],
         #                          title='订单开始配送', note='于' + res['start_delivery_time'] + '开始配送')
 
-
     @staticmethod
-    def delete_order(order_id,user_id):
+    def delete_order(order_id, user_id):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from `order` where id = %s", (order_id))
@@ -133,8 +133,9 @@ class OrderService(object):
         if res is None:
             print("订单不存在")
         elif res['user_id'] == user_id:
-            db.execute("update `order` set status = %s where id = %s",('delete',order_id))
+            db.execute("update `order` set status = %s where id = %s", ('delete', order_id))
             connection.commit()
-            print("订单"+str(order_id)+"取消成功")
+            print("订单" + str(order_id) + "取消成功")
         else:
             print("订单不属于该用户")
+
