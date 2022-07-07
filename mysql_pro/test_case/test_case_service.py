@@ -11,6 +11,8 @@ from mysql_pro.test_api.courier_service import CourierService
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.shop_service import ShopService
 from mysql_pro.test_api.user_service import UserService
+from mysql_pro.test_api.user import User
+from mysql_pro.test_api.shop import Shop
 
 
 class TestCaseService(object):
@@ -44,8 +46,7 @@ class TestCaseService(object):
         res = ReadCsv.read_csv(url)
         for i in res:
             # 这里不知道有几个列
-            user = MysqlOrder(user_email=i[0], user_location=i[1], shop_location=i[2], order_price=i[3],
-                               assign_type=i[4])
+            user = User()
             UserService.register_user(user)
 
     @staticmethod
@@ -53,6 +54,5 @@ class TestCaseService(object):
         res = ReadCsv.read_csv(url)
         for i in res:
             # 这里不知道有几个列
-            shop = MysqlOrder(user_email=i[0], user_location=i[1], shop_location=i[2], order_price=i[3],
-                              assign_type=i[4])
+            shop = Shop()
             ShopService.create_shop(shop)
