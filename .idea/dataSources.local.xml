@@ -109,5 +109,10 @@
         <ssh-config-id>993a33cb-94d3-487f-8975-43e5dc6ccd10</ssh-config-id>
       </ssh-properties>
     </data-source>
+    <data-source name="learn_database@localhost" uuid="3c8c13af-35cc-48cf-8d08-9b6e2ab089b8">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

@@ -43,7 +43,7 @@ class OrderService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 查询订单distance
-        db.execute("select distance from `order` where id = %s", (order_id))
+        db.execute("select distance from `order` where id = %s", order_id)
         res = db.fetchone()
         # 调用方法计算配送费
         fee = Job.get_delivery_fee(distance=res['distance'])
@@ -81,7 +81,7 @@ class OrderService(object):
         db.execute("update `order` set status = %s , completed_time = %s where id = %s",
                    ('completed', Job.get_time(), order_id))
         connection.commit()
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         res = db.fetchone()
         # 发送邮件
         # SendEmail.send_msg_email(receive_name=res['user_email'].split('@')[0], receive_email=[res['user_email']],
@@ -96,7 +96,7 @@ class OrderService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         res = db.fetchone()
         # 查询订单信息判断是否已经接单
         if res['status'] not in ('pending', 'completed'):
@@ -126,7 +126,7 @@ class OrderService(object):
             "update `order` set status = %s, start_delivery_time = %s where id = %s",
             ('delivering', Job.get_time(), order_id))
         connection.commit()
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         res = db.fetchone()
         # 发送邮件
         # SendEmail.send_msg_email(receive_name=res['user_email'].split('@')[0], receive_email=[res['user_email']],
@@ -142,7 +142,7 @@ class OrderService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         res = db.fetchone()
         if res is None:
             print("订单不存在")
@@ -170,7 +170,7 @@ class OrderService(object):
             print("用户未登录")
         else:
             for k, v in item_dict.items():
-                db.execute("select * from item where id = %s", (k))
+                db.execute("select * from item where id = %s", k)
                 k_price = db.fetchone()['price']
                 # 循环item_dict,将数据循环插入到订单商品表中.还需要根据商品id将商品的当前价格查出来，插入到订单商品表中
                 db.execute(

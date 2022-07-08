@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Commodity(object):
-    def __init__(self, id=None, price='', count=0, create_time='', shop_id='',
+    def __init__(self, id=None, price=0, count=0, create_time='', shop_id=None,
                  status=1, delete_time=''):
         """
         商品类

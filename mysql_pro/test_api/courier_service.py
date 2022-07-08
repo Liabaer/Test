@@ -27,7 +27,8 @@ class CourierService(object):
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 把骑手对象中的值，插入到t_courier表中
         db.execute(
-            "insert into courier(status,delivery_type,courier_location,create_time,last_online_time,courier_email) values (%s,%s,%s,%s,%s,%s)",
+            "insert into courier(status,delivery_type,courier_location,create_time,last_online_time,courier_email) "
+            "values (%s,%s,%s,%s,%s,%s)",
             (courier.status, courier.delivery_type, courier.courier_location,
              courier.create_time, courier.last_online_time, courier.courier_email)),
         # 记得需要commit一下
@@ -41,7 +42,7 @@ class CourierService(object):
         #                          title='骑手注册成功', note='于' + courier.create_time + '时间注册成功')
 
     @staticmethod
-    def get_order(courier:MySQLCourier, order_id):
+    def get_order(courier: MySQLCourier, order_id):
         """
          接单
         :param courier:骑手对象
@@ -51,7 +52,7 @@ class CourierService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 执行sql 查询数据库表该订单id的数据
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         # 获取结果（结果是字典）
         res = db.fetchone()
         # 满足以下条件则接单成功，失败打印具体的失败原因
@@ -89,7 +90,7 @@ class CourierService(object):
         courier_online_list = []
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from courier where status = %s", ('online'))
+        db.execute("select * from courier where status = %s", 'online')
         res = db.fetchall()
         # res 没有limit，所以是个数组，循环这个数组，i是字典
         for i in res:
@@ -107,14 +108,14 @@ class CourierService(object):
         # 链接数据库，查询骑手的状态
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from courier where  id = %s", (courier_id))
+        db.execute("select * from courier where  id = %s", courier_id)
         res = db.fetchone()
         # courier = {}
         # 修改骑手的状态
         if res['status'] == "online":
             db.execute("update courier set status=%s where id = %s", ('offline', courier_id))
             # （set ,delete,get） （sadd,srem, smembers）   set进去的就用delete删除   sadd进去的就用srem删除
-            RedisClient.create_redis_client().srem("courier_online_list",courier_id)
+            RedisClient.create_redis_client().srem("courier_online_list", courier_id)
             RedisClient.create_redis_client().delete("courier_cache_data_" + str(courier_id))
         else:
             db.execute("update courier set status=%s where id = %s", ('online', courier_id))
@@ -128,7 +129,7 @@ class CourierService(object):
         connection.commit()
 
     @staticmethod
-    def start_delivery(courier:MySQLCourier, order_id):
+    def start_delivery(courier: MySQLCourier, order_id):
         """
         开始配送函数
         :param courier:骑手对象
@@ -137,14 +138,14 @@ class CourierService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select courier_id from `order` where  id = %s", (order_id))
+        db.execute("select courier_id from `order` where  id = %s", order_id)
         res = db.fetchone()
         if courier.id == res['courier_id']:
             # 调用订单服务类的开始配送的订单方法
             OrderService.start_delivery(order_id)
 
     @staticmethod
-    def complete_delivery(courier:MySQLCourier, order_id):
+    def complete_delivery(courier: MySQLCourier, order_id):
         """
         完成订单
         查询订单的信息，判断订单是不是在未完成，并且已接单，并且骑手id是传入的骑手对象
@@ -154,7 +155,7 @@ class CourierService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from `order` where  id = %s", (order_id))
+        db.execute("select * from `order` where  id = %s", order_id)
         res = db.fetchone()
         if (res['status'] == 'delivering' or res['status'] == 'accepted') and courier.id == res['courier_id']:
             # 满足上面条件，调用订单的完成函数 4. 将骑手的未完成订单缓存中移除这个订单
@@ -186,7 +187,7 @@ class CourierService(object):
         return json.loads(res)
 
     @staticmethod
-    def get_uncompleted_order(courier:MySQLCourier):
+    def get_uncompleted_order(courier: MySQLCourier):
         """
         获取配送员未完成订单列表
         查询骑手未完成订单缓存

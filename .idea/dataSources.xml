@@ -43,5 +43,12 @@
       <jdbc-url>jdbc:mysql://easi-stage-2020-10-27-17-10-cluster.cluster-czmlu1dglm0q.ap-northeast-1.rds.amazonaws.com:3306/easi_delivery</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="learn_database@localhost" uuid="3c8c13af-35cc-48cf-8d08-9b6e2ab089b8">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/learn_database</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

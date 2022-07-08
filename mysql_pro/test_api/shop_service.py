@@ -23,7 +23,7 @@ class ShopService(object):
             print("用户未登录")
         else:
             s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             res = db.fetchone()
             if res['type'] != 'admin':
                 print("权限不足")
@@ -50,10 +50,10 @@ class ShopService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 查询营业的所有商家
-        db.execute("select * from shop where status = %s", (0))
+        db.execute("select * from shop where status = %s", 0)
         shop_res = db.fetchall()
         # 查询用户地址并预处理
-        db.execute("select * from user_address where user_id = %s", (user.id))
+        db.execute("select * from user_address where user_id = %s", user.id)
         user_location = db.fetchone()['address_location']
         y1 = user_location.split(',')[0]
         y2 = user_location.split(',')[1]

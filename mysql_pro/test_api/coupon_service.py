@@ -22,7 +22,7 @@ class CouponService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             if user['type'] != 'admin':
                 print("权限不足")
@@ -48,7 +48,7 @@ class CouponService(object):
         if user_id_redis is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             if user['type'] != 'admin':
                 print("权限不足")
@@ -68,7 +68,7 @@ class CouponService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from coupon where id = %s", (coupon.id))
+        db.execute("select * from coupon where id = %s", coupon.id)
         coupon_res = db.fetchone()
         # 如果type是0，则返回直接优惠金额
         if coupon_res['type'] == 0:
@@ -93,7 +93,7 @@ class CouponService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user_coupon where coupon_id=%s", (coupon_id))
+            db.execute("select * from user_coupon where coupon_id=%s", coupon_id)
             res = db.fetchone()
             #  判断用户优惠券类表的用户id是否和token对应的user_id相等
             if res['user_id'] == user_id:

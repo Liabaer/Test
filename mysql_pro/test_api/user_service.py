@@ -38,11 +38,13 @@ class UserService(object):
         # 他的时候判断有没有不满足条件的x，放进数组里，如果数组大于0，说明有不满足条件的
         elif len([x for x in user.password if not (x.isalpha() or x.isalnum())]) > 0 or len(user.password) < 5:
             # 不能这样写啊喂
-            # elif 5 > len(user.password) or (x for x in user.password).isalnum() == False or (x for x in user.password).isalnum() == False:
+            # elif 5 > len(user.password) or (x for x in user.password).isalnum() == False
+            # or (x for x in user.password).isalnum() == False:
             print("密码校验不通过")
         else:
             db.execute(
-                "insert into user(name,email,phone_number,password,amount,create_time,is_login,last_login_time) values(%s,%s,%s,%s,%s,%s,%s,%s) ",
+                "insert into user(name,email,phone_number,password,amount,create_time,is_login,last_login_time) "
+                "values(%s,%s,%s,%s,%s,%s,%s,%s) ",
                 (user.name, user.email, user.phone_number, user.password, user.amount, user.create_time, user.is_login,
                  user.last_login_time))
             connection.commit()
@@ -112,7 +114,7 @@ class UserService(object):
             # 这个res就是这个缓存key的values，就是id 所以不需要单独处理
             # json.load(res)
             # res_id = res
-            db.execute("select * from user where id = %s", (res))
+            db.execute("select * from user where id = %s", res)
             user = db.fetchone()
             if user['password'] != pwd:
                 print("密码输入错误")
@@ -182,7 +184,7 @@ class UserService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select amount from user where id = %s", (user_id))
+            db.execute("select amount from user where id = %s", user_id)
             amount_old = db.fetchone()
             db.execute("update user set amount = %s where id = %s", (amout + amount_old['amout'], user_id))
             connection.commit()
@@ -203,14 +205,14 @@ class UserService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
-            db.execute("select * from shop where id = %s", (shop_id))
+            db.execute("select * from shop where id = %s", shop_id)
             shop_status = db.fetchone()['status']
             shop_location = db.fetchone()['address_location']
             x1 = shop_location.split(',')[0]
             x2 = shop_location.split(',')[1]
-            db.execute("select * from user_adrress where id = %s", (user_addr_id))
+            db.execute("select * from user_adrress where id = %s", user_addr_id)
             user_location = db.fetchone()['address_location']
             y1 = user_location.split(',')[0]
             y2 = user_location.split(',')[1]
@@ -224,7 +226,7 @@ class UserService(object):
                 # 查询商品表计算每个商品的价格，然后根据字典里的次数，统计出总价
                 item_amount = 0
                 for k, v in item_dict.items():
-                    db.execute("select * from item where id = %s", (k))
+                    db.execute("select * from item where id = %s", k)
                     k_price = db.fetchone()['price']
                     k_count = db.fetchone()['count']
                     item_amount += k_price * v
@@ -232,7 +234,7 @@ class UserService(object):
                     db.execute("update item set count=%s where id=%s", (k_count-v, k))
                     connection.commit()
                 # 根据couponid查询出coupon
-                db.execute("select * from coupon where id=%s", (coupon_id))
+                db.execute("select * from coupon where id=%s", coupon_id)
                 temp = db.fetchone()
                 # 通过查询的temp字典新建一个coupon对象
                 coupon = Coupon(id=temp['id'], coupon_price=temp['coupon_price'],coupon_discount=temp['coupon_discount'],type=temp['type'],create_time=temp['create_time'])
@@ -249,7 +251,7 @@ class UserService(object):
                     # 调用下单函数
                     OrderService.insert_order(order)
                     # 查询出用户原来余额
-                    db.execute("select amount from user where id = %s", (user_id))
+                    db.execute("select amount from user where id = %s", user_id)
                     amount_old = db.fetchone()
                     # 更新用户余额
                     db.execute("update user set amount = %s where id = %s", (amount_old['amount'] - real_amount, user_id))
@@ -260,7 +262,7 @@ class UserService(object):
     def delete_order(token, order_id):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from `order` where id = %s", (order_id))
+        db.execute("select * from `order` where id = %s", order_id)
         res = db.fetchone()
         # 使用token查缓存 userid是否存在
         user_id = RedisClient.create_redis_client().get("user_login_cache_" + str(token))

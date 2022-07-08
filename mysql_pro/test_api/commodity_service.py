@@ -24,17 +24,18 @@ class CommodityService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             if user['type'] != 'admin':
                 print("权限不足")
             else:
                 # 将商品写入到表中
-                db.execute("insert into item(price,count,shop_id,create_time) values (%s,%s,%s,%s)",(price,count,shop_id,Job.get_time()))
+                db.execute("insert into item(price,`count`,shop_id,create_time) values (%s,%s,%s,%s)",
+                           (price, count, shop_id, Job.get_time()))
                 connection.commit()
 
     @staticmethod
-    def add_count(shop_id,count,token):
+    def add_count(shop_id, count, token):
         """
         添加库存
         :param shop_id:
@@ -49,15 +50,15 @@ class CommodityService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             if user['type'] != 'admin':
                 print("权限不足")
             else:
-                db.execute("select * from item where shop_id=%s", (shop_id))
+                db.execute("select * from item where shop_id=%s", shop_id)
                 old_count = db.fetchone()['count']
                 # 则将增加的库存，存到表中
-                db.execute("update item set count=%s where shop_id = %s",(old_count+count,shop_id))
+                db.execute("update item set `count`=%s where shop_id = %s", (old_count + count, shop_id))
                 connection.commit()
 
     @staticmethod
@@ -76,7 +77,7 @@ class CommodityService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            db.execute("select * from user where id = %s", (user_id))
+            db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             if user['type'] != 'admin':
                 print("权限不足")
