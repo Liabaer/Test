@@ -4,6 +4,7 @@ import random
 
 import pymysql.cursors
 
+from mysql_pro.test_api.coupon_service import CouponService
 from mysql_pro.test_api.user import User
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.redis import RedisClient
@@ -41,7 +42,7 @@ class UserService(object):
         else:
             db.execute(
                 "insert into user(name,email,phone_number,password,amount,create_time,is_login,last_login_time) values(%s,%s,%s,%s,%s,%s,%s,%s) ",
-                (user.name, user.email, user.phone_number, user.password, user.amount, user.create_time,user.is_login,
+                (user.name, user.email, user.phone_number, user.password, user.amount, user.create_time, user.is_login,
                  user.last_login_time))
             connection.commit()
             flag = True
@@ -67,7 +68,7 @@ class UserService(object):
         # flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from user where name = %s and password=%s", (user_name,pwd))
+        db.execute("select * from user where name = %s and password=%s", (user_name, pwd))
         res = db.fetchone()
         if res is None:
             print('用户名或者密码错误')
@@ -107,7 +108,7 @@ class UserService(object):
         if res is None:
             print("用户未登录")
         else:
-            #这个res就是这个缓存key的values，就是id 所以不需要单独处理
+            # 这个res就是这个缓存key的values，就是id 所以不需要单独处理
             # json.load(res)
             # res_id = res
             db.execute("select * from user where id = %s", (res))
@@ -120,9 +121,9 @@ class UserService(object):
                 # 调用验证码服务
                 code = VerificationCode(email=user['email'])
                 VerificationCodeService.verification_code(code)
-                flag = VerificationCodeService.check_code(code.email,code.email_code)
+                flag = VerificationCodeService.check_code(code.email, code.email_code)
                 if flag:
-                    VerificationCodeService.use_code(code.email,code.email_code)
+                    VerificationCodeService.use_code(code.email, code.email_code)
                     db.execute("update user set password = %s where id = %s", (new_pwd, res))
                     connection.commit()
                 else:
@@ -146,7 +147,7 @@ class UserService(object):
             db.execute("update user set last_login_time = %s where id = %s", (Job.get_time(), res))
 
     @staticmethod
-    def add_user_address(token,location,addr_text):
+    def add_user_address(token, location, addr_text):
         """
         添加用户地址
         :param token:
@@ -161,11 +162,12 @@ class UserService(object):
         if res is None:
             print("用户未登录")
         else:
-            db.execute("insert into user_address(address_location,address_text,create_time) values (%s,%s,%s)",(location,addr_text,Job.get_time()))
+            db.execute("insert into user_address(address_location,address_text,create_time) values (%s,%s,%s)",
+                       (location, addr_text, Job.get_time()))
             connection.commit()
 
     @staticmethod
-    def user_recharge(token,amout):
+    def user_recharge(token, amout):
         """
         用户充值
         :param token:
@@ -181,12 +183,11 @@ class UserService(object):
         else:
             db.execute("select amount from user where id = %s", (user_id))
             amount_old = db.fetchone()
-            db.execute("update user set amount = %s where id = %s", (amout+amount_old['amout'], user_id))
+            db.execute("update user set amount = %s where id = %s", (amout + amount_old['amout'], user_id))
             connection.commit()
 
-
     @staticmethod
-    def place_order(token,sale_amount,user_addr_id,shop_id):
+    def place_order(token, sale_amount, user_addr_id, shop_id, item_dict: dict, coupon_id):
         """
         用户下单
         :param token:
@@ -214,7 +215,8 @@ class UserService(object):
             y1 = user_location.split(',')[0]
             y2 = user_location.split(',')[1]
             # 获取用户到商家经纬度
-            distance = Job.distance_haversine_simple(x1,x2,y1,y2)
+            distance = Job.distance_haversine_simple(x1, x2, y1, y2)
+
             if user['amount'] < sale_amount:
                 print("金额不足")
             elif shop_status == 1:
@@ -222,12 +224,31 @@ class UserService(object):
             elif distance > 10000:
                 print("距离太远")
             else:
-                order = MysqlOrder(order_price=sale_amount,distance=distance,user_location=user_location,shop_location=shop_location,user_id=user_id,status='pending',create_time=Job.get_time())
+                # 查询商品表计算每个商品的价格，然后根据字典里的次数，统计出总价
+                item_amount = 0
+                for k, v in item_dict.items():
+                    db.execute("select * from item where id = %s", (k))
+                    k_price = db.fetchone()['price']
+                    k_count = db.fetchone()['count']
+                    item_amount += k_price * v
+                    # 需要更新商品表的数据，将每个商品的库存减去购买的量（循环update)
+                    db.execute("update item set count=%s where id=%s", (k_count-v, k))
+                    connection.commit()
+                # 调用优惠券服务类，计算优惠价格---
+                db.execute("select * from coupon where id=%s", (coupon_id))
+                coupon = db.fetchone()
+                coupon_amount = CouponService.cal_price(coupon, sale_amount)
+                real_amount = item_amount - coupon_amount
+
+                order = MysqlOrder(order_price=sale_amount, distance=distance, user_location=user_location,
+                                   shop_location=shop_location, user_id=user_id, status='pending',
+                                   create_time=Job.get_time())
                 OrderService.insert_order(order)
                 db.execute("select amount from user where id = %s", (user_id))
                 amount_old = db.fetchone()
-                db.execute("update user set amount = %s where id = %s", (amount_old['amount']-sale_amount, user_id))
+                db.execute("update user set amount = %s where id = %s", (amount_old['amount'] - real_amount, user_id))
                 connection.commit()
+
 
     @staticmethod
     def delete_order(token, order_id):
@@ -243,9 +264,8 @@ class UserService(object):
             print("订单无法取消")
         elif res['courier_id'] is not None:
             OrderService.cancel_order(order_id)
-            OrderService.delete_order(order_id,user_id)
+            OrderService.delete_order(order_id, user_id)
             print("订单" + str(order_id) + "删除成功")
         else:
             OrderService.delete_order(order_id, user_id)
             print("订单" + str(order_id) + "删除成功")
-

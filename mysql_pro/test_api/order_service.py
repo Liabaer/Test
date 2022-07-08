@@ -25,6 +25,7 @@ class OrderService(object):
              order.distance, order.delivery_fee, order.create_time, order.accepted_time, order.start_delivery_time,
              order.completed_time, order.user_email,order.assign_type,order.user_id))
         connection.commit()
+        return order.id
 
         # # 下单成功通知用户邮件
         # SendEmail.send_msg_email(receive_name=order.user_email.split('@')[0], receive_email=[order.user_email],
@@ -52,6 +53,11 @@ class OrderService(object):
 
     @staticmethod
     def get_uncompleted_list(courier_id):
+        """
+        获取骑手未完成订单列表
+        :param courier_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         # 查询t_order表，查询骑手有那些订单未完成
@@ -126,6 +132,12 @@ class OrderService(object):
 
     @staticmethod
     def delete_order(order_id, user_id):
+        """
+        取消订单
+        :param order_id:
+        :param user_id:
+        :return:
+        """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from `order` where id = %s", (order_id))
@@ -138,4 +150,30 @@ class OrderService(object):
             print("订单" + str(order_id) + "取消成功")
         else:
             print("订单不属于该用户")
+
+
+    @staticmethod
+    def order_item(item_dict:dict,order_id,token):
+        """
+        订单商品关联方法
+        :param item_dict: key是商品id,value是购买了多少个这个商品
+        :param order_id:
+        :param token:
+        :return:
+        """
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        # 使用token查缓存 userid是否存在
+        user_id = RedisClient.create_redis_client().get("user_login_cache_" + str(token))
+        if user_id is None:
+            print("用户未登录")
+        else:
+            for k, v in item_dict.items():
+                db.execute("select * from item where id = %s", (k))
+                k_price = db.fetchone()['price']
+                # 循环item_dict,将数据循环插入到订单商品表中.还需要根据商品id将商品的当前价格查出来，插入到订单商品表中
+                db.execute("update order_item set item_count=%s,item_id=%s,item_price=%s where order_id=%s", (v,k,k_price,order_id))
+                connection.commit()
+
+
 
