@@ -23,9 +23,10 @@ class OrderService(object):
             "insert into `order`(status,order_price,courier_id,user_location,shop_location,distance,delivery_fee,create_time,accepted_time,start_delivery_time,completed_time,user_email,assign_type,user_id) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (order.order_status, order.order_price, order.courier_id, order.user_location, order.shop_location,
              order.distance, order.delivery_fee, order.create_time, order.accepted_time, order.start_delivery_time,
-             order.completed_time, order.user_email,order.assign_type,order.user_id))
+             order.completed_time, order.user_email, order.assign_type, order.user_id))
         connection.commit()
-        return order.id
+        # 获取insert语句插入后的主键id
+        return db.lastrowid
 
         # # 下单成功通知用户邮件
         # SendEmail.send_msg_email(receive_name=order.user_email.split('@')[0], receive_email=[order.user_email],
@@ -48,7 +49,7 @@ class OrderService(object):
         fee = Job.get_delivery_fee(distance=res['distance'])
         # 1,状态修改为accepted 2. courier_id修改为接单id 3. 配送费修改为实际配送费 4. 修改接单时间为当前时间
         db.execute("update `order` set status = %s, courier_id=%s, delivery_fee=%s where id = %s",
-                   ('accepted',  courier_id,  fee, order_id))
+                   ('accepted', courier_id, fee, order_id))
         connection.commit()
 
     @staticmethod
@@ -98,10 +99,11 @@ class OrderService(object):
         db.execute("select * from `order` where id = %s", (order_id))
         res = db.fetchone()
         # 查询订单信息判断是否已经接单
-        if res['status'] not in('pending','completed'):
+        if res['status'] not in ('pending', 'completed'):
             # 状态修改为pending  courier_id修改为空 accepted_time 修改为空 start_delivery_time 修改为空
-            db.execute("update `order` set status = %s, courier_id = %s, accepted_time = %s, start_delivery_time = %s where id = %s",
-                    ('pending', None, '', '', order_id))
+            db.execute(
+                "update `order` set status = %s, courier_id = %s, accepted_time = %s, start_delivery_time = %s where id = %s",
+                ('pending', None, '', '', order_id))
             connection.commit()
         else:
             print("不满足撤单条件")
@@ -151,9 +153,8 @@ class OrderService(object):
         else:
             print("订单不属于该用户")
 
-
     @staticmethod
-    def order_item(item_dict:dict,order_id,token):
+    def order_item(item_dict: dict, order_id, token):
         """
         订单商品关联方法
         :param item_dict: key是商品id,value是购买了多少个这个商品
@@ -172,8 +173,7 @@ class OrderService(object):
                 db.execute("select * from item where id = %s", (k))
                 k_price = db.fetchone()['price']
                 # 循环item_dict,将数据循环插入到订单商品表中.还需要根据商品id将商品的当前价格查出来，插入到订单商品表中
-                db.execute("update order_item set item_count=%s,item_id=%s,item_price=%s where order_id=%s", (v,k,k_price,order_id))
+                db.execute(
+                    "insert into order_item(item_count,item_id,item_price,order_id,create_time) values(%s,%s,%s,%s,%s)",
+                    (v, k, k_price, order_id, Job.get_time()))
                 connection.commit()
-
-
-

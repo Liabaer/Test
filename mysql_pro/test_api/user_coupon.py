@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class UserCoupon(object):
-    def __init__(self,id=None,coupon_id='',user_id='',status='',create_time='',user_time=''):
+    def __init__(self,id=None,coupon_id=None,user_id=None,status=0,create_time='',user_time=''):
         """
         3. 用户优惠券类
         :param id:

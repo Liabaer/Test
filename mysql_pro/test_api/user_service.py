@@ -4,6 +4,7 @@ import random
 
 import pymysql.cursors
 
+from mysql_pro.test_api.coupon import Coupon
 from mysql_pro.test_api.coupon_service import CouponService
 from mysql_pro.test_api.user import User
 from mysql_pro.test_api.mysql_api import MysqlClient
@@ -187,11 +188,10 @@ class UserService(object):
             connection.commit()
 
     @staticmethod
-    def place_order(token, sale_amount, user_addr_id, shop_id, item_dict: dict, coupon_id):
+    def place_order(token, user_addr_id, shop_id, item_dict: dict, coupon_id):
         """
         用户下单
         :param token:
-        :param sale_amount:
         :param user_addr_id:
         :param shop_id:
         :return:
@@ -216,10 +216,7 @@ class UserService(object):
             y2 = user_location.split(',')[1]
             # 获取用户到商家经纬度
             distance = Job.distance_haversine_simple(x1, x2, y1, y2)
-
-            if user['amount'] < sale_amount:
-                print("金额不足")
-            elif shop_status == 1:
+            if shop_status == 1:
                 print("商家未营业")
             elif distance > 10000:
                 print("距离太远")
@@ -234,20 +231,29 @@ class UserService(object):
                     # 需要更新商品表的数据，将每个商品的库存减去购买的量（循环update)
                     db.execute("update item set count=%s where id=%s", (k_count-v, k))
                     connection.commit()
-                # 调用优惠券服务类，计算优惠价格---
+                # 根据couponid查询出coupon
                 db.execute("select * from coupon where id=%s", (coupon_id))
-                coupon = db.fetchone()
-                coupon_amount = CouponService.cal_price(coupon, sale_amount)
+                temp = db.fetchone()
+                # 通过查询的temp字典新建一个coupon对象
+                coupon = Coupon(id=temp['id'], coupon_price=temp['coupon_price'],coupon_discount=temp['coupon_discount'],type=temp['type'],create_time=temp['create_time'])
+                # 调用优惠券服务类，计算优惠价格（传入coupon对象，和计算出的商品价格）
+                coupon_amount = CouponService.cal_price(coupon, item_amount)
+                # 实际商品价格=商品原价-优惠价格
                 real_amount = item_amount - coupon_amount
-
-                order = MysqlOrder(order_price=sale_amount, distance=distance, user_location=user_location,
-                                   shop_location=shop_location, user_id=user_id, status='pending',
-                                   create_time=Job.get_time())
-                OrderService.insert_order(order)
-                db.execute("select amount from user where id = %s", (user_id))
-                amount_old = db.fetchone()
-                db.execute("update user set amount = %s where id = %s", (amount_old['amount'] - real_amount, user_id))
-                connection.commit()
+                if user['amount'] < real_amount:
+                    print("金额不足")
+                else:
+                    order = MysqlOrder(order_price=real_amount, distance=distance, user_location=user_location,
+                                       shop_location=shop_location, user_id=user_id, status='pending',
+                                       create_time=Job.get_time())
+                    # 调用下单函数
+                    OrderService.insert_order(order)
+                    # 查询出用户原来余额
+                    db.execute("select amount from user where id = %s", (user_id))
+                    amount_old = db.fetchone()
+                    # 更新用户余额
+                    db.execute("update user set amount = %s where id = %s", (amount_old['amount'] - real_amount, user_id))
+                    connection.commit()
 
 
     @staticmethod

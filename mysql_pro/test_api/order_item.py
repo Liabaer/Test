@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-class UserItem(object):
-    def __init__(self,id=None,order_id='',item_id='',item_count='',item_price='',create_time=''):
+class OrderItem(object):
+    def __init__(self,id=None,order_id=None,item_id=None,item_count=0,item_price=0,create_time=''):
         """
         用户购买商品类
         :param id:
