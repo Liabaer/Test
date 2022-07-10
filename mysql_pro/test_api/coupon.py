@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Coupon(object):
-    def __init__(self,id=None,coupon_price=0,coupon_discount=0,type=0,create_time=''):
+    def __init__(self, id=None, coupon_price=0, coupon_discount=0, type=0, create_time=''):
         """
         优惠券
         :param id:
@@ -13,5 +13,5 @@ class Coupon(object):
         self.id = id
         self.coupon_price = coupon_price
         self.coupon_discount = coupon_discount
-        self.type=type
+        self.type = type
         self.create_time = create_time

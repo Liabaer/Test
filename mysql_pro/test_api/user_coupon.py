@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class UserCoupon(object):
-    def __init__(self,id=None,coupon_id=None,user_id=None,status=0,create_time='',user_time=''):
+    def __init__(self, id=None, coupon_id=None, user_id=None, status=0, create_time='', user_time=''):
         """
         3. 用户优惠券类
         :param id:
@@ -15,4 +15,4 @@ class UserCoupon(object):
         self.user_id = user_id
         self.status = status
         self.create_time = create_time
-        self.user_time =user_time
+        self.user_time = user_time

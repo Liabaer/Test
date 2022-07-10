@@ -146,7 +146,7 @@ class OrderService(object):
         res = db.fetchone()
         if res is None:
             print("订单不存在")
-        elif res['user_id'] == user_id:
+        elif res['user_id'] == int(user_id):
             db.execute("update `order` set status = %s where id = %s", ('delete', order_id))
             connection.commit()
             print("订单" + str(order_id) + "取消成功")

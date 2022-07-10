@@ -45,14 +45,12 @@ class TestCaseService(object):
     def generate_user(url='create_user.csv'):
         res = ReadCsv.read_csv(url)
         for i in res:
-            # 这里不知道有几个列
-            user = User()
+            user = User(name=i[0], email=i[1], phone_number=i[2], password=i[3], amount=i[4])
             UserService.register_user(user)
 
     @staticmethod
     def generate_shop(url='create_shop.csv', token=''):
         res = ReadCsv.read_csv(url)
         for i in res:
-            # 这里不知道有几个列
-            shop = Shop()
-            ShopService.create_shop(shop,token)
+            shop = Shop(name=i[0], address_text=i[1], address_location=i[2])
+            ShopService.create_shop(shop, token)

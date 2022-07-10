@@ -35,7 +35,7 @@ class CommodityService(object):
                 connection.commit()
 
     @staticmethod
-    def add_count(shop_id, count, token):
+    def add_count(item_id, count, token):
         """
         添加库存
         :param shop_id:
@@ -55,17 +55,17 @@ class CommodityService(object):
             if user['type'] != 'admin':
                 print("权限不足")
             else:
-                db.execute("select * from item where shop_id=%s", shop_id)
+                db.execute("select * from item where id=%s", item_id)
                 old_count = db.fetchone()['count']
                 # 则将增加的库存，存到表中
-                db.execute("update item set `count`=%s where shop_id = %s", (old_count + count, shop_id))
+                db.execute("update item set `count`=%s where id = %s", (old_count + count, item_id))
                 connection.commit()
 
     @staticmethod
-    def update_price(shop_id, price, token):
+    def update_price(item_id, price, token):
         """
         修改定价
-        :param shop_id:
+        :param item_id:
         :param price:
         :param token:
         :return:
@@ -83,5 +83,5 @@ class CommodityService(object):
                 print("权限不足")
             else:
                 # 将定价修改为price
-                db.execute("update item set price=%s where shop_id = %s", (price, shop_id))
+                db.execute("update item set price=%s where id = %s", (price, item_id))
                 connection.commit()

@@ -20,6 +20,28 @@ from mysql_pro.test_api.mysql_order import MysqlOrder
 class UserService(object):
 
     @staticmethod
+    def password_check(s):
+        """
+        判断密码合法性
+        :param s:
+        :return:
+        """
+        flagA = False
+        flagB = False
+        for x in s:
+            # 判断是否为纯数字
+            if x.isdigit():
+                flagA = True
+            # 判断是否为纯字母
+            elif x.isalpha():
+                flagB = True
+            else:
+                return False
+        if flagA and flagB:
+            return True
+        return False
+
+    @staticmethod
     def register_user(user):
         """
         注册用户
@@ -29,14 +51,15 @@ class UserService(object):
         flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        if 5 > len(user.name) > 10:
+        if not (5 < len(user.name) < 10):
             print("姓名校验不通过")
-        elif 5 > len(user.email) > 100:
+        elif not (5 < len(user.email) < 100):
             print("邮箱校验不通过")
-        elif 5 > len(user.phone_number) > 10:
+        elif not (5 < len(user.phone_number) < 10):
             print("手机号校验不通过")
         # 他的时候判断有没有不满足条件的x，放进数组里，如果数组大于0，说明有不满足条件的
-        elif len([x for x in user.password if not (x.isalpha() or x.isalnum())]) > 0 or len(user.password) < 5:
+        elif not UserService.password_check(user.password) or len(user.password) < 5:
+        # elif len([x for x in user.password if not x.isalnum()]) > 0 or len(user.password) < 5:
             # 不能这样写啊喂
             # elif 5 > len(user.password) or (x for x in user.password).isalnum() == False
             # or (x for x in user.password).isalnum() == False:
@@ -71,7 +94,7 @@ class UserService(object):
         # flag = False
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from user where name = %s and password=%s", (user_name, pwd))
+        db.execute("select * from user where `name` = %s and password=%s", (user_name, pwd))
         res = db.fetchone()
         if res is None:
             print('用户名或者密码错误')
@@ -86,7 +109,7 @@ class UserService(object):
             print("登陆成功")
             token = ''
             i = 0
-            while i != 15:
+            while i < 15:
                 token += chr(random.randint(ord('a'), ord('z')))
                 i += 1
                 token += str(random.randint(0, 9))
@@ -147,7 +170,8 @@ class UserService(object):
         else:
             RedisClient.create_redis_client().delete("user_login_cache_" + str(token))
             # res_id = json.loads(res)['id']
-            db.execute("update user set last_login_time = %s where id = %s", (Job.get_time(), res))
+            db.execute("update user set last_login_time = %s,is_login=%s where id = %s", (Job.get_time(),0, res))
+            connection.commit()
 
     @staticmethod
     def add_user_address(token, location, addr_text):
@@ -165,12 +189,12 @@ class UserService(object):
         if res is None:
             print("用户未登录")
         else:
-            db.execute("insert into user_address(address_location,address_text,create_time) values (%s,%s,%s)",
-                       (location, addr_text, Job.get_time()))
+            db.execute("insert into user_address(address_location,address_text,user_id,create_time) values (%s,%s,%s,%s)",
+                       (location, addr_text, res,Job.get_time()))
             connection.commit()
 
     @staticmethod
-    def user_recharge(token, amout):
+    def user_recharge(token, amount):
         """
         用户充值
         :param token:
@@ -186,7 +210,7 @@ class UserService(object):
         else:
             db.execute("select amount from user where id = %s", user_id)
             amount_old = db.fetchone()
-            db.execute("update user set amount = %s where id = %s", (amout + amount_old['amout'], user_id))
+            db.execute("update user set amount = %s where id = %s", (amount + amount_old['amount'], user_id))
             connection.commit()
 
     @staticmethod
@@ -208,12 +232,15 @@ class UserService(object):
             db.execute("select * from user where id = %s", user_id)
             user = db.fetchone()
             db.execute("select * from shop where id = %s", shop_id)
-            shop_status = db.fetchone()['status']
-            shop_location = db.fetchone()['address_location']
+            shop_info= db.fetchone()
+            shop_status = shop_info['status']
+            # print(shop_status)
+            shop_location = shop_info['address_location']
             x1 = shop_location.split(',')[0]
             x2 = shop_location.split(',')[1]
-            db.execute("select * from user_adrress where id = %s", user_addr_id)
-            user_location = db.fetchone()['address_location']
+            db.execute("select * from user_address where id = %s", user_addr_id)
+            user_info = db.fetchone()
+            user_location = user_info['address_location']
             y1 = user_location.split(',')[0]
             y2 = user_location.split(',')[1]
             # 获取用户到商家经纬度
@@ -227,8 +254,9 @@ class UserService(object):
                 item_amount = 0
                 for k, v in item_dict.items():
                     db.execute("select * from item where id = %s", k)
-                    k_price = db.fetchone()['price']
-                    k_count = db.fetchone()['count']
+                    k_info = db.fetchone()
+                    k_price = k_info['price']
+                    k_count = k_info['count']
                     item_amount += k_price * v
                     # 需要更新商品表的数据，将每个商品的库存减去购买的量（循环update)
                     db.execute("update item set count=%s where id=%s", (k_count-v, k))
@@ -246,8 +274,7 @@ class UserService(object):
                     print("金额不足")
                 else:
                     order = MysqlOrder(order_price=real_amount, distance=distance, user_location=user_location,
-                                       shop_location=shop_location, user_id=user_id, status='pending',
-                                       create_time=Job.get_time())
+                                       shop_location=shop_location, user_id=user_id, user_email=user['email'])
                     # 调用下单函数
                     OrderService.insert_order(order)
                     # 查询出用户原来余额

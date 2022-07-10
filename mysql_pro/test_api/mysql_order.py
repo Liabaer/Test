@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from study_project.test_api.test_public import Job
+
+
 class MysqlOrder(object):
     def __init__(self, id='',order_price=0, courier_id=None, user_location='', shop_location='',distance=0, start_delivery_time='', user_email='',assign_type=0,user_id=None):
         """
@@ -26,7 +29,7 @@ class MysqlOrder(object):
         self.courier_id = courier_id
         self.order_status = 'pending'
         self.delivery_fee = 0.00
-        self.create_time = ''
+        self.create_time = Job.get_time()
         self.accepted_time = ''
         self.completed_time = ''
         self.start_delivery_time = start_delivery_time

@@ -54,7 +54,7 @@ class CouponService(object):
                 print("权限不足")
             else:
                 # 写入到用户优惠券表中
-                db.execute("insert into user_coupon(user_id,coupon_id,create_tiem) values (%s,%s,%s)",
+                db.execute("insert into user_coupon(user_id,coupon_id,create_time) values (%s,%s,%s)",
                            (user_id, coupon_id, Job.get_time()))
                 connection.commit()
 

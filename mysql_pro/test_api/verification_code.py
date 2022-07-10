@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class VerificationCode(object):
-    def __init__(self, id=None, email='', email_code='',status=0,create_time='',email_type='update_password',user_time=''):
+    def __init__(self, id=None, email='', email_code=0,status=0,create_time='',email_type='update_password',user_time=''):
         """
         :param id:
         :param email:

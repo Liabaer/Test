@@ -22,19 +22,22 @@ class ShopService(object):
         if user_id is None:
             print("用户未登录")
         else:
-            s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 "
+            s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
             db.execute("select * from user where id = %s", user_id)
             res = db.fetchone()
             if res['type'] != 'admin':
                 print("权限不足")
-            elif (for i in shop.name if i not in s):
+            # （x for x in y） 表示把y的内容存到一个新的元祖里
+            # [x for x in y] 表示把y的内容存到一个新的元祖里
+            # 存的数据都是x
+            elif len([x for x in shop.name if x not in s]) > 0:
                 print("商家名称不合法")
             elif len(shop.address_text) < 10:
                 print("商家地址文本太短")
             else:
                 # 处理location保留6为小数
-                x = str(round(int(shop.address_location.split(',')[0]), 6))
-                y = str(round(int(shop.address_location.split(',')[1]), 6))
+                x = str(round(float(shop.address_location.split(',')[0]), 6))
+                y = str(round(float(shop.address_location.split(',')[1]), 6))
                 location = x + ',' + y
                 db.execute("insert into shop(name,address_text,address_location,create_time) values (%s,%s,%s,%s)",
                            (shop.name, shop.address_text, location, Job.get_time()))
