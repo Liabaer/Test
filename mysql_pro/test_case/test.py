@@ -33,9 +33,6 @@ from mysql_pro.test_api.auto_service import AutoService
 # order = MysqlOrder(id=order_res['id'])
 
 #
-# db.execute("select * from courier where id = %s", (1))
-# courier1_res = db.fetchone()
-# courier1 = MySQLCourier(id=courier1_res['id'], courier_location=courier1_res['courier_location'],status=courier1_res['status'])
 
 # CourierService.get_order(courier, order.id)
 # CourierService.start_delivery(courier,order.id)
@@ -53,7 +50,7 @@ from mysql_pro.test_api.auto_service import AutoService
 
 # token = UserService.user_login('liabaer','aaa111bbb222c')
 # print(token)
-UserService.user_recharge(token='y8r0t2f5j9y6a0a0', amount=25)
+# UserService.user_recharge(token='y8r0t2f5j9y6a0a0', amount=25)
 # UserService.add_user_address(token=token,location='1.30205,103.880356',addr_text='30-Jln-Benaan-Kapal,sg-399631')
 # UserService.login_out(token=token)
 # TestCaseService.generate_shop(token=token)
@@ -68,5 +65,14 @@ UserService.user_recharge(token='y8r0t2f5j9y6a0a0', amount=25)
 # CouponService.create_coupon(coupon=coupon, token='y8r0t2f5j9y6a0a0')
 # CouponService.send_coupon(coupon_id=2,user_id=1,token='y8r0t2f5j9y6a0a0')
 
-# UserService.place_order(user_addr_id=2, shop_id=1, item_dict={1: 3, 2: 4}, coupon_id=2, token='y8r0t2f5j9y6a0a0')
-UserService.delete_order(token='y8r0t2f5j9y6a0a0',order_id=8)
+# UserService.place_order(token='y8r0t2f5j9y6a0a0',user_addr_id=2, shop_id=1,  item_dict={1: 3, 2: 4},coupon_id=2)
+UserService.delete_order(token='y8r0t2f5j9y6a0a0',order_id=10)
+
+# connection = MysqlClient.get_connection()
+# db = connection.cursor(pymysql.cursors.DictCursor)
+# db.execute("select * from courier where id = %s", (1))
+# courier1_res = db.fetchone()
+# courier1 = MySQLCourier(id=courier1_res['id'], courier_location=courier1_res['courier_location'],status=courier1_res['status'])
+#
+# CourierService.get_order(courier1,order_id=10)
+# OrderService.accept_order(order_id=10,courier_id=1)

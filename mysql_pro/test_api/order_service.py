@@ -105,6 +105,8 @@ class OrderService(object):
                 "update `order` set status = %s, courier_id = %s, accepted_time = %s, start_delivery_time = %s where id = %s",
                 ('pending', None, '', '', order_id))
             connection.commit()
+            # 清楚redis
+            RedisClient.create_redis_client().srem("courier_uncompleted_"+order_id)
         else:
             print("不满足撤单条件")
 
