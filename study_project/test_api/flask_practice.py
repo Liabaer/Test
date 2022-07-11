@@ -40,7 +40,8 @@ def test_user_login():
     return {
         "data": {
             "token": token
-        }
+        },
+        "errorMessage": ""
     }
 
 
@@ -50,13 +51,14 @@ def test_user_update_pwd():
     用户修改密码
     :return:
     """
-    pwd = request.json.get("password")
+    pwd = request.json.get("pwd")
     new_pwd = request.json.get("new_pwd")
     UserService.update_pwd(token=request.headers.get('token'), pwd=pwd, new_pwd=new_pwd)
     return {
         "data": {
-            "token": True
-        }
+            "success": True
+        },
+        "errorMessage": ""
     }
 
 
