@@ -53,11 +53,11 @@ while i < len(img):
             count = count + 1
             sum = sum + img[i + 1][j + 1]
         sum = sum + img[i][j]
-        print sum,count
+        print(sum,count)
         avg = sum/count
-        print avg
-        print '----'
+        # print avg
+        # print '----'
         new_img[i][j] = avg
         j = j + 1
     i = i + 1
-print new_img
+# print new_img
