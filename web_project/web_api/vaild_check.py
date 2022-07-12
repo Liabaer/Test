@@ -16,7 +16,7 @@ class ValidCheckUtils(object):
     def is_num(s):
         flag = False
         for i in str(s):
-            if ord('0') <= ord(i) <= ord('1'):
+            if ord('0') <= ord(i) <= ord('9'):
                 flag = True
             else:
                 return False
@@ -43,7 +43,7 @@ class ValidCheckUtils(object):
 
     @staticmethod
     def is_between(s, min_len, max_len):
-        if min_len <= len(s) <= max_len:
+        if min_len <= len(str(s)) <= max_len:
             return True
         else:
             return False
