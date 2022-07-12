@@ -2,11 +2,11 @@
 import requests
 
 
-res = requests.post('ttp://127.0.0.1:8080/user/register',headers={'Content-Type': 'application/json'},
-                    json={'phon_number':1345999911,'password':'12b45312'})
-print(res)
+res = requests.post('http://127.0.0.1:8080/user/register-new',headers={'Content-Type': 'application/json'},
+                    json={'phone_number':13459999111,'password':'12b45312bbb'})
+print(res.content)
 
 
-response = requests.post('ttp://127.0.0.1:8080/user/login',headers={'Content-Type': 'application/json'},
-                    json={'phon_number':1345999911,'password':'12b45312'})
-print(response)
+response = requests.post('http://127.0.0.1:8080/user/login-new',headers={'Content-Type': 'application/json'},
+                    json={'phone_number':13459999111,'password':'12b45312bbb'})
+print(response.content)

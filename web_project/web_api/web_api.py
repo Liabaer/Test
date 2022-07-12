@@ -7,7 +7,7 @@ from web_project.web_api.user_service import UserService
 
 app = Flask(__name__)
 
-@app.route('/user/register',methods=['POST'])
+@app.route('/user/register-new',methods=['POST'])
 def test_user_register():
     phone_number = request.json.get('phone_number')
     password = request.json.get('password')
@@ -17,7 +17,7 @@ def test_user_register():
         'res':True
     }
 
-@app.route('/user/login',methods=['POST'])
+@app.route('/user/login-new',methods=['POST'])
 def test_user_login():
     phone_number = request.json.get('phone_number')
     password = request.json.get('password')

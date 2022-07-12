@@ -2,19 +2,27 @@
 class ValidCheckUtils(object):
     @staticmethod
     def is_en(s):
+        flag = False
         for i in s:
             if ord('a') <= ord(i) <= ord('z') or ord('A') <= ord(i) <= ord('Z'):
-                return True
+                flag = True
             else:
                 return False
+        if flag:
+            return True
+
 
     @staticmethod
     def is_num(s):
-        for i in s:
+        flag = False
+        for i in str(s):
             if ord('0') <= ord(i) <= ord('1'):
-                return True
+                flag = True
             else:
                 return False
+        if flag:
+            return True
+
 
     @staticmethod
     def is_en_num(s):
@@ -35,8 +43,7 @@ class ValidCheckUtils(object):
 
     @staticmethod
     def is_between(s, min_len, max_len):
-        for i in s:
-            if min_len <= len(i) <= max_len:
-                return True
-            else:
-                return False
+        if min_len <= len(s) <= max_len:
+            return True
+        else:
+            return False

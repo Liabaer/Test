@@ -25,22 +25,21 @@ class UserService(object):
                 token = ''
                 for i in range(14):
                     token += random.choice(s)
-                RedisClient.create_redis_client().set("user_is_login" + token, temp['id'])
+                RedisClient.create_redis_client().set("user_is_login" + token, temp['id'], ex=86400)
                 return token
             else:
                 print("密码错误")
-
 
     @staticmethod
     def user_register(user):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        if ValidCheckUtils.is_num(user.phone_number)and ValidCheckUtils.is_between(user.phone_number,10,15) and ValidCheckUtils.is_en_num(user.password) and ValidCheckUtils.is_between(user.password,5,10):
-            db.execute("insert into new_user(phone_number,password,create_time) values(%s,%s,%s)",(user.phone_number,user.password,Job.get_time()))
+        if ValidCheckUtils.is_num(user.phone_number) and ValidCheckUtils.is_between(user.phone_number, 10,
+                                                                                    15) and ValidCheckUtils.is_en_num(
+                user.password) and ValidCheckUtils.is_between(user.password, 5, 10):
+            db.execute("insert into new_user(phone_number,password,create_time) values(%s,%s,%s)",
+                       (user.phone_number, user.password, Job.get_time()))
             connection.commit()
             print("注册成功")
         else:
             print("用户名或密码校验不通过")
-
-
-
