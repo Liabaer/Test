@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class StuChooseCourse(object):
-    def __init__(self, id=None, user_id=None, class_id=0, create_time='', status=0):
+    def __init__(self, id=None, user_id=None, class_id=None, create_time='', status=0):
         """
         学生选课类
         :param id:

@@ -64,8 +64,8 @@ class StuChooseCls(object):
         course_list = []
         for i in res:
             course_dict = {}
-            for k, v in i.items():
-                if k == 'create_time' and v < Job.get_time():
+            if i['create_time'] < Job.get_time():
+                for k, v in i.items():
                     course_dict[k] = v
             course_list.append(course_dict)
         return course_list
@@ -95,30 +95,29 @@ class StuChooseCls(object):
             else:
                 # 查询 course_id 的 school_class
                 db.execute("select * from school_class where id = %s", course_id)
-                cls_res = db.fetchall()
+                cls_res = db.fetchone()
                 # 查询course_id 的选课信息
-                db.execute("select * from user_class where class_id = %s", course_id)
-                user_cls_res = db.fetchall()
+                db.execute("select * from user_class where class_id = %s and user_id=%s", (course_id,user_id))
+                user_cls_res = db.fetchone()
                 # 判断用户是否选过了这门课
-                for i in user_cls_res:
-                    if i['user_id'] == res['user_id']:
-                        print('用户已经选过该课程')
-                        return False
-                    # 这门课程当前时间还能否选
-                    elif cls_res['create_time'] < Job.get_time():
-                        print("当前时间该课程不可选")
-                        return False
-                    # 选课人数是否到达上限
-                    elif cls_res['new_count'] >= cls_res['count']:
-                        print("选课人数达上限")
-                        return False
-                    else:
-                        # 新增学生选课表
-                        db.execute("insert into user_class(user_id, class_id, create_time) values (%s,%s,%s)",
-                                   (user_id, course_id, Job.get_time()))
-                        connection.commit()
-                        # 修改课程表数据
-                        db.execute("update school_class set new_count=%s where id = %s",
-                                   (cls_res['new_count'] + 1, course_id))
-                        connection.commit()
-                        return True
+                if user_cls_res is not None:
+                    print('用户已经选过该课程')
+                    return False
+                # 这门课程当前时间还能否选
+                elif cls_res['create_time'] < Job.get_time():
+                    print("当前时间该课程不可选")
+                    return False
+                # 选课人数是否到达上限
+                elif cls_res['new_count'] + 1 > cls_res['count']:
+                    print("选课人数达上限")
+                    return False
+                else:
+                    # 新增学生选课表
+                    db.execute("insert into user_class(user_id, class_id, create_time) values (%s,%s,%s)",
+                               (user_id, course_id, Job.get_time()))
+                    connection.commit()
+                    # 修改课程表数据
+                    db.execute("update school_class set new_count=%s where id = %s",
+                               (cls_res['new_count'] + 1, course_id))
+                    connection.commit()
+                    return True

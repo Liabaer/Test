@@ -12,10 +12,11 @@ from study_project.test_api.test_public import Job
 
 
 class SchoolUserService(object):
+    @staticmethod
     def user_login(SchoolUser):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from school_user where name=%s", SchoolUser.id)
+        db.execute("select * from school_user where id=%s", SchoolUser.id)
         temp = db.fetchone()
         if temp is None:
             print("用户不存在")

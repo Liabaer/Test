@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Course(object):
-    def __init__(self,id = '',name='',teach_id='',count='',now_count='',start_time='',end_time='',create_time=''):
+    def __init__(self,id = None,name='',teach_id=None,count='',now_count='',start_time='',end_time='',create_time=''):
         """
         课程
         :param id:
