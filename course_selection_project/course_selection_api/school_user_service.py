@@ -13,16 +13,16 @@ from study_project.test_api.test_public import Job
 
 class SchoolUserService(object):
     @staticmethod
-    def user_login(SchoolUser):
+    def user_login(schoolUser):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from school_user where id=%s", SchoolUser.id)
+        db.execute("select * from school_user where id=%s", schoolUser.id)
         temp = db.fetchone()
         if temp is None:
             print("用户不存在")
             return False
         else:
-            if temp['name'] == SchoolUser.name and temp['password'] == SchoolUser.password:
+            if temp['name'] == schoolUser.name and temp['password'] == schoolUser.password:
                 print("登陆成功")
                 s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
                 token = ''

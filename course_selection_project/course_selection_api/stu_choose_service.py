@@ -22,7 +22,7 @@ class StuChooseCls(object):
             return
         else:
             #  start_time不允许大于end_time，end_time不允许小于当前时间
-            if course.end_time > course.create_time and course.end_time > Job.get_time():
+            if course.end_time > course.start_time and course.end_time > Job.get_time():
                 connection = MysqlClient.get_connection()
                 db = connection.cursor(pymysql.cursors.DictCursor)
                 user_id = RedisClient.create_redis_client().set("user_login_token" + token)
@@ -45,7 +45,7 @@ class StuChooseCls(object):
                         #  录入课程的信息到课程表中
                         db.execute(
                             "insert into school_class(name,teach_id,count,new_count,start_time,end_time,create_time) values (%s,%s,%s,%s,%s,%s,%S)",
-                            (course.name, course.teach_id, course.count, course.now_count, course.start_time,
+                            (course.name, course.teach_id, course.count, 0, course.start_time,
                              course.end_time, Job.get_time()))
                         connection.commit()
             else:
@@ -64,9 +64,14 @@ class StuChooseCls(object):
         course_list = []
         for i in res:
             course_dict = {}
-            if i['create_time'] < Job.get_time():
+            if i['start_time'] <= Job.get_time() <= i['end_time']:
                 for k, v in i.items():
-                    course_dict[k] = v
+                    if k == 'teach_id':
+                        db.execute("select * from school_user where id=%s", v)
+                        teach_name = db.fetchone()['name']
+                        course_dict['teach_name'] = teach_name
+                    else:
+                        course_dict[k] = v
             course_list.append(course_dict)
         return course_list
 
@@ -97,7 +102,7 @@ class StuChooseCls(object):
                 db.execute("select * from school_class where id = %s", course_id)
                 cls_res = db.fetchone()
                 # 查询course_id 的选课信息
-                db.execute("select * from user_class where class_id = %s and user_id=%s", (course_id,user_id))
+                db.execute("select * from user_class where class_id = %s and user_id=%s", (course_id, user_id))
                 user_cls_res = db.fetchone()
                 # 判断用户是否选过了这门课
                 if user_cls_res is not None:

@@ -23,11 +23,8 @@ def user_login():
 
 @app.rout('/school_user/choose_cls', methods=['POST'])
 def stu_choose_cls():
-    name = request.json.get('name')
-    pwd = request.json.get('password')
+    token = request.json.get('token')
     course_id = request.json.get('class_id')
-    school_user = SchoolUser(name=name, password=pwd)
-    token = SchoolUserService.user_login(school_user)
     StuChooseCls.choose_course(token=token, course_id=course_id)
     return {
         'res': True
@@ -35,7 +32,8 @@ def stu_choose_cls():
 
 
 @app.rout('/school_user/register', methods=['POST'])
-def user_register(url):
+def user_register():
+    url = request.json.get('url')
     SchoolUserService.user_register(url=url)
     return {
         'res': True
@@ -53,18 +51,12 @@ def get_cls():
 @app.rout('/school_user/create_cls', methods=['POST'])
 def create_cls():
     token = request.json.get('token')
-    # name = request.json.get('name')
-    # pwd = request.json.get('password')
-    # cls = request.json.get('class')
-    # school_user = SchoolUser(name=name, password=pwd)
-    # token = SchoolUserService.user_login(school_user)
     name = request.json.get('name')
     teach_id = request.json.get('teach_id')
     count = request.json.get('count')
-    new_count = request.json.get('new_count')
     start_time = request.json.get('start_time')
     end_time = request.json.get('end_time')
-    cls = Course(name=name, teach_id=teach_id, count=count, new_count=new_count, start_time=start_time,
+    cls = Course(name=name, teach_id=teach_id, count=count, start_time=start_time,
                  end_time=end_time)
     StuChooseCls.create_course(token=token, course=cls)
     return {
