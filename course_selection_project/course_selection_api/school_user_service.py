@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from random import random
+import random
 
 import pymysql
 
@@ -28,7 +28,7 @@ class SchoolUserService(object):
                 token = ''
                 for i in range(14):
                     token += random.choice(s)
-                RedisClient.create_redis_client().set("user_login_token" + token, temp['id'], ex=86400)
+                RedisClient.create_redis_client().set("user_login_" + token, temp['id'], ex=86400)
                 return token
             else:
                 print("姓名或者密码错误")

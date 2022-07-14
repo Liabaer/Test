@@ -11,7 +11,6 @@ class ValidCheckUtils(object):
         if flag:
             return True
 
-
     @staticmethod
     def is_num(s):
         flag = False
@@ -22,7 +21,6 @@ class ValidCheckUtils(object):
                 return False
         if flag:
             return True
-
 
     @staticmethod
     def is_en_num(s):
@@ -37,7 +35,7 @@ class ValidCheckUtils(object):
                 flag2 = True
             else:
                 return False
-        if flag1 and flag2:
+        if (flag1 == True and flag2 == True) or '_' in s:
             return True
         return False
 

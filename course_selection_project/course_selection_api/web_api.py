@@ -7,21 +7,22 @@ from course_selection_project.course_selection_api.school_user import SchoolUser
 from course_selection_project.course_selection_api.school_user_service import SchoolUserService
 from course_selection_project.course_selection_api.stu_choose_service import StuChooseCls
 
-app = Flask[__name__]
+app = Flask(__name__)
 
 
-@app.rout('/school_user/login', methods=['POST'])
+@app.route('/school_user/login', methods=['POST'])
 def user_login():
+    id = request.json.get('id')
     name = request.json.get('name')
     pwd = request.json.get('password')
-    school_user = SchoolUser(name=name, password=pwd)
+    school_user = SchoolUser(id=id, name=name, password=pwd)
     token = SchoolUserService.user_login(school_user)
     return {
         'token': token
     }
 
 
-@app.rout('/school_user/choose_cls', methods=['POST'])
+@app.route('/school_user/choose_cls', methods=['POST'])
 def stu_choose_cls():
     token = request.json.get('token')
     course_id = request.json.get('class_id')
@@ -31,7 +32,7 @@ def stu_choose_cls():
     }
 
 
-@app.rout('/school_user/register', methods=['POST'])
+@app.route('/school_user/register', methods=['POST'])
 def user_register():
     url = request.json.get('url')
     SchoolUserService.user_register(url=url)
@@ -40,7 +41,7 @@ def user_register():
     }
 
 
-@app.rout('/school_user/get_cls', methods=['GET'])
+@app.route('/school_user/get_cls', methods=['GET'])
 def get_cls():
     course_list = StuChooseCls.get_course()
     return {
@@ -48,7 +49,7 @@ def get_cls():
     }
 
 
-@app.rout('/school_user/create_cls', methods=['POST'])
+@app.route('/school_user/create_cls', methods=['POST'])
 def create_cls():
     token = request.json.get('token')
     name = request.json.get('name')

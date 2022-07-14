@@ -16,40 +16,40 @@ class StuChooseCls(object):
         :param course:
         :return:
         """
-        # 判断token是否合法
-        if not ValidCheckUtils.is_en_num(token):
-            print("token不合法")
-            return
-        else:
-            #  start_time不允许大于end_time，end_time不允许小于当前时间
-            if course.end_time > course.start_time and course.end_time > Job.get_time():
-                connection = MysqlClient.get_connection()
-                db = connection.cursor(pymysql.cursors.DictCursor)
-                user_id = RedisClient.create_redis_client().set("user_login_token" + token)
-                if user_id is None:
-                    print('用户未登录')
-                else:
-                    db.execute("select * from school_user where id = %s", user_id)
-                    res = db.fetchone()
-                    db.execute("select * from school_user where id = %s", course.teach_id)
-                    teach_res = db.fetchone()
-                    # 以及判断token的权限是否为老师
-                    if res is None:
-                        print("用户不存在")
-                    elif res['type'] == 0:
-                        print('非教师登陆')
-                    # teach_id必须有效（在用户表中存在，并且是type是教师类型）
-                    elif teach_res is None or teach_res['type'] == 0:
-                        print("teach_id不存在或权限错误")
-                    else:
-                        #  录入课程的信息到课程表中
-                        db.execute(
-                            "insert into school_class(name,teach_id,count,new_count,start_time,end_time,create_time) values (%s,%s,%s,%s,%s,%s,%S)",
-                            (course.name, course.teach_id, course.count, 0, course.start_time,
-                             course.end_time, Job.get_time()))
-                        connection.commit()
+        # # 判断token是否合法 又不用判断了
+        # if not ValidCheckUtils.is_en_num(token):
+        #     print("token不合法")
+        #     return
+
+        #  start_time不允许大于end_time，end_time不允许小于当前时间
+        if course.end_time > course.start_time and course.end_time > Job.get_time():
+            connection = MysqlClient.get_connection()
+            db = connection.cursor(pymysql.cursors.DictCursor)
+            user_id = RedisClient.create_redis_client().get("user_login_" + str(token))
+            if user_id is None:
+                print('用户未登录')
             else:
-                print("课程时间参数不合法")
+                db.execute("select * from school_user where id = %s", user_id)
+                res = db.fetchone()
+                db.execute("select * from school_user where id = %s", course.teach_id)
+                teach_res = db.fetchone()
+                # 以及判断token的权限是否为老师
+                if res is None:
+                    print("用户不存在")
+                elif res['type'] == 0:
+                    print('非教师登陆')
+                # teach_id必须有效（在用户表中存在，并且是type是教师类型）
+                elif teach_res is None or teach_res['type'] == 0:
+                    print("teach_id不存在或权限错误")
+                else:
+                    #  录入课程的信息到课程表中
+                    db.execute(
+                        "insert into school_class(name,teach_id,count,new_count,start_time,end_time,create_time) values (%s,%s,%s,%s,%s,%s,%s)",
+                        (course.name, course.teach_id, course.count, 0, course.start_time,
+                         course.end_time, Job.get_time()))
+                    connection.commit()
+        else:
+            print("课程时间参数不合法")
 
     @staticmethod
     def get_course():
@@ -85,7 +85,7 @@ class StuChooseCls(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        user_id = RedisClient.create_redis_client().set("user_login_token" + token)
+        user_id = RedisClient.create_redis_client().get("user_login_" + str(token))
         # 判断token对应的用户是否存在
         if user_id is None:
             print('用户未登录')
@@ -109,7 +109,7 @@ class StuChooseCls(object):
                     print('用户已经选过该课程')
                     return False
                 # 这门课程当前时间还能否选
-                elif cls_res['create_time'] < Job.get_time():
+                elif not (cls_res['start_time'] < Job.get_time() < cls_res['end_time']):
                     print("当前时间该课程不可选")
                     return False
                 # 选课人数是否到达上限
