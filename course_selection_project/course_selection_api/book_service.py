@@ -3,6 +3,9 @@ import pymysql
 
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.redis import RedisClient
+from study_project.test_api.test_public import Job
+
+
 class BookService(object):
     @staticmethod
     def create_book_category(book_category):
@@ -19,7 +22,7 @@ class BookService(object):
             return False
         else:
             # 将数据写入到图书分类表中
-            db.execute("insert into book_category(name, count, create_time) values (%s,%s,%s)", (book_category.name,book_category.count,book_category.create_time))
+            db.execute("insert into book_category(name, count, create_time) values (%s,%s,%s)", (book_category.name,book_category.count,Job.get_time()))
             connection.commit()
             return True
 
@@ -39,10 +42,10 @@ class BookService(object):
             return False
         else:
             # 数据写入到图书表中
-            db.execute("insert into book(name, count, new_count, book_category_id, create_time) values (%s,$s,%s,%s,%s)",
-                       (book.name, book.count, 0, book.book_category, book.create_time))
+            db.execute("insert into book(name, count, now_count, book_category_id) values (%s,%s,%s,%s)",
+                       (book.name, book.count, 0, book.book_category))
             connection.commit()
-            db.execute("select * from book_category where name=%s", book.book_category)
+            db.execute("select * from book_category where id=%s", book.book_category)
             category_old = db.fetchone()['count']
             # 更新图书分类表中count字段
             db.execute("update book_category set count=%s where id=%s", (category_old+1, book.book_category))
