@@ -110,28 +110,25 @@ class StudentService(object):
             if book_res is None:
                 print("图书不存在")
             else:
-                if book_res['now_count'] >= book_res['count']:
-                    print("库存不足")
-                else:
-                    #  修改学生借书表的数据
-                    db.execute(
-                        "update student_borrow_book set status=%s,update_time=%s where book_id=%s and user_id=%s",
-                        (1, Job.get_time(), book_id, card_id))
-                    connection.commit()
-                    #  修改图书表的借出字段
-                    db.execute("update book set now_count=%s where id=%s", (book_res['now_count'] - 1, book_id))
-                    connection.commit()
-                    print("还书成功")
-                    # 根据还书时间计算消费金额（一本书一天按照5毛计算，不足一天按一天）
+                #  修改学生借书表的数据
+                db.execute(
+                    "update student_borrow_book set status=%s,update_time=%s where book_id=%s and user_id=%s",
+                    (1, Job.get_time(), book_id, card_id))
+                connection.commit()
+                #  修改图书表的借出字段
+                db.execute("update book set now_count=%s where id=%s", (book_res['now_count'] - 1, book_id))
+                connection.commit()
+                print("还书成功")
+                # 根据还书时间计算消费金额（一本书一天按照5毛计算，不足一天按一天）
 
-                    db.execute("select * from student_borrow_book where book_id=%s and user_id=%s", (book_id, card_id))
-                    borrow_res = db.fetchone()
-                    # total_seconds 计算2个时间相差了多少秒
-                    time = (datetime.strptime(borrow_res['update_time'], '%Y.%m.%d %H:%M:%S') - datetime.strptime(
-                        borrow_res['create_time'], '%Y.%m.%d %H:%M:%S')).total_seconds()
-                    if (time % 3600 * 24) != 0:
-                        amount = (int(time / 3600 * 24) + 1) * 0.5
-                    else:
-                        amount = int(time / 3600 * 24) * 0.5
-                    # 调用使用学生卡函数
-                    StudentService.use_card(0, amount, card_id)
+                db.execute("select * from student_borrow_book where book_id=%s and user_id=%s", (book_id, card_id))
+                borrow_res = db.fetchone()
+                # total_seconds 计算2个时间相差了多少秒
+                time = (datetime.strptime(borrow_res['update_time'], '%Y.%m.%d %H:%M:%S') - datetime.strptime(
+                    borrow_res['create_time'], '%Y.%m.%d %H:%M:%S')).total_seconds()
+                if (time % (3600 * 24)) != 0:
+                    amount = (int(time / (3600 * 24)) + 1) * 0.5
+                else:
+                    amount = int(time / (3600 * 24)) * 0.5
+                # 调用使用学生卡函数
+                StudentService.use_card(0, amount, card_id)

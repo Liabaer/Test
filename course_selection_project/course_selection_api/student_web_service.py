@@ -17,7 +17,7 @@ def create_book():
     book = Book(book_category=book_category, name=name, count=count)
     res = BookService.create_book(book)
     return {
-        'res': True
+        'success': res
     }
 
 
@@ -30,7 +30,7 @@ def create_category():
     bc = Book(book_category=book_category, name=name, count=count)
     res = BookService.create_book_category(bc)
     return {
-        'res': res
+        'success': res
     }
 
 
@@ -41,7 +41,7 @@ def create_card():
     card = StudentCard(amount=amount, name=name)
     StudentService.create_card(card)
     return {
-        'res': True
+        'success': True
     }
 
 
@@ -52,7 +52,7 @@ def use_card():
     card_id = request.json.get('card_id')
     StudentService.use_card(type=type, amount=amount, card_id=card_id)
     return {
-        'res': True
+        'success': True
     }
 
 
@@ -62,7 +62,7 @@ def borrow():
     card_id = request.json.get('card_id')
     StudentService.borrow_book(book_id=book_id, card_id=card_id)
     return {
-        'res': True
+        'success': True
     }
 
 
@@ -72,7 +72,7 @@ def return_book():
     card_id = request.json.get('card_id')
     StudentService.return_book(book_id=book_id, card_id=card_id)
     return {
-        'res': True
+        'success': True
     }
 
 

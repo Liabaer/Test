@@ -37,8 +37,8 @@ class BookService(object):
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
         db.execute("select * from book where book_category_id=%s", book.book_category)
-        if db.fetchone() is not None:
-            print("该分类名已经存在")
+        if db.fetchone() is None:
+            print("该分类名不存在")
             return False
         else:
             # 数据写入到图书表中
