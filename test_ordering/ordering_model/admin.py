@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from study_project.test_api.test_public import Job
+
+
 class Admin(object):
-    def __init__(self, id=None, name='', password='', rule=0, create_time=''):
+    def __init__(self, id=None, name='', password='', rule=0, create_time=Job.get_time()):
         # 管理员
         #  1. id
         # 2. name

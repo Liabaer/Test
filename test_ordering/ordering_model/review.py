@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from study_project.test_api.test_public import Job
+
+
 class Review(object):
-    def __init__(self, id=None, shop_id=None, user_id=None, content='', update_content='', create_time='', status=0,
+    def __init__(self, id=None, shop_id=None, user_id=None, content='', update_content='', create_time=Job.get_time(), status=0,
                  update_time='', shop_score=0, order_id=None, is_delete=0):
         """
         评论

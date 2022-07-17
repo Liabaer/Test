@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from study_project.test_api.test_public import Job
+
+
 class Audit(object):
-    def __init__(self,id=None,review_id=None,status=0,create_time='',reject_reason='',operator_id=None,is_delete=0):
+    def __init__(self,id=None,review_id=None,status=0,create_time=Job.get_time(),reject_reason='',operator_id=None,is_delete=0):
         # 审核
         # 1. id
         # 2. review_id

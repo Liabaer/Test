@@ -3,7 +3,7 @@ import pymysql
 
 from mysql_pro.test_api.mysql_api import MysqlClient
 from study_project.test_api.test_public import Job
-from test_ordering.ordering_api_service.vaild_check import ValidCheckUtils
+from test_ordering.ordering_service.vaild_check import ValidCheckUtils
 
 
 class AdminService(object):
@@ -19,8 +19,9 @@ class AdminService(object):
         # 1. 密码必须包含数字和字母，长度为8-15位，提示密码不合法
         if not (ValidCheckUtils.is_en_num(admin.password) and ValidCheckUtils.is_between(admin.password, 8, 15)):
             print("密码不合法")
+            return False
         else:
-            db.execute("select * from learn_database.admin where password=%s and name=%s", (admin.password,admin.name))
+            db.execute("select * from learn_database.admin where password=%s", admin.name)
             if db.fetchone() is not None:
                 print("管理员已存在")
                 return False
@@ -30,3 +31,4 @@ class AdminService(object):
                     "insert into learn_database.admin(name, password, rule, create_time) values (%s,%s,%s,%s)",
                     (admin.name,admin.password,admin.rule, Job.get_time()))
                 connection.commit()
+                return False

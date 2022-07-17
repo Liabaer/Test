@@ -2,7 +2,7 @@
 import pymysql
 
 from mysql_pro.test_api.mysql_api import MysqlClient
-from test_ordering.ordering_api_service.vaild_check import ValidCheckUtils
+from test_ordering.ordering_service.vaild_check import ValidCheckUtils
 
 
 class ShopService(object):
@@ -18,6 +18,7 @@ class ShopService(object):
         # 1. 密码必须包含数字和字母，长度为8-15位，提示密码不合法
         if not (ValidCheckUtils.is_en_num(shop.password) and ValidCheckUtils.is_between(shop.password, 8, 15)):
             print("密码不合法")
+            return False
         else:
             # 2. 商家名必须唯一，如果存在则提示商家名存在，返回false
             db.execute("select * from shop_review where name=%s", shop.name)
@@ -28,8 +29,9 @@ class ShopService(object):
                 # 3. 满足以上条件插入商家表数据
                 db.execute(
                     "insert into shop_review(name, password, status, review_score_avg, review_count) values (%s,%s,%s,%s,%s)",
-                    (shop.name, shop.name, shop.status, shop.review_score_avg, shop.review_count))
+                    (shop.name, shop.password, shop.status, shop.review_score_avg, shop.review_count))
                 connection.commit()
+                return True
 
 
     @staticmethod

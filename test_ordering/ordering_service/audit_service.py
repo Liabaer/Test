@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+import pymysql
+
+from mysql_pro.test_api.mysql_api import MysqlClient
+
+
+class AuditService(object):
+    @staticmethod
+    def get_audit_list(type):
+        """
+        获取审核列表（type)
+        :param type:
+        :return:
+        """
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        # type = 0查询所有未审核的审核列表返回数组字典   0待审核 1 审核通过 2审核失败
+        # 字典里的key是，商家名，用户id，用户名，评论id,订单id，评论内容（要区分新老评论，只返回最新的
+        audit_list = []
+        audit_dict = {}
+        if type == 0:
+            db.execute("select * from audit_review where status=%s", 0)
+            audit_res = db.fetchall()
+            for audit in audit_res:
+                db.execute("select * from learn_database.review where id = %s", audit['review_id'])
+                audit_temp = db.fetchone()
+                audit_dict["商家名"] = audit_temp['shop_id']
+                # ...
+                audit_list.append(audit_dict)
+        # type = 1查询所有审核通过的审核列表返回数组字典
+        # 字典里的key是，商家名，用户id，用户名，评论id,订单id，操作人名称，评论内容（要区分新老评论，只返回最新的））
+        elif type == 1:
+            db.execute("select * from audit_review where status=%s", 1)
+            audit_res = db.fetchall()
+            for audit in audit_res:
+                pass
+        # type = 2查询所有审核拒绝的审核列表
+        # 字典里的key是，商家名，用户id，用户名，评论id,订单id，操作人名称，拒绝原因，评论内容（要区分新老评论，只返回最新的)）
+        elif type == 2:
+            db.execute("select * from audit_review where status=%s", 2)
+            audit_res = db.fetchall()
+            for audit in audit_res:
+                pass
+        else:
+            print("无效的参数")

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from study_project.test_api.test_public import Job
+
+
 class Customer(object):
-    def __init__(self,id=None,amount=0,name='',password='',create_time=''):
+    def __init__(self,id=None,amount=0,name='',password='',create_time=Job.get_time()):
         """
         顾客
         :param id:
