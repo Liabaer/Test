@@ -95,12 +95,15 @@ class AuditService(object):
             connection.commit()
             # 3. 查询该商家的所有评论通过的数据，求出平均值和评论数，写入商家表
             db.execute(
-                "select * from review as r left join shop_review as s on r.shop_id=s.id where r.id=%s and r.status=%s",
+                "select r.shop_score,r.shop_id from review as r left join shop_review as s on r.shop_id=s.id where r.id=%s and r.status=%s",
                 (review_id, 1))
             res = db.fetchall()
             count = 0
+            sum = 0
             for r in res:
                 count += 1
+                sum += r['']
+            avg = sum/count
             # 写入商家表
             db.execute("update shop_review set review_score_avg=%s,review_count=%s where id = %s",
-                       (1, count, res['shop_id']))
+                       (avg, count, res['shop_id']))
