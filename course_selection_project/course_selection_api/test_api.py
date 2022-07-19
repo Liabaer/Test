@@ -22,6 +22,6 @@ import requests
 # print(res.content)
 
 
-res = requests.post('http://127.0.0.1:8080/return_book', headers={'Content-Type': 'application/json'},
+res = requests.post('http://127.0.0.1:8080/get_audit', headers={'Content-Type': 'application/json'},
                     json={'book_id': 1, 'card_id': 2})
 print(res.content)

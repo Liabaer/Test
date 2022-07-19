@@ -79,9 +79,11 @@ class OrderService(object):
                 (order_res['shop_id'], order_res['user_id'], content, 0, shop_score, order_id, 0, Job.get_time()))
             connection.commit()
             # 创建评论审核
+            db.execute("select * from review where order_id=%s", order_id)
+            review_id = db.fetchone()['id']
             db.execute(
-                "insert into audit_review(review_id, status, operator_id, is_delete, create_time) values (%s,%s,%s,%s,%s,%s)",
-                (order_res['review_id'], 0, order_res['user_id'], 0, Job.get_time()))
+                "insert into audit_review(review_id, status, operator_id, is_delete, create_time) values (%s,%s,%s,%s,%s)",
+                (review_id, 0, order_res['user_id'], 0, Job.get_time()))
             connection.commit()
 
     @staticmethod
