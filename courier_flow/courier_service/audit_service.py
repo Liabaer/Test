@@ -24,3 +24,12 @@ class AuditService(object):
             audit_dict['audit_id'] = audit['id']
             audit_list.append(audit_dict)
         return audit_list
+
+    @staticmethod
+    def agree_audit(audit_id,admin_id):
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        db.execute("select * from audit_record where status=%s", 0)
+        # 1. 修改审核表数据
+        # 2. 修改骑手表数据
+        # 3. 调用审核日志类新增审核日志
