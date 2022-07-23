@@ -3,9 +3,12 @@ import random
 
 import pymysql.cursors
 
+from courier_flow.courier_model.audit_record import AuditRecord
+from courier_flow.courier_service.audit_service import AuditService
 from courier_flow.courier_service.vaild_check import ValidCheckUtils
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.redis import RedisClient
+from study_project.test_api.test_public import Job
 
 
 class CourierService(object):
@@ -32,7 +35,6 @@ class CourierService(object):
                     (courier.name, courier.status, courier.phone_number, courier.password, courier.is_ready,
                      courier.id_card))
                 connection.commit()
-                # 调用审核表的新增审核记录函数
             else:
                 str = ''
                 for i in courier.name:
@@ -48,7 +50,11 @@ class CourierService(object):
                         (courier.name, courier.status, courier.phone_number, courier.password, courier.is_ready,
                          courier.id_card))
                     connection.commit()
-                    # 调用审核表的新增审核记录函数
+            # 调用审核表的新增审核记录函数
+            db.execute("select * from courier_audit_model where name=%s", courier.name)
+            res = db.fetchone()
+            audit=AuditRecord(courier_id=res['id'],status=0,create_time=Job.get_time())
+            AuditService.add_audit(audit)
 
     @staticmethod
     def courier_login(phone_number, password):

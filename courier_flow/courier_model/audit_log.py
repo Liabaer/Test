@@ -3,7 +3,7 @@ from study_project.test_api.test_public import Job
 
 
 class AuditLog(object):
-    def __init__(self, id=None, audit_id=None, status=0, reject_reason='', create_time=Job.get_time()):
+    def __init__(self, id=None, audit_id=None, status=0, reject_reason='', create_time=Job.get_time(),admin_id=None):
         """
         审核日志类
         :param id:
@@ -17,3 +17,4 @@ class AuditLog(object):
         self.status = status
         self.reject_reason = reject_reason
         self.create_time = create_time
+        self.admin_id = admin_id
