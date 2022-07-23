@@ -23,7 +23,7 @@ class CourierService(object):
         db = connection.cursor(pymysql.cursors.DictCursor)
         if not ValidCheckUtils.check_phone(courier.phone_number):
             print("手机号不合法")
-        elif not (ValidCheckUtils.is_en_num(courier.id_card) and ValidCheckUtils.is_between(courier.id_card, 0, 28)):
+        elif not (ValidCheckUtils.is_en_num(courier.id_card) and len(courier.id_card) == 28):
             print("id_card不合法")
         elif not (ValidCheckUtils.is_between(courier.password, 5, 10)):
             print("密码不合法")
@@ -32,7 +32,7 @@ class CourierService(object):
             if ValidCheckUtils.is_en(courier.name):
                 db.execute(
                     "insert into courier_audit_model(name, status, create_time, phone_number, password, is_ready, id_card) values (%s,%s,%s,%s,%s,%s,%s)",
-                    (courier.name, courier.status, courier.phone_number, courier.password, courier.is_ready,
+                    (courier.name, courier.status,courier.create_time, courier.phone_number, courier.password, courier.is_ready,
                      courier.id_card))
                 connection.commit()
             else:
@@ -44,17 +44,20 @@ class CourierService(object):
                         str += i
                 if str == '':
                     print("name不合法")
+                    return
                 else:
                     db.execute(
                         "insert into courier_audit_model(name, status, create_time, phone_number, password, is_ready, id_card) values (%s,%s,%s,%s,%s,%s,%s)",
-                        (courier.name, courier.status, courier.phone_number, courier.password, courier.is_ready,
+                        (courier.name, courier.status,courier.create_time,  courier.phone_number, courier.password, courier.is_ready,
                          courier.id_card))
                     connection.commit()
             # 调用审核表的新增审核记录函数
             db.execute("select * from courier_audit_model where name=%s", courier.name)
             res = db.fetchone()
-            audit=AuditRecord(courier_id=res['id'],status=0,create_time=Job.get_time())
-            AuditService.add_audit(audit)
+            # courier_id = db.lastrowid  获取新增数据的主键id
+            if res is not None:
+                audit=AuditRecord(courier_id=res['id'],status=0,create_time=Job.get_time())
+                AuditService.add_audit(audit)
 
     @staticmethod
     def courier_login(phone_number, password):
@@ -78,25 +81,27 @@ class CourierService(object):
             else:
                 # 登录成功
                 token_res = RedisClient.create_redis_client().get("courier_login_id_" + courier_res['id'])
-                if token_res == '':
-                    # 登录成功返回token(token为15位英语+数字字符串)
-                    s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
-                    token = ''
-                    for i in range(14):
-                        token += random.choice(s)
-                    # key是courier_login_id_{courier_id} value是token
-                    RedisClient.create_redis_client().set("courier_login_id_" + courier_res['id'], token, ex=86400)
-                    # key是courier_login_token_{token} value是courier_id
-                    RedisClient.create_redis_client().set("courier_login_token_" + str(token), courier_res['id'],
-                                                          ex=86400)
-                    return token
-                else:
+                if token_res is not None:
                     # 判断redis中key courier_login_id_{courier_id}是否存在
                     print("开始执行单点登录，退出前一次登录")
                     # 删除courier_login_id_{courier_id}
                     RedisClient.create_redis_client().delete("courier_login_id_" + courier_res['id'])
                     # courier_login_token_{token}
                     RedisClient.create_redis_client().delete("courier_login_token_" + str(token_res))
+
+                # 登录成功返回token(token为15位英语+数字字符串)
+                s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ "
+                token = ''
+                for i in range(14):
+                    token += random.choice(s)
+                # key是courier_login_id_{courier_id} value是token
+                RedisClient.create_redis_client().set("courier_login_id_" + courier_res['id'], token, ex=86400)
+                # key是courier_login_token_{token} value是courier_id
+                RedisClient.create_redis_client().set("courier_login_token_" + str(token), courier_res['id'],
+                                                      ex=86400)
+                return token
+
+
 
     @staticmethod
     def get_courier(token):
