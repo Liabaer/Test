@@ -34,7 +34,7 @@ def user_login():
     user = UserFinance(name=name, password=password)
     token = UserService.user_login(user)
     return {
-        'success': token
+        'token': token
     }
 # 3. 用户充值
 
@@ -86,7 +86,7 @@ def completed_order():
 def get_settle():
     order_list = SettleAccountService.get_unsettle()
     return {
-        'success': order_list
+        'data': order_list
     }
 
 
@@ -113,7 +113,7 @@ def courier_login():
     courier = CourierFinance(name=name, password=password)
     token = CourierService.courier_login(courier)
     return {
-        'success': token
+        'token': token
     }
 
 

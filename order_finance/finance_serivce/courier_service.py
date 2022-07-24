@@ -58,8 +58,11 @@ class CourierService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from courier_finance where id=%s", courier_id)
-        old = db.fetchone()['amount']
-        # 将amount累加到用户余额中
-        db.execute("update user_finance set amount=%s where id=%s", (old + amount, courier_id))
+        # db.execute("select * from courier_finance where id=%s", courier_id)
+        # old = db.fetchone()['amount']
+        # # 将amount累加到用户余额中
+        #
+        # db.execute("update user_finance set amount=%s where id=%s", (old + amount, courier_id))
+        # connection.commit()
+        db.execute("update user_finance set amount=amount + %s where id=%s", (amount, courier_id))
         connection.commit()

@@ -17,10 +17,10 @@ class SettleAccountService(object):
         """
         connection = MysqlClient.get_connection()
         db = connection.cursor(pymysql.cursors.DictCursor)
-        db.execute("select * from order_finance where id=%s", order_id)
-        courier_id = db.fetchone()['courier_id']
-        db.execute("insert into order_finance_settle_account(amount, status, courier_id, order_id, create_time) values (%s,%s,%s,%s,%s)",
-                   (amount, 0, courier_id, order_id, Job.get_time()))
+        # db.execute("select * from order_finance where id=%s", order_id)
+        # courier_id = db.fetchone()['courier_id']
+        db.execute("insert into order_finance_settle_account(amount, status, order_id, create_time) values (%s,%s,%s,%s)",
+                   (amount, 0, order_id, Job.get_time()))
         connection.commit()
 
     @staticmethod
