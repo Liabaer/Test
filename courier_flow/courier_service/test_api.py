@@ -27,10 +27,10 @@ from study_project.test_api.test_public import Job
 # print(res.content)
 
 
-res = requests.post('http://127.0.0.1:8080/agree_audit',headers={'Content-Type': 'application/json'},
-                    json={'audit_id':1, 'admin_id':1})
-print(res.content)
-
-res = requests.post('http://127.0.0.1:8080/reject_audit',headers={'Content-Type': 'application/json'},
-                    json={'audit_id':2, 'admin_id':1,'reject_reason': "就是要拒绝你！"})
-print(res.content)
+# res = requests.post('http://127.0.0.1:8080/agree_audit',headers={'Content-Type': 'application/json'},
+#                     json={'audit_id':1, 'admin_id':1})
+# print(res.content)
+#
+# res = requests.post('http://127.0.0.1:8080/reject_audit',headers={'Content-Type': 'application/json'},
+#                     json={'audit_id':2, 'admin_id':1,'reject_reason': "就是要拒绝你！"})
+# print(res.content)
