@@ -57,7 +57,7 @@ class AuditService(object):
             print("无该审核记录")
         else:
             # 1. 修改审核表数据
-            db.execute("update audit_record set status=%s where id=%s", (1, res['courier_id']))
+            db.execute("update audit_record set status=%s where id=%s", (1, audit_id))
             connection.commit()
             # 2. 修改骑手表数据
             db.execute("update courier_audit_model set status=%s where id=%s", (1, res['courier_id']))

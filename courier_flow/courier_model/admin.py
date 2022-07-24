@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Audit(object):
+class Admin(object):
     def __init__(self,id=None,name='',phone_number='',password='',role=0):
         """
         管理员类

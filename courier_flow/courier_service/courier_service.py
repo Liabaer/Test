@@ -74,18 +74,18 @@ class CourierService(object):
         elif not (ValidCheckUtils.is_between(password, 5, 10)):
             print("密码不合法")
         else:
-            db.execute("select * from courier_audit_model where phone_number=%s and password=%s")
+            db.execute("select * from courier_audit_model where phone_number=%s and password=%s",(phone_number,password))
             courier_res = db.fetchone()
             if courier_res is None:
                 print("电话号码或密码输入错误")
             else:
                 # 登录成功
-                token_res = RedisClient.create_redis_client().get("courier_login_id_" + courier_res['id'])
+                token_res = RedisClient.create_redis_client().get("courier_login_id_" + str(courier_res['id']))
                 if token_res is not None:
                     # 判断redis中key courier_login_id_{courier_id}是否存在
                     print("开始执行单点登录，退出前一次登录")
                     # 删除courier_login_id_{courier_id}
-                    RedisClient.create_redis_client().delete("courier_login_id_" + courier_res['id'])
+                    RedisClient.create_redis_client().delete("courier_login_id_" + str(courier_res['id']))
                     # courier_login_token_{token}
                     RedisClient.create_redis_client().delete("courier_login_token_" + str(token_res))
 
@@ -95,9 +95,9 @@ class CourierService(object):
                 for i in range(14):
                     token += random.choice(s)
                 # key是courier_login_id_{courier_id} value是token
-                RedisClient.create_redis_client().set("courier_login_id_" + courier_res['id'], token, ex=86400)
+                RedisClient.create_redis_client().set("courier_login_id_" + str(courier_res['id']), str(token), ex=86400)
                 # key是courier_login_token_{token} value是courier_id
-                RedisClient.create_redis_client().set("courier_login_token_" + str(token), courier_res['id'],
+                RedisClient.create_redis_client().set("courier_login_token_" + str(token), str(courier_res['id']),
                                                       ex=86400)
                 return token
 
