@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class OrderNew(object):
+class OrderNewLog(object):
     def __init__(self, id=None, status=0, courier_id=None, user_id=None,send_time='', admin_id=None, timeout_time='', accepted_time='', un_accepted_time=''):
         """
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pymysql
 
-from accepted_order.model.service.vaild_check import ValidCheckUtils
+from accepted_order.service.vaild_check import ValidCheckUtils
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.redis import RedisClient
 from study_project.test_api.test_public import Job

@@ -75,6 +75,14 @@ class ValidCheckUtils(object):
             return res
 
     @staticmethod
+    def to_upper_case_letters(s):
+        if not s.isalpha():
+            return False
+        else:
+            res = s.upper()
+            return res
+
+    @staticmethod
     def change_Location(s):
         start = ''
         end = ''
@@ -89,7 +97,7 @@ class ValidCheckUtils(object):
     @staticmethod
     def replace_Location(s):
         new_s = ''
-        temp = ['a', 'e', 'i', 'o', 'u']
+        temp = ['A', 'E', 'I', 'O', 'U']
         for i in s:
             if i in temp:
                 continue
@@ -104,6 +112,7 @@ class ValidCheckUtils(object):
                 return True
             else:
                 return False
+
 
     @staticmethod
     def is_have_num(s):
