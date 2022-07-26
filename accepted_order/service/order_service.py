@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 import pymysql
 
+from accepted_order.service.vaild_check import ValidCheckUtils
 from mysql_pro.test_api.mysql_api import MysqlClient
 from mysql_pro.test_api.redis import RedisClient
 from study_project.test_api.test_public import Job
@@ -25,7 +28,7 @@ class OrderService(object):
             connection = MysqlClient.get_connection()
             db = connection.cursor(pymysql.cursors.DictCursor)
             # 将数据写入到订单表中
-            db.execute("insert into order_new(user_id, status) values (%s,%s,%s)",
+            db.execute("insert into order_new(user_id, status) values (%s,%s)",
                        (user_id, 0))
             connection.commit()
         else:
@@ -112,11 +115,17 @@ class OrderService(object):
             db.execute("select * from order_pool_notification where courier_id=%s", courier_id)
             courier_res = db.fetchall()
             res_list = []
+            flag = False
             for courier in courier_res:
                 # 3. 将send_time大于当前时间5分钟的订单status修改为超时，并且记录过期时间
-                if (Job.get_time() - courier['send_time']).total_seconds()/60 >= 5:
+                # 先处理时间差，要先使用datetime.strptime改成时间类型再求差
+                time = ValidCheckUtils.time_diff(Job.get_time(),courier['send_time'])
+                # time = (datetime.strptime(Job.get_time(), '%Y.%m.%d %H:%M:%S') - datetime.strptime(
+                #     courier['send_time'], '%Y.%m.%d %H:%M:%S')).total_seconds()
+                if time/60 >= 5:
                     db.execute("update order_pool_notification set status = %s,timeout_time=%s where courier_id=%s",
                                (2, Job.get_time(), courier['courier_id']))
+                    flag = True
                 else:
                     # 4. 将未超时的订单返回
                     # 1. 返回数据是个数组
@@ -124,7 +133,8 @@ class OrderService(object):
                     # 3. 字典中有订单id,send_time
                     res_dict = {'order_id': courier['order_id'], 'send_time': courier['send_time']}
                     res_list.append(res_dict)
-            connection.commit()
+            if flag:
+                connection.commit()
             return res_list
 
 
@@ -157,8 +167,9 @@ class OrderService(object):
             db.execute("select * from order_pool_notification where order_id=%s", order_id)
             order_pool = db.fetchall()
             for order in order_pool:
-                # 修改其它待分配数据未未抢到
-                if order_pool['status'] == 0:
+                # 修改其它待分配数据且未超过1分钟的未未抢到
+                time = ValidCheckUtils.time_diff(Job.get_time(), order['send_time'])
+                if order_pool['status'] == 0 and time <= 60:
                     db.execute("update order_pool_notification set status = %s,un_accepted_time=%s where order_id=%s",
                                (3, Job.get_time(), order['order_id']))
                 else:

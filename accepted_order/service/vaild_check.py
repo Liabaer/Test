@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+from datetime import datetime
 
 
 class ValidCheckUtils(object):
@@ -121,3 +122,9 @@ class ValidCheckUtils(object):
                 return True
             else:
                 return False
+
+    @staticmethod
+    def time_diff(t1, t2):
+        time = (datetime.strptime(t1, '%Y.%m.%d %H:%M:%S') - datetime.strptime(
+                    t2, '%Y.%m.%d %H:%M:%S')).total_seconds()
+        return time
