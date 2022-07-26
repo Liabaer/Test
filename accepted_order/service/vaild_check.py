@@ -111,8 +111,7 @@ class ValidCheckUtils(object):
         for i in s:
             if ord('a') <= ord(i) <= ord('z'):
                 return True
-            else:
-                return False
+        return False
 
 
     @staticmethod
@@ -120,8 +119,7 @@ class ValidCheckUtils(object):
         for i in s:
             if ord('0') <= ord(i) <= ord('9'):
                 return True
-            else:
-                return False
+        return False
 
     @staticmethod
     def time_diff(t1, t2):

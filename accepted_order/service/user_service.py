@@ -9,7 +9,7 @@ from study_project.test_api.test_public import Job
 
 class UserService(object):
     @staticmethod
-    def register_user(name,password,type):
+    def register_user(name, password, type):
         """
         注册
         :param name:
@@ -21,9 +21,9 @@ class UserService(object):
         # 1. 长度为5-8
         # 2. 并且只能包含小写字母，如果有大写字母，转换为小写
         # 3. 如果有元音字母，需要将元音字母提前比如name为bcacu, 则变成aubcc
-        if not ValidCheckUtils.is_between(name,5,8):
+        if not ValidCheckUtils.is_between(name, 5, 8):
             print("name长度不符合")
-        elif not(ValidCheckUtils.to_lower_case_letters(name)):
+        elif not (ValidCheckUtils.to_lower_case_letters(name)):
             print("name不合法")
         else:
             name_1 = ValidCheckUtils.to_lower_case_letters(name)
@@ -34,21 +34,20 @@ class UserService(object):
             # 3. 必须有数字
             if not ValidCheckUtils.is_between(password, 5, 10):
                 print("password长度不符合")
-            elif not(ValidCheckUtils.is_have_lower(password)):
+            elif not (ValidCheckUtils.is_have_lower(password)):
                 print("password不含字母")
-            elif not(ValidCheckUtils.is_have_num(password)):
+            elif not (ValidCheckUtils.is_have_num(password)):
                 print("password不含数字")
             else:
                 connection = MysqlClient.get_connection()
                 db = connection.cursor(pymysql.cursors.DictCursor)
                 # 3. 写入用户表
                 db.execute("insert into user_new(name, password, type, create_time) values (%s,%s,%s,%s)",
-                           (name_new,password,type,Job.get_time()))
+                           (name_new, password, type, Job.get_time()))
                 connection.commit()
 
-
     @staticmethod
-    def user_login(name,password):
+    def user_login(name, password):
         """
         登陆
         :param name:
@@ -66,5 +65,3 @@ class UserService(object):
             token = ValidCheckUtils.become_token()
             RedisClient.create_redis_client().set("user_login_token_" + str(token), user_res['id'], ex=86400)
             return token
-
-

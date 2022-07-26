@@ -22,17 +22,20 @@ class OrderService(object):
         :return:
         """
         user_id = RedisClient.create_redis_client().get("user_login_token_" + str(user_token))
+        connection = MysqlClient.get_connection()
+        db = connection.cursor(pymysql.cursors.DictCursor)
+        db.execute("select * from user_new where id=%s", user_id)
+        user = db.fetchone()
         if user_id is None:
             print("用户未登录")
-        elif user_id['type'] == 0:
-            connection = MysqlClient.get_connection()
-            db = connection.cursor(pymysql.cursors.DictCursor)
-            # 将数据写入到订单表中
-            db.execute("insert into order_new(user_id, status) values (%s,%s)",
-                       (user_id, 0))
-            connection.commit()
         else:
-            print("类型不符合")
+            if user['type'] == 0:
+                # 将数据写入到订单表中
+                db.execute("insert into order_new(user_id, status) values (%s,%s)",
+                           (user_id, 0))
+                connection.commit()
+            else:
+                print("类型不符合")
 
     @staticmethod
     def send_order(user_token, courier_id, order_id):
@@ -155,10 +158,6 @@ class OrderService(object):
         else:
             connection = MysqlClient.get_connection()
             db = connection.cursor(pymysql.cursors.DictCursor)
-            # 修改订单表的数据
-            db.execute("update order_new set courier_id=%s,status=%s where id=%s", (courier_id, 1, order_id))
-            print("接单成功")
-
             # 3. 修改订单分配表的数据
             # （这里需要注意假设订单a分给了b,c,d三个人 b接单了除了要修改b这条订单分配表，c和d的订单分配表的数据也需要修改）
             db.execute("update order_pool_notification set status = %s,accepted_time=%s where courier_id=%s",
@@ -167,10 +166,15 @@ class OrderService(object):
             db.execute("select * from order_pool_notification where order_id=%s", order_id)
             order_pool = db.fetchall()
             for order in order_pool:
-                # 修改其它待分配数据且未超过1分钟的未未抢到
                 time = ValidCheckUtils.time_diff(Job.get_time(), order['send_time'])
-                if order_pool['status'] == 0 and time <= 60:
-                    db.execute("update order_pool_notification set status = %s,un_accepted_time=%s where order_id=%s",
+                if order['status'] == 0 and time <= 60:
+                    # 修改订单表的数据 修改其它待分配数据且未超过1分钟的且courier_id等于传入参数
+                    if order['courier_id'] == courier_id:
+                        db.execute("update order_new set courier_id=%s,status=%s where id=%s", (courier_id, 1, order_id))
+                        print("接单成功")
+                    # 修改其它待分配数据且未超过1分钟的未未抢到
+                    else:
+                        db.execute("update order_pool_notification set status = %s,un_accepted_time=%s where order_id=%s",
                                (3, Job.get_time(), order['order_id']))
                 else:
                     continue
