@@ -3722,4 +3722,775 @@ import math
 # 字母和数字都属于字母数字字符。
 # 给你一个字符串s,如果它是回文串，返回true;否则，返回false。
 
-s = "A man, a plan, a canal: Panama"
+# s = " "
+
+# # 处理字符串
+# temp = ''
+# for i in s:
+#     if ord('z') >= ord(i) >= ord('a'):
+#         temp += i
+#     elif ord('Z') >= ord(i) >= ord('A'):
+#         temp += chr(ord(i)+32)
+#     elif ord('9') >= ord(i) >= ord('0'):
+#         temp += i
+#     else:
+#         continue
+#
+# new_s = temp[::-1]
+# print(temp)
+# print(new_s)
+#
+# if new_s == temp:
+#     print(True)
+# else:
+#     print(False)
+
+
+# 如果一个整数n在b进制下（b为2到n-2之间的所有整数)对应的字符串全部都是回文的，那么我们称这个数n是严格 回文的。
+# 给你一个整数n,如果n是严格回文的，请返回true,否则返回false。
+# 如果一个字符串从前往后读和从后往前读完全相同，那么这个字符串是回文的。
+# n = 9
+#
+# i = 2
+# res = []
+# flag = False
+# while i <= n-2:
+#     temp = []
+#     num = n
+#     while num != 0:
+#         temp.append(str(num % i))
+#         num = num // i
+#     temp.reverse()
+#     temp_res = ''.join(temp)
+#     if temp_res != temp_res[::-1]:
+#         flag = False
+#         break
+#     else:
+#         flag = True
+#     i += 1
+# if flag:
+#     print(True)
+# else:
+#     print(False)
+
+
+# 给你一个字符串s，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。
+#
+# s = "Hello"
+# res = ''
+# for i in s:
+#     if ord('Z') >= ord(i) >= ord('A'):
+#         res += chr(ord(i)+32)
+#     else:
+#         res+=i
+#
+# print(res)
+
+#
+# # 指定年份year和月份month,返回该月天数。
+# year = 1992
+# month = 7
+# big = [1,3,5,7,8,10,12]
+# if year % 400 == 0 or (year % 4 == 0 and year % 100 != 0):
+#     if month == 2:
+#         print(29)
+#     elif month in big:
+#         print(31)
+#     else:
+#         print(30)
+# else:
+#     if month == 2:
+#         print(28)
+#     elif month in big:
+#         print(31)
+#     else:
+#         print(30)
+
+
+# 给你一个整数n，对于0<=i<=n中的每个i，计算其二进制表示中1的个数，返回一个长度为n+1的数组ans作为答 案。
+#
+# n = 2
+#
+# i = 1
+# res = [0]
+# while i <= n:
+#     num = i
+#     temp = []
+#     while num != 0:
+#         temp.append(str(num % 2))
+#         num = num//2
+#     temp.reverse()
+#     temp_res = ''.join(temp)
+#     cnt = 0
+#     for j in temp_res:
+#         if j == '1':
+#             cnt += 1
+#     res.append(cnt)
+#     i += 1
+# print(res)
+
+
+# 给你一个下标从0开始的整数数组nums，返回nums中满足i mod 10==nums[i]的最小下标i;如果不存在这样的下标，返 回-1。
+# x mod y表示x除以y的余数。
+
+# nums =[0]
+# res = 110
+# for i in range(len(nums)):
+#     if i % 10 == nums[i]:
+#         if res >= i:
+#             res = i
+#
+# if res == -1 or res == 110:
+#     print(-1)
+# else:
+#     print(res)
+
+
+# 存在一种仅支持4种操作和1个变量X的编程语言：
+# 2022.09.19
+# ++X和X++使变量X的值加1
+# --x和x--使变量X的值减1
+# 最初，X的值是0
+# 给你一个字符串数组operations，这是由操作组成的一个列表，返回执行所有操作后，×的最终值。
+
+# operations = ["--X","X++","X++"]
+# x = 0
+# for i in operations:
+#     if i == 'X++' or i =='++X':
+#         x+=1
+#     else:
+#         x-=1
+# print(x)
+
+
+# 给你一个字符串s，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中最后一个单词的长度。
+# 单词是指仅由字母组成、不包含任何空格字符的最大子字符串。
+
+# s = "me"
+#
+# temp = ''
+# sl = []
+# for i in s[::-1]:
+#     if i != ' ':
+#         temp += i
+#     else:
+#         # print(temp)
+#         sl.append(temp)
+#         temp = ''
+# if temp != '':
+#     sl.append(temp)
+# print(sl)
+# res = 0
+# for i in sl:
+#     if i != '':
+#         res = len(i)
+#         break
+#
+# print(res)
+
+
+# 给定一个会议时间安排的数组intervals,每个会议时间都会包括开始和结束的时间intervals[i]=[starti,endi]
+# # 请你判 断一个人是否能够参加这里面的全部会议。
+#
+# intervals = [[7,10]]
+# #先排序会比较好0
+# intervals.sort(key=lambda x:x[0],reverse=False)
+# print(intervals)
+#
+# flag = True
+# m = len(intervals)
+# for i in range(m):
+#     # print(intervals[i])
+#     if i + 1 < m:
+#         if intervals[i][1] > intervals[i + 1][0]:
+#         # if intervals[i][0] <= intervals[i+1][0] <= intervals[i][1] or intervals[i][0] <= intervals[i+1][1] <= intervals[i][1]:
+#             flag = False
+#             break
+# print(flag)
+
+
+# 给定一个整数，写一个函数来判断它是否是3的幂次方。如果是，返回true;否则，返回false。 2022.09.2
+# 整数n是3的幂次方需满足：存在整数x使得n==3x
+
+# n = 45
+# temp = 1
+# while temp < n:
+#     temp *= 3
+# if temp == n :
+#     print(True)
+# else:
+#     print(False)
+
+
+# 给定已经按升序排列、由不同整数组成的数组arr,返回满足arr[i]==i的最小索引i。如果不存在这样的i,返回-1。
+# arr =  [-10,-5,3,4,7,9]
+#
+# res = pow(10,9)+10
+# for i in range(len(arr)):
+#     if arr[i] == i:
+#         if res > i:
+#             res = i
+# if res == pow(10,9)+10:
+#     res = -1
+# print(res)
+#
+
+
+# Alice和Bob计划分别去罗马开会。
+# 给你四个字符串arriveAlice,leaveAlice,arriveBob和leaveBob。Alice会在日
+# 期arriveAlice到leaveAlice之间在城市里（日期为闭区间），而Bob在日期arriveBob到leaveBob之间在城市里（日期
+# 为闭区间)。每个字符串都包含5个字符，格式为"MM-DD"，对应着一个日期的月和日。
+# 请你返回Alice和Bob同时在罗马的天数。 209.20
+# 你可以假设所有日期都在同一个自然年，而且不是闰年。每个月份的天数分别为：[31,28,31,30,31,30,31,31,30， 31,30,31]。
+#
+#
+# arriveAlice = "08-15"
+# leaveAlice = "08-18"
+# arriveBob = "08-16"
+# leaveBob = "08-19"
+#
+#
+# def get_day(s):
+#     d = 0
+#     days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+#     for i in range(len(days)):
+#         if i < int(s[0]) - 1:
+#             d += days[i]
+#     d += int(s[1])
+#     return d
+#
+#
+# temp1 = arriveAlice.split('-')
+# temp2 = leaveAlice.split('-')
+# temp3 = arriveBob.split('-')
+# temp4 = leaveBob.split('-')
+#
+# alice = [get_day(temp1), get_day(temp2)]
+# print(alice)
+# bob = [get_day(temp3), get_day(temp4)]
+# print(bob)
+
+# day = 0
+# if alice[1] >= bob[0] and bob[1] >= alice[1] and alice[0] <= bob[0]:
+#     day = (alice[1] - bob[0])+1
+# elif alice[1] >= bob[0] and bob[1] <= alice[1] and alice[0] <= bob[0]:
+#     day = bob[1] - bob[0] + 1
+# elif bob[0] <= alice[1] and alice[1] <= bob[1]:
+#     day = alice[1] - alice[0] + 1
+# elif bob[0] <= alice[1] and bob[1] >= alice[0] and bob[1] <= alice[1]:
+#     day = bob[1] - alice[0] + 1
+#
+# day = 0
+# dict_day = {}
+# i = alice[0]
+# while i <= alice[1]:
+#     dict_day[i] = 1
+#     i = i + 1
+# i = bob[0]
+# res = 0
+# while i <= bob[1]:
+#     if i in dict_day:
+#         res = res + 1
+#     i = i + 1
+#
+#
+# print(day)
+
+
+# 给你一个由小写英文字母组成的字符串s，请你找出并返回第一个出现两次的字母。
+# 注意：
+# ·如果a的第二次出现比b的第二次出现在字符串中的位置更靠前，则认为字母a在字母b之前出现两次。
+# ·s包含至少一个出现两次的字母。
+
+# s = "abccbaacz"
+#
+# s_dict = {}
+# for i in range(len(s)):
+#     if s[i] not in s_dict:
+#         s_dict[s[i]] = 1
+#     else:
+#         s_dict[s[i]] = i
+#         print(s[i])
+#         break
+# print(s_dict)
+
+# 数组nums包含从0到n的所有整数，但其中缺了一个。请编写代码找出那个缺失的整数。你有办法在0(n)时间内完成吗？
+# nums = [9, 6, 4, 2, 3, 5, 7, 0, 1]
+# n = len(nums) + 1
+# nums.sort()
+# print(nums)
+# for i in range(n):
+#     if i not in nums:
+#         print(i)
+#
+#
+
+# 给定一个大小为n的数组nums，返回其中的多数元素。多数元素是指在数组中出现次数大于Ln/2」的元素。
+# 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+#
+# nums = [2,2,1,1,1,2,2]
+#
+# n = len(nums)/2
+#
+# cnt = {}
+# for i in nums:
+#     cnt[i] = cnt.get(i, 0)+1
+# print(cnt)
+# for i in cnt:
+#     if cnt[i] > n:
+#         print(i)
+
+
+# 给你一个数组，将数组中的元素向右轮转k个位置，其中k是非负数。
+# nums = [1, 2, 3, 4, 5, 6, 7]
+# k = 3
+#
+# while k != 0:
+
+
+# 给定两个字符串s和七，判断它们是否是同构的
+# 如果s中的字符可以按某种映射关系替换得到t，那么这两个字符串是同构的。
+# 每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，
+# 相同字符只能映射到同一个字符 上，字符可以映射到自己本身。
+#
+# s = "egg"
+# t = "add"
+#
+#
+# def get_map(ss):
+#     d = {}
+#     temp = ''
+#     cnt = 1
+#     for i in ss:
+#         if i not in d:
+#             d[i] = cnt
+#             cnt += 1
+#             temp += str(d[i])
+#         else:
+#             temp += str(d[i])
+#     # print(d)
+#     # print(temp)
+#     return temp
+#
+# st = get_map(s)
+# tt = get_map(t)
+# if st == tt:
+#     print(True)
+# else:
+#     print(False)
+
+
+# 给定一个字符串数组wordDict和两个已经存在于该数组中的不同的字符串word1和word2。
+# 返回列表中这两个单词之间的最短距 离。
+
+# wordsDict = ["practice", "makes", "perfect", "coding", "makes"]
+# word1 = "makes"
+# word2 = "coding"
+#
+# dis = len(wordsDict)
+# a = None
+# b = None
+# for i in range(len(wordsDict)):
+#     if wordsDict[i] == word1:
+#         a = i
+#     if wordsDict[i] == word2:
+#         b = i
+#     if a is not None and b is not None and abs(a - b) <= dis:
+#         dis = abs(a - b)
+# print(dis)
+
+
+# 中心对称数是指一个数字在旋转了180度之后看起来依旧相同的数字（或者上下颠倒地看）。
+# # 请写一个函数来判断该数字是否是中心对称数，其输入将会以一个字符串的形式来表达数字。
+#
+# num = "69"
+#
+# temp = ['8', '0', '1']
+# new_num = ''
+# flag = True
+# for i in num:
+#     if i == '6':
+#         new_num += '9'
+#     elif i == '9':
+#         new_num += '6'
+#     elif i in temp:
+#         new_num += i
+#     else:
+#         flag = False
+#         break
+# print(new_num)
+# if new_num[::-1] == num:
+#     flag = True
+# else:
+#     flag = False
+# print(flag)
+
+
+# flag = True
+# for i in range(len(num)):
+#     if num[i] not in temp:
+#         flag = False
+#         break
+#     else:
+#         if i + 1 < len(num):
+#             if num[i] == '6' and num[i + 1] == '9':
+#                 flag = True
+#             if num[i] == '9' and num[i + 1] == '6':
+#                 flag = True
+# print(flag)
+
+
+# 给定两个数组nums1和nums2，返回它们的交集。输出结果中的每个元素一定是唯一的。我们可以不考虑输出结果的顺序。
+# nums1 = [4,9,5]
+# nums2 = [9,4,9,8,4]
+#
+# res = []
+#
+# for i in nums1:
+#     if i in nums2 and i not in res:
+#         res.append(i)
+# print(res)
+
+
+# # 给定一个字符串，判断该字符串中是否可以通过重新排列组合，形成一个回文字符串。
+# s = "carerac"
+# s_dict = {}
+# for i in s:
+#     s_dict[i] = s_dict.get(i, 0)+1
+# print(s_dict)
+# n = len(s_dict)-1
+# temp = 0
+# for i in s_dict:
+#     if s_dict[i] % 2 == 0:
+#         temp += 1
+# print(temp)
+# if temp >= n:
+#     print(True)
+# else:
+#     print(False)
+
+
+# # 给定一个排序的整数数组nums,其中元素的范围在闭区间[lower,upper]当中，返回不包含在数组中的缺失区间。
+# nums = [0,1,3,50,75]
+# lower = 0
+# upper = 99
+# res = []
+# # 数组中为空特殊处理
+# if len(nums) == 0:
+#     if lower == upper:
+#         print([str(lower)])
+#     else:
+#         print([str(lower) + '->' + str(upper)])
+#
+# for i in range(len(nums)):
+#     # 小于最小值不处理
+#     if nums[i] < lower:
+#         continue
+#     # 当第0位比最小值大的时候特殊处理
+#     if nums[i] > lower and i == 0:
+#         if nums[i] - lower > 1:
+#             res.append(str(lower) + '->' + str(nums[i] - 1))
+#         else:
+#             res.append(str(lower))
+#     # 大于最大值不处理
+#     if nums[i] > upper:
+#         break
+#     # 最后一位特殊处理
+#     if i >= len(nums) - 1:
+#         if nums[i] + 1 == upper :
+#             res.append(str(nums[i] + 1))
+#         elif nums[i] + 1 < upper:
+#             res.append(str(nums[i] + 1) + '->' + str(upper))
+#         break
+#     # 中间相隔大于1个的答案是区间，比如nums[i]是2, nums[i+1]是5，答案就是3->4
+#     if nums[i+1] - nums[i] > 2:
+#         res.append(str(nums[i] + 1) + '->' + str(nums[i+1] - 1))
+#     # 相差等于2的是nums[i] + 1,比如nums[i]是2，nums[i+1]是4，答案就是3，nums[i]+1这个要理解下
+#     elif nums[i+1] - nums[i] == 2:
+#         res.append(str(nums[i]+1))
+#     else:
+#         continue
+# print(res)
+
+
+# 给定两个字符串s和七，它们只包含小写字母。
+# 字符串t由字符串s随机重排，然后在随机位置添加一个字母。
+# 请找出在t中被添加的字母。
+# s = "a"
+# t = "aa"
+# s_dict = {}
+# for i in s:
+#     s_dict[i] = s_dict.get(i, 0)+1
+# print(s_dict)
+# t_dict = {}
+# for i in t:
+#     t_dict[i] = t_dict.get(i, 0)+1
+# print(t_dict)
+#
+# for i in t_dict:
+#     if i not in s_dict:
+#         print(i)
+#     else:
+#         if s_dict[i] != t_dict[i]:
+#             print(i)
+
+
+# 给你一个整数x,如果x是一个回文整数，返回true;否则，返回false。
+# 回文数是指正序（从左向右)和倒序（从右向左）读都是一样的整数。
+# ·例如，121是回文，而123不是。
+
+# x = -121
+#
+# new_x = str(x)
+# temp = str(x)[::-1]
+# print(temp)
+# for i in range(len(new_x)-1, -1):
+#     print(i)
+#     temp += i
+# print(temp)
+
+
+# 给你一个整数数组nums。如果任一值在数组中出现至少两次，返回true;如果数组中每个元素互不相同，返回false。
+
+# nums = [1, 2, 3, 1]
+# nums_dict = {}
+# flag = False
+# for i in nums:
+#     if i not in nums_dict:
+#         nums_dict[i] = 1
+#     else:
+#         flag = True
+#         break
+# print(flag)
+
+# 小扣在秋日市集发现了一款速算机器人。店家对机器人说出两个数字（记作×和y)，请小扣说出计算指令：
+# 。"A"运算：使x=2*X+y;
+# 。"B"运算：使y=2*Y+x。
+# 在本次游戏中，店家说出的数字为x=1和y=0，小扣说出的计算指令记作仅由大写字母A、B组成的字符串s，
+# 字符串中 字符的顺序表示计算顺序，请返回最终ⅹ与y的和为多少。
+
+#
+# x = 1
+# y = 0
+#
+# s = "AB"
+#
+# for i in s:
+#     if i == 'A':
+#         x = 2*x + y
+#     else:
+#         y = 2*y + x
+# print(x+y)
+
+
+# 给定两个整型数字N与M,以及表示比特位置的i与j（i<=j,且从0位开始计算)。
+# 编写一种方法，使M对应的二进制数字插入N对应的二进制数字的第1~5位区域，不足之处用0补齐。具体插入过程如图所示。
+# # 题目保证从i位到j位足以容纳M,例如：M=10011,则i~j区域至少可容纳5位。
+
+# def calc_1(a):
+#     """
+#     十进制转二进制
+#     :param a:
+#     :return:
+#     """
+#     n = ""
+#     while a > 0:
+#         n += str(a % 2)
+#         a = a // 2
+#     n = n[::-1]
+#     return n
+#
+#
+# def calc_2(a):
+#     """
+#     二进制转十进制
+#     :param a:
+#     :return:
+#     """
+#     res = 0
+#     for x in range(len(a)):
+#         res = res + 2 ** x * int(a[x])
+#     return res
+#
+#
+# N, M = 1024, 19
+# i, j = 2, 6
+# # 把n变成二进制
+# n = calc_1(N)
+# print(n)
+# # 把m变成二进制
+# m = calc_1(M)
+# # n为空字符特殊处理，答案就是m
+# if n == "":
+#     res = calc_2(m)
+#     print(res)
+#
+# # 在n的第i到j位直接把m放进去，字符串放在ans上记录答案
+# ans = ''
+# x = len(n) - 1
+# cnt = 0
+# while x >= 0:
+#     if cnt == i:
+#         # 刚好直接加m
+#         if j - i + 1 == len(m):
+#             ans += m[::-1]
+#         else:
+#             # 不足补0
+#             ans += m[::-1] + (j - i + 1 - len(m)) * '0'
+#         # 直接让x移动到加完m后的位置
+#         x = len(n) - j - 2
+#     else:
+#         ans += n[x]
+#         x = x - 1
+#     cnt += 1
+# # 把ans转换成10进制答案
+# res = calc_2(ans)
+# print(res)
+
+
+# 给定一个整数，写一个函数来判断它是否是4的幂次方。如果是，返回true;否则，返回false。
+# 整数n是4的幂次方需满足：存在整数×使得n==4x
+#
+# n = 16
+# m = 1
+# while m < n:
+#     m *= 4
+# if m == n:
+#     print(True)
+# else:
+#     print(False)
+
+
+# 魔术索引。在数组A[0.··n-1]中，有所谓的魔术索引，满足条件A[1]=1。给定一个有序整数数组，编写一种方法找出魔术索引，
+# 若有的话，在数组A中找出一个魔术索引，如果没有，则返回-1。若有多个魔术索引，返回索引值最小的一个。
+#
+# nums = [0, 2, 3, 4, 5]
+# res = 1000010
+# for i in range(len(nums)):
+#     if i == nums[i]:
+#         if i < res:
+#             res = i
+# if res == 1000010:
+#     res = -1
+#
+# print(res)
+
+
+# 给定一个非负整数num, 反复将各个位上的数字相加，直到结果为一位数。返回这个结果。
+# num = 38
+#
+#
+# while True:
+#     res = 0
+#     for i in range(len(str(num))):
+#         # print(str(num)[i])
+#         res += int(str(num)[i])
+#     if len(str(res)) == 1:
+#         print(res)
+#         break
+#     else:
+#         num = res
+
+
+# 给定一个字符串s，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回-1。
+# s = "loveleetcode"
+# res = -1
+# # for i in range(len(s)):
+# #     flag = False
+# #     for j in range(len(s)):
+# #         if s[i] == s[j] and i != j:
+# #             flag = True
+# #             i= i+2
+# #             break
+# #     if not flag:
+# #         res = i
+# #         break
+# # print(res)
+# res_dict = {}
+# for i in range(len(s)):
+#     if s[i] not in res_dict:
+#         res_dict[s[i]] = 1
+#     else:
+#         res_dict[s[i]] += 1
+# print(res_dict)
+# # for i in
+#
+# for i in range(len(s)):
+#     if res_dict[s[i]] == 1:
+#         print(s[i])
+#         res = i
+#         break
+# print(res)
+
+
+# 统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。
+# 请注意，你可以假定字符串里不包括任何不可打印的字符。
+#
+# s = "Hello, my  name is John"
+# # print(len(s.split(' ')))
+# res = []
+# temp = ''
+# for i in s:
+#     if i !=' ':
+#         temp += i
+#     else:
+#         if temp != '':
+#             res.append(temp)
+#             temp = ''
+# if temp != '':
+#     res.append(temp)
+# print(res)
+# print(len(res))
+
+
+# 给你一个含n个整数的数组nums,其中nums[i]在区间[1，n]内。请你找出所有在[1，n]范围内但没有出现在nums中的 数字，
+# 并以数组的形式返回结果。
+# nums = [1, 1]
+# n = len(nums)
+# new_num={}
+# for i in nums:
+#     new_num[i] = new_num.get(i,0)+1
+#
+# print(nums,n)
+# res = []
+# for i in range(1,n+1):
+#     if i not in new_num:
+#         res.append(i)
+# print(res)
+
+
+# 给你两个整数数组nums1和nums2，请你以数组形式返回两数组的交集。
+# 返回结果中每个元素出现的次数，应与元素在两个数组中都 出现的次数一致（如果出现次数不一致，则考虑取较小值）。
+# # 可以不考虑输出结果的顺序。
+#
+# nums1 = [4,9,5]
+# nums2 = [9,4,9,8,4]
+#
+# def get_list(n1,n2):
+#     temp = []
+#     for i in n1:
+#         if i in n2:
+#             temp.append(i)
+#             n2.remove(i)
+#     return temp
+#
+#
+#
+# res = []
+#
+# if len(nums1) < len(nums2):
+#     res = get_list(nums1,nums2)
+# else:
+#     res = get_list(nums2, nums1)
+#
+# print(res)
+
+
+# 给你一个下标从0开始的一维整数数组original和两个整数m和n。你需要使用origina1中所有元素创建一个m行n列 的二维数组。
+# origina1中下标从0到n-1(都包含)的元素构成二维数组的第一行，下标从n到2*n-1(都包含)的元素构成二维 数组的第二行，依此类推。
+# 请你根据上述过程返回一个m×n的二维数组。如果无法构成这样的二维数组，请你返回一个空的二维数组。
+
+
+original = [1, 2, 3, 4]
+m = 2
+n = 2
