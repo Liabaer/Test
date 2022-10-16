@@ -1,1 +1,40 @@
-{"name": "test_user_login", "status": "passed", "start": 1659166164809, "stop": 1659166164824, "uuid": "60dffc80-a597-47e9-87de-61fdd25aca7f", "historyId": "a493c1a969cdf2c373d43d4959184ff0", "testCaseId": "67e3dd8404fb7fb918ee02d673f58b43", "fullName": "test_api.TestApiClass#test_user_login", "labels": [{"name": "suite", "value": "test_api"}, {"name": "subSuite", "value": "TestApiClass"}, {"name": "host", "value": "Rena-MacBook-pro.local"}, {"name": "thread", "value": "60014-MainThread"}, {"name": "framework", "value": "pytest"}, {"name": "language", "value": "cpython3"}, {"name": "package", "value": "test_api"}]}
+{
+  "name": "test_user_login",
+  "status": "passed",
+  "start": 1659166164809,
+  "stop": 1659166164824,
+  "uuid": "60dffc80-a597-47e9-87de-61fdd25aca7f",
+  "historyId": "a493c1a969cdf2c373d43d4959184ff0",
+  "testCaseId": "67e3dd8404fb7fb918ee02d673f58b43",
+  "fullName": "test_api.TestApiClass#test_user_login",
+  "labels": [
+    {
+      "name": "suite",
+      "value": "test_api"
+    },
+    {
+      "name": "subSuite",
+      "value": "TestApiClass"
+    },
+    {
+      "name": "host",
+      "value": "Rena-MacBook-pro.local"
+    },
+    {
+      "name": "thread",
+      "value": "60014-MainThread"
+    },
+    {
+      "name": "framework",
+      "value": "pytest"
+    },
+    {
+      "name": "language",
+      "value": "cpython3"
+    },
+    {
+      "name": "package",
+      "value": "test_api"
+    }
+  ]
+}

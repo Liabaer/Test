@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8"/>
     <title>Test Report</title>
-    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
-  <body onLoad="init()">
-    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onLoad="init()">
+<script>/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
@@ -80,11 +81,11 @@ function addCollapse() {
     const resulttable = find('table#results-table');
     const showhideall = document.createElement('p');
     showhideall.innerHTML = '<a href="javascript:showAllExtras()">Show all details</a> / ' +
-                            '<a href="javascript:hideAllExtras()">Hide all details</a>';
+        '<a href="javascript:hideAllExtras()">Hide all details</a>';
     resulttable.parentElement.insertBefore(showhideall, resulttable);
 
     // Add show/hide link to each result
-    findAll('.col-result').forEach(function(elem) {
+    findAll('.col-result').forEach(function (elem) {
         const collapsed = getQueryParameter('collapsed') || 'Passed';
         const extras = elem.parentNode.nextElementSibling;
         const expandcollapse = document.createElement('span');
@@ -98,7 +99,7 @@ function addCollapse() {
         }
         elem.appendChild(expandcollapse);
 
-        elem.addEventListener('click', function(event) {
+        elem.addEventListener('click', function (event) {
             if (event.currentTarget.parentNode.nextElementSibling.classList.contains('collapsed')) {
                 showExtras(event.currentTarget);
             } else {
@@ -113,7 +114,7 @@ function getQueryParameter(name) {
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
-function init () { // eslint-disable-line no-unused-vars
+function init() { // eslint-disable-line no-unused-vars
     resetSortHeaders();
 
     addCollapse();
@@ -122,9 +123,9 @@ function init () { // eslint-disable-line no-unused-vars
 
     sortColumn(find('.initial-sort'));
 
-    findAll('.sortable').forEach(function(elem) {
+    findAll('.sortable').forEach(function (elem) {
         elem.addEventListener('click',
-            function() {
+            function () {
                 sortColumn(elem);
             }, false);
     });
@@ -142,18 +143,18 @@ function sortTable(clicked, keyFunc) {
     const parent = document.createElement('table');
     parent.id = 'results-table';
     parent.appendChild(thead);
-    sortedRows.forEach(function(elem) {
+    sortedRows.forEach(function (elem) {
         parent.appendChild(elem);
     });
     document.getElementsByTagName('BODY')[0].appendChild(parent);
 }
 
 function sort(items, keyFunc, reversed) {
-    const sortArray = items.map(function(item, i) {
+    const sortArray = items.map(function (item, i) {
         return [keyFunc(item), i];
     });
 
-    sortArray.sort(function(a, b) {
+    sortArray.sort(function (a, b) {
         const keyA = a[0];
         const keyB = b[0];
 
@@ -166,27 +167,27 @@ function sort(items, keyFunc, reversed) {
         }
     });
 
-    return sortArray.map(function(item) {
+    return sortArray.map(function (item) {
         const index = item[1];
         return items[index];
     });
 }
 
 function keyAlpha(colIndex) {
-    return function(elem) {
+    return function (elem) {
         return elem.childNodes[1].childNodes[colIndex].firstChild.data.toLowerCase();
     };
 }
 
 function keyLink(colIndex) {
-    return function(elem) {
+    return function (elem) {
         const dataCell = elem.childNodes[1].childNodes[colIndex].firstChild;
         return dataCell == null ? '' : dataCell.innerText.toLowerCase();
     };
 }
 
 function keyResult(colIndex) {
-    return function(elem) {
+    return function (elem) {
         const strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
             'Skipped', 'Passed'];
         return strings.indexOf(elem.childNodes[1].childNodes[colIndex].firstChild.data);
@@ -194,10 +195,10 @@ function keyResult(colIndex) {
 }
 
 function resetSortHeaders() {
-    findAll('.sort-icon').forEach(function(elem) {
+    findAll('.sort-icon').forEach(function (elem) {
         elem.parentNode.removeChild(elem);
     });
-    findAll('.sortable').forEach(function(elem) {
+    findAll('.sortable').forEach(function (elem) {
         const icon = document.createElement('div');
         icon.className = 'sort-icon';
         icon.textContent = 'vvv';
@@ -232,7 +233,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
     const classOutcome = outcome + ' results-table-row';
     const outcomeRows = document.getElementsByClassName(classOutcome);
 
-    for(let i = 0; i < outcomeRows.length; i++){
+    for (let i = 0; i < outcomeRows.length; i++) {
         outcomeRows[i].hidden = !elem.checked;
     }
 
@@ -242,143 +243,236 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
     notFoundMessage.hidden = !allRowsHidden;
 }
 </script>
-    <h1>report.html</h1>
-    <p>Report generated on 30-Jul-2022 at 15:23:23 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
-    <h2>Environment</h2>
-    <table id="environment">
-      <tr>
+<h1>report.html</h1>
+<p>Report generated on 30-Jul-2022 at 15:23:23 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+    v3.1.1</p>
+<h2>Environment</h2>
+<table id="environment">
+    <tr>
         <td>JAVA_HOME</td>
-        <td>/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</td></tr>
-      <tr>
+        <td>/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</td>
+    </tr>
+    <tr>
         <td>Packages</td>
-        <td>{"pluggy": "1.0.0", "py": "1.11.0", "pytest": "7.1.2"}</td></tr>
-      <tr>
+        <td>{"pluggy": "1.0.0", "py": "1.11.0", "pytest": "7.1.2"}</td>
+    </tr>
+    <tr>
         <td>Platform</td>
-        <td>macOS-10.15.7-x86_64-i386-64bit</td></tr>
-      <tr>
+        <td>macOS-10.15.7-x86_64-i386-64bit</td>
+    </tr>
+    <tr>
         <td>Plugins</td>
-        <td>{"html": "3.1.1", "metadata": "2.0.2", "ordering": "0.6", "sugar": "0.9.5"}</td></tr>
-      <tr>
+        <td>{"html": "3.1.1", "metadata": "2.0.2", "ordering": "0.6", "sugar": "0.9.5"}</td>
+    </tr>
+    <tr>
         <td>Python</td>
-        <td>3.9.0</td></tr></table>
-    <h2>Summary</h2>
-    <p>12 tests ran in 0.42 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">10 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">2 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
-    <h2>Results</h2>
-    <table id="results-table">
-      <thead id="results-table-head">
-        <tr>
-          <th class="sortable result initial-sort" col="result">Result</th>
-          <th class="sortable" col="name">Test</th>
-          <th class="sortable" col="duration">Duration</th>
-          <th class="sortable links" col="links">Links</th></tr>
-        <tr hidden="true" id="not-found-message">
-          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="failed results-table-row">
-        <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_eval[6*9-42]</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log">self = &lt;learn_pytest.test_api.TestApiClass object at 0x105369460&gt;, test_input = &#x27;6*9&#x27;, out_put = 42<br/><br/>    @pytest.mark.parametrize(&quot;test_input,out_put&quot;, [(&quot;3+5&quot;, 8), (&quot;2+4&quot;, 6), (&quot;6*9&quot;, 42)])<br/>    @pytest.mark.run(order=3)<br/>    def test_eval(self, test_input, out_put):<br/>&gt;       assert eval(test_input) == out_put<br/><span class="error">E       AssertionError: assert 54 == 42</span><br/><span class="error">E        +  where 54 = eval(&#x27;6*9&#x27;)</span><br/><br/>test_api.py:23: AssertionError<br/></div></td></tr></tbody>
-      <tbody class="failed results-table-row">
-        <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_place_order</td>
-          <td class="col-duration">0.03</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log">self = &lt;learn_pytest.test_api.TestApiClass object at 0x105369a30&gt;<br/><br/>    @pytest.mark.slow<br/>    def test_place_order(self):<br/>        res = requests.post(&#x27;http://127.0.0.1:8080/place_order&#x27;, headers={&#x27;Content-Type&#x27;: &#x27;application/json&#x27;},<br/>                            json={&#x27;user_token&#x27;: &#x27;Ba1XJK4RF9oLvf&#x27;})<br/>&gt;       assert res.status_code == 200<br/><span class="error">E       assert 500 == 200</span><br/><span class="error">E        +  where 500 = &lt;Response [500]&gt;.status_code</span><br/><br/>test_api.py:57: AssertionError<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_courier_register</td>
-          <td class="col-duration">0.09</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_user_register</td>
-          <td class="col-duration">0.01</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_eval[3+5-8]</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_eval[2+4-6]</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_user_login</td>
-          <td class="col-duration">0.03</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_courier_login</td>
-          <td class="col-duration">0.02</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_send_order</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_bulk_allocation</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_accepted_order</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">test_api.py::TestApiClass::test_get_courier_bulk_list</td>
-          <td class="col-duration">0.00</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
+        <td>3.9.0</td>
+    </tr>
+</table>
+<h2>Summary</h2>
+<p>12 tests ran in 0.42 seconds. </p>
+<p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter"
+                                                                                     data-test-result="passed"
+                                                                                     hidden="true"
+                                                                                     name="filter_checkbox"
+                                                                                     onChange="filterTable(this)"
+                                                                                     type="checkbox"/><span
+        class="passed">10 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true"
+                                                hidden="true" name="filter_checkbox" onChange="filterTable(this)"
+                                                type="checkbox"/><span class="skipped">0 skipped</span>, <input
+        checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox"
+        onChange="filterTable(this)" type="checkbox"/><span class="failed">2 failed</span>, <input checked="true"
+                                                                                                   class="filter"
+                                                                                                   data-test-result="error"
+                                                                                                   disabled="true"
+                                                                                                   hidden="true"
+                                                                                                   name="filter_checkbox"
+                                                                                                   onChange="filterTable(this)"
+                                                                                                   type="checkbox"/><span
+        class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true"
+                                              hidden="true" name="filter_checkbox" onChange="filterTable(this)"
+                                              type="checkbox"/><span class="xfailed">0 expected failures</span>, <input
+        checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox"
+        onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+<h2>Results</h2>
+<table id="results-table">
+    <thead id="results-table-head">
+    <tr>
+        <th class="sortable result initial-sort" col="result">Result</th>
+        <th class="sortable" col="name">Test</th>
+        <th class="sortable" col="duration">Duration</th>
+        <th class="sortable links" col="links">Links</th>
+    </tr>
+    <tr hidden="true" id="not-found-message">
+        <th colspan="4">No results found. Try to check the filters</th>
+    </tr>
+    </thead>
+    <tbody class="failed results-table-row">
+    <tr>
+        <td class="col-result">Failed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_eval[6*9-42]</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="log">self = &lt;learn_pytest.test_api.TestApiClass object at 0x105369460&gt;, test_input =
+                &#x27;6*9&#x27;, out_put = 42<br/><br/> @pytest.mark.parametrize(&quot;test_input,out_put&quot;, [(&quot;3+5&quot;,
+                8), (&quot;2+4&quot;, 6), (&quot;6*9&quot;, 42)])<br/> @pytest.mark.run(order=3)<br/> def
+                test_eval(self, test_input, out_put):<br/>&gt; assert eval(test_input) == out_put<br/><span
+                        class="error">E       AssertionError: assert 54 == 42</span><br/><span class="error">E        +  where 54 = eval(&#x27;6*9&#x27;)</span><br/><br/>test_api.py:23:
+                AssertionError<br/></div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="failed results-table-row">
+    <tr>
+        <td class="col-result">Failed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_place_order</td>
+        <td class="col-duration">0.03</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="log">self = &lt;learn_pytest.test_api.TestApiClass object at 0x105369a30&gt;<br/><br/>
+                @pytest.mark.slow<br/> def test_place_order(self):<br/> res = requests.post(&#x27;http://127.0.0.1:8080/place_order&#x27;,
+                headers={&#x27;Content-Type&#x27;: &#x27;application/json&#x27;},<br/> json={&#x27;user_token&#x27;:
+                &#x27;Ba1XJK4RF9oLvf&#x27;})<br/>&gt; assert res.status_code == 200<br/><span class="error">E       assert 500 == 200</span><br/><span
+                        class="error">E        +  where 500 = &lt;Response [500]&gt;.status_code</span><br/><br/>test_api.py:57:
+                AssertionError<br/></div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_courier_register</td>
+        <td class="col-duration">0.09</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_user_register</td>
+        <td class="col-duration">0.01</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_eval[3+5-8]</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_eval[2+4-6]</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_user_login</td>
+        <td class="col-duration">0.03</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_courier_login</td>
+        <td class="col-duration">0.02</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_send_order</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_bulk_allocation</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_accepted_order</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="passed results-table-row">
+    <tr>
+        <td class="col-result">Passed</td>
+        <td class="col-name">test_api.py::TestApiClass::test_get_courier_bulk_list</td>
+        <td class="col-duration">0.00</td>
+        <td class="col-links"></td>
+    </tr>
+    <tr>
+        <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

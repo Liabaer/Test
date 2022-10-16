@@ -1,0 +1,655 @@
+<!doctype html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="目的地，旅行新主张，影像">
+<meta name="description" content="旅行目的地，旅行新主张，影像">
+<meta name="viewpoint" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>考试专用</title>
+<link rel="stylesheet" type="text/css" href="/statics/css/template2017/sections.css">
+<link rel="stylesheet" type="text/css" href="/statics/css/template2017/header_footer.css">
+<script language="JavaScript" src="/statics/js/template2017/jquery-1.11.1.min.js"></script>
+<script language="JavaScript" src="/statics/js/template2017/sea.2.1.0.js"></script>
+<script language="JavaScript" src="/statics/js/template2017/rem.js"></script>
+<script type="text/javascript">
+		function loginshow()
+		{
+			$.get('/index.php?m=member&c=ajaxlogin&a=login', function(msg){
+                if(msg.success==1){
+                	$('#logined_username_nologin').hide();
+                	$('#logined_username').show();
+                    $('#logined_username').html(msg.username);
+                    if(msg.nickname){$('#logined_username').html(msg.nickname);}
+                    if(msg.message_count>0){
+                    	if(msg.message_count>99){
+	                    	$('.mess_num').html('99+');
+	                    }else{
+	                    	$('.mess_num').html(msg.message_count);
+	                    }
+                    }
+                }     
+		    },"json");
+		}
+		
+		$(function(){
+		   loginshow();
+		});
+	</script>
+</head>
+<body>
+<div class="header js_header">
+<div class="user_con">
+<ul class="user_act">
+<li><a href="http://wap.ngchina.cn/article/down/jsp" style="color:#FFF" target="_blank">APP</a></li>
+<li><a href="https://weibo.com/geochannel" style="color:#FFF">微博</a></li>
+<li><a href="https://weidian.com/?userid=984434868" style="color:#FFF">微店</a></li>
+<li><a id="logined_username_nologin" href="http://www.ngchina.com.cn/index.php?m=member&c=index&a=login" style="color:#FFF">登录</a><a href="javascript:void(0);" class="login" id="logined_username" style="display:none;">登录</a></li>
+</ul>
+<div class="user_nav_wrapper" style="display:none;">
+<ul>
+<li><a href="http://www.ngchina.com.cn/index.php?m=message&c=index&a=group">我的消息<span class="mess_num"></span></a></li>
+<li><a href="http://www.ngchina.com.cn/index.php?m=member&c=index">我的资料</a></li>
+<li><a href="http://www.ngchina.com.cn/index.php?m=content&c=index&a=favorite_list">我的收藏</a></li>
+
+<li><a class="logout" href="http://www.ngchina.com.cn/index.php?m=member&c=index&a=logout">退出</a></li>
+</ul>
+</div>
+</div>
+<div class="menu_btn_wrapper cf">
+<h1 class="logo"><a href="http://www.ngchina.com.cn/"><img src="/statics/images/template2017/logo.png" /></a></h1>
+<div class="s_category"><a href="/photography/photocontest/2019">2019摄影大赛</a><a href="http://www.ngchina.com.cn/events/" class="br">活动</a></div>
+<div class="menu_btn_list">
+<a class="btn_search" href="#">搜索</a>
+<a class="btn_menu js_btn_menu" href="javascript:;">menu</a>
+</div>
+</div>
+</div>
+<div class="menu_con js_menu_con cf" style="display:none;">
+<div class="menu_imgs" style="display:block;">
+<div class="photo_story_up">
+<a href="/photography/picture_story/6125.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1104/20191104035804200.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">图片故事</span>
+<a href="/photography/picture_story/6125.html"><h2>2019尼康显微世界摄影大赛获奖作品赏析</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/photography/picture_story/6123.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1104/thumb_469_352_20191104020119838.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">图片故事</span>
+<a href="/photography/picture_story/6123.html"><h2>科学家重现冰人奥茨生活的最后旅程</h2></a>
+</div>
+</li>
+<li>
+<a href="/photography/picture_story/6096.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1016/thumb_469_352_20191016034927613.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">图片故事</span>
+<a href="/photography/picture_story/6096.html"><h2>2019年度最佳野生动物照片</h2></a>
+</div>
+</li>
+<li>
+<a href="/photography/picture_story/6088.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1011/thumb_469_352_20191011055341538.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">图片故事</span>
+<a href="/photography/picture_story/6088.html"><h2>影像拾遗：全球各地的洞穴住宅</h2></a>
+</div>
+</li>
+<li>
+<a href="/photography/picture_story/6067.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/0925/thumb_469_352_20190925024508695.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">图片故事</span>
+<a href="/photography/picture_story/6067.html"><h2>照片带你细数49年来的环保大事记</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/video/animals/8128.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2017/1024/20171024023609391.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">精选</span>
+<a href="/video/animals/8128.html"><h2>撒哈拉邂逅小奶猫怎么办，当然是先拍下来啊！</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/video/animals/8805.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2018/0824/thumb_469_352_20180824054325356.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">精选</span>
+<a href="/video/animals/8805.html"><h2>亡命之猴挑战高空跳跃，7层楼高度跳下竟...</h2></a>
+</div>
+</li>
+<li>
+<a href="/video/animals/8802.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2018/0823/thumb_469_352_20180823054126855.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">精选</span>
+<a href="/video/animals/8802.html"><h2>前方高能！这种小蝙蝠竟然在这里冬眠……</h2></a>
+</div>
+</li>
+<li>
+<a href="/video/travel/8753.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2018/0717/thumb_469_352_20180717055303642.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">精选</span>
+<a href="/video/travel/8753.html"><h2>无塑料的旅行？其实比你想象的更容易！</h2></a>
+</div>
+</li>
+<li>
+<a href="/video/selected/8751.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2018/0716/thumb_469_352_20180716055214274.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">精选</span>
+<a href="/video/selected/8751.html"><h2>一笔画龙身</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/animals/facts/9386.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1106/20191106050513508.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">知识速递</span>
+<a href="/animals/facts/9386.html"><h2>从蜣螂到海豹，这些动物都依靠星星导航</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/animals/facts/9382.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1104/thumb_469_352_20191104103613262.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">知识速递</span>
+<a href="/animals/facts/9382.html"><h2>动物们如何应对干旱和寒冷的极端环境？</h2></a>
+</div>
+</li>
+<li>
+<a href="/animals/facts/9376.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1025/thumb_469_352_20191025061154175.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">知识速递</span>
+<a href="/animals/facts/9376.html"><h2>科学家发现指狐猴有6根手指</h2></a>
+</div>
+</li>
+<li>
+<a href="/animals/facts/9371.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1023/thumb_469_352_20191023110952827.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">知识速递</span>
+<a href="/animals/facts/9371.html"><h2>听！世界上最“大嗓门”鸟类</h2></a>
+</div>
+</li>
+<li>
+<a href="/animals/facts/9368.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1021/thumb_469_352_20191021042920881.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">知识速递</span>
+<a href="/animals/facts/9368.html"><h2>最新照片显示，座头鲸会用鳍状肢赶鲑鱼</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/science/archaeology/9395.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1113/20191113110942820.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">考古发现</span>
+<a href="/science/archaeology/9395.html"><h2>独家报道：这位7000岁的妇人是瑞典最后的狩猎采集者之一</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/science/science/9390.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1111/thumb_469_352_20191111115927450.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">科技新知</span>
+<a href="/science/science/9390.html"><h2>有趣的新发现：全息马戏表演等</h2></a>
+</div>
+</li>
+<li>
+<a href="/science/archaeology/9378.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1028/thumb_469_352_20191028021254670.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">考古发现</span>
+<a href="/science/archaeology/9378.html"><h2>新化石解密物种大灭绝后的图景</h2></a>
+</div>
+</li>
+<li>
+<a href="/science/science/9377.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1028/thumb_469_352_20191028110614710.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">科技新知</span>
+<a href="/science/science/9377.html"><h2>研究发现地球的岩石可吸收大量碳，气候...</h2></a>
+</div>
+</li>
+<li>
+<a href="/science/archaeology/9375.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1025/thumb_469_352_20191025104238907.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">考古发现</span>
+<a href="/science/archaeology/9375.html"><h2>耶路撒冷地下的秘密</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/travel/destinations/9393.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1112/20191112061831816.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">目的地</span>
+<a href="/travel/destinations/9393.html"><h2>如何充分体验中央公园</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/travel/destinations/9391.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1111/thumb_469_352_20191111062717319.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">目的地</span>
+<a href="/travel/destinations/9391.html"><h2>涂鸦、啤酒、烤肉：带你玩转柏林墙倒下...</h2></a>
+</div>
+</li>
+<li>
+<a href="/travel/destinations/9380.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1029/thumb_469_352_20191029013957820.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">目的地</span>
+<a href="/travel/destinations/9380.html"><h2>悄然孕育新生的城市公墓</h2></a>
+</div>
+</li>
+<li>
+<a href="/travel/lifestyle/9365.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1018/thumb_469_352_20191018060557329.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">旅行品位</span>
+<a href="/travel/lifestyle/9365.html"><h2>从魏玛到芝加哥：包豪斯的百年简史</h2></a>
+</div>
+</li>
+<li>
+<a href="/travel/lifestyle/9355.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1012/thumb_469_352_20191012050049911.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">旅行品位</span>
+<a href="/travel/lifestyle/9355.html"><h2>支持可持续旅游，创造更美好环境</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/environment/9388.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1108/20191108020157513.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">环境保护</span>
+<a href="/environment/9388.html"><h2>震惊！大部分国家竟然都达不到2030年的气候目标！</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/environment/9387.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1107/thumb_469_352_20191107101753812.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">环境保护</span>
+<a href="/environment/9387.html"><h2>植物越长越好，水却越来越少，怎么办？</h2></a>
+</div>
+</li>
+<li>
+<a href="/environment/9385.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1106/thumb_469_352_20191106112834890.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">环境保护</span>
+<a href="/environment/9385.html"><h2>美国启动退出《巴黎协定》程序，全球减...</h2></a>
+</div>
+</li>
+<li>
+<a href="/environment/9384.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1106/thumb_469_352_20191106102036995.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">环境保护</span>
+<a href="/environment/9384.html"><h2>为什么塑料都跑到北极去了？</h2></a>
+</div>
+</li>
+<li>
+<a href="/environment/9383.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1105/thumb_469_352_20191105112751731.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">环境保护</span>
+<a href="/environment/9383.html"><h2>拿什么保护你，美丽的鬼兰？</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_imgs">
+<div class="photo_story_up">
+<a href="/culture/9392.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/1112/20191112032237832.JPG" width="968px" />
+</a>
+<div class="title">
+<span class="ico_line">人文</span>
+<a href="/culture/9392.html"><h2>轮椅篮球：生命中的一道光</h2></a>
+</div>
+</div>
+<div class="photo_story_down">
+<ul class="cf">
+<li>
+<a href="/culture/9340.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/0929/thumb_469_352_20190929104758779.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">人文</span>
+<a href="/culture/9340.html"><h2>环游世界第一人真的是麦哲伦吗？</h2></a>
+</div>
+</li>
+<li>
+<a href="/culture/9320.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/0917/thumb_469_352_20190917025555463.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">人文</span>
+<a href="/culture/9320.html"><h2>英国东印度公司兴衰史</h2></a>
+</div>
+</li>
+<li>
+<a href="/culture/9228.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/0729/thumb_469_352_20190729124558782.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">人文</span>
+<a href="/culture/9228.html"><h2>解剖学带你揭开巴赫的秘密</h2></a>
+</div>
+</li>
+<li>
+<a href="/culture/9138.html">
+<img title="photo story" src="http://image.ngchina.com.cn/2019/0528/thumb_469_352_20190528105309480.JPG" width="469px" />
+</a>
+<div class="title">
+<span class="ico_line">人文</span>
+<a href="/culture/9138.html"><h2>关于《阿拉丁》你不知道的10个事实！</h2></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="menu_list js_menu_list">
+<div class="nav_btns cf">
+<a class="btn_search" href="#">搜索</a>
+<a class="btn_close js_btn_close" href="#">X</a>
+</div>
+<div class="nav_categories">
+<ul>
+<li class="nav_photography">
+<a href="http://www.ngchina.com.cn/photography/">
+<span>摄影</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_video">
+<a href="http://www.ngchina.com.cn/video/">
+<span>视频</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_animals">
+<a href="http://www.ngchina.com.cn/animals/">
+<span>动物</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_science">
+<a href="http://www.ngchina.com.cn/science/">
+<span>科技</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_travel">
+<a href="http://www.ngchina.com.cn/travel/">
+<span>旅行</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_environment">
+<a href="http://www.ngchina.com.cn/environment/">
+<span>环境</span>
+<p class="focus"></p>
+</a>
+</li>
+<li class="nav_culture">
+<a href="http://www.ngchina.com.cn/culture/">
+<span>人文</span>
+<p class="focus"></p>
+</a>
+</li>
+</ul>
+</div>
+<div class="nav_social cf">
+
+<a class="nav_wb" href="https://weibo.com/geochannel"></a>
+<a class="nav_sd" href="https://weidian.com/?userid=984434868"></a>
+</div>
+</div>
+</div>
+<div class="search_wrapper js_search_wrapper" style="display:none;">
+<div class="search_con">
+<a class="btn_close" href="javascript:;">X</a>
+<div class="search_form">
+<form action="http://www.ngchina.com.cn/index.php" method="get" target="_blank" id="subform">
+<input class="gSearch_text" name="q" id="q" type="text" placeholder="搜索">
+<input type="hidden" name="m" value="search" />
+<input type="hidden" name="c" value="index" />
+<input type="hidden" name="a" value="init" />
+<input type="hidden" name="typeid" value="0" id="typeid" />
+<input type="hidden" name="siteid" value="1" id="siteid" />
+<i></i>
+
+</form>
+</div>
+</div>
+</div> <link rel="stylesheet" type="text/css" href="/statics/css/template2017/voyage.css">
+<div class="content js_content">
+<div class="sec_oneimg del_mar_t cf">
+<img src="http://image.ngchina.com.cn/2017/1127/20171127121221229.JPG" width="" height="">
+<div class="bg_shawdow"></div>
+<a href="http://www.ngchina.com.cn/travel/photo_galleries/4802.html" class="con">
+<div class="oneimg_mess cf">
+<div>
+
+<h3>看完这组图，可以考虑将吊床加入出游必备清单</h3>
+</div>
+</div>
+</a>
+</div>
+<div class="sec_imgmore cf">
+<div class="con_l">
+<a href="http://www.ngchina.com.cn/travel/destinations/8178.html"><img src="http://image.ngchina.com.cn/2017/1127/20171127121245950.JPG" /></a>
+<div class="title">
+<h2><a href="http://www.ngchina.com.cn/travel/destinations/8178.html">从城市到草原：去肯尼亚你可以这么玩</a></h2>
+</div>
+<br /> </div>
+<div class="con_r">
+<a href="http://www.ngchina.com.cn/travel/destinations/8138.html"><img src="http://image.ngchina.com.cn/2017/1127/20171127121349229.JPG" /></a>
+<div class="title">
+<h2><a href="http://www.ngchina.com.cn/travel/destinations/8138.html">巴塞罗那只因为你而叫&ldquo;高迪之城&rdquo;！</a></h2>
+</div>
+<br />
+</div>
+</div>
+<div class="sec_latest js_sec_latest del_mar_t">
+<h2 class="title sep_t"><i class="ico"></i><span>最新</span></h2>
+<div class="con">
+<div>
+<ul class="img_list">
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/destinations/9393.html"><img src="http://image.ngchina.com.cn/2019/1112/20191112061831816.JPG" /></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/destinations/9391.html"><img src="http://image.ngchina.com.cn/2019/1111/20191111062717319.JPG" /></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/destinations/9380.html"><img src="http://image.ngchina.com.cn/2019/1029/20191029013957820.JPG" /></a>
+</div>
+</li>
+</ul>
+<ul class="text_list">
+<li class="mod_w">
+<div class="mess">
+<a href="/travel/destinations/9393.html"><h3>如何充分体验中央公园</h3></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="mess">
+ <a href="/travel/destinations/9391.html"><h3>涂鸦、啤酒、烤肉：带你玩转柏林...</h3></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="mess">
+<a href="/travel/destinations/9380.html"><h3>悄然孕育新生的城市公墓</h3></a>
+</div>
+</li>
+</ul>
+</div>
+<div class="js_hide_con" style="display:none;">
+<ul class="img_list">
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/lifestyle/9365.html"><img src="http://image.ngchina.com.cn/2019/1018/20191018060557329.JPG" /></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/lifestyle/9355.html"><img src="http://image.ngchina.com.cn/2019/1012/20191012050049911.JPG" /></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="imgs cf">
+<a href="/travel/destinations/9345.html"><img src="http://image.ngchina.com.cn/2019/1008/20191008040835432.JPG" /></a>
+</div>
+</li>
+</ul>
+<ul class="text_list">
+<li class="mod_w">
+<div class="mess">
+<a href="/travel/lifestyle/9365.html"><h3>从魏玛到芝加哥：包豪斯的百年简史</h3></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="mess">
+<a href="/travel/lifestyle/9355.html"><h3>支持可持续旅游，创造更美好环境</h3></a>
+</div>
+</li>
+<li class="mod_w">
+<div class="mess">
+<a href="/travel/destinations/9345.html"><h3>5个不可错过的十月旅行目的地</h3></a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<a class="btn_more" href="javascript:;">查看更多</a>
+</div>
+<div class="sec_oneimg  cf">
+<img src="http://image.ngchina.com.cn/2017/1127/20171127121516360.JPG" width="" height="">
+<h2 class="title"><i class="ico"></i><span>目的地</span></h2>
+
+<div class="bg_shawdow"></div>
+<a href="http://www.ngchina.com.cn/travel/photo_galleries/4824.html" class="con">
+<div class="oneimg_mess cf">
+<div>
+
+<h3>去西伯利亚探险，你能找到拓荒者的感觉</h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+<script type="text/javascript">
+    seajs.use("latestmore");
+</script>
+<div class="footer js_footer">
+<div class="footer_top cf">
+<ul>
+
+<li><a href="http://www.ngchina.com.cn/html/about_us/">关于我们</a></li>
+<li><a href="http://www.ngchina.com.cn/html/contact_us/">联系我们</a></li>
+<li><a href="http://www.ngchina.com.cn/html/links/">合作网站</a></li>
+</ul>
+<p class="cf">
+<a class="wb" href="https://weibo.com/geochannel"></a>
+<a class="sd" href="https://weidian.com/?userid=984434868"></a>
+</p>
+</div>
+<div class="footer_bottom">
+<p class="copyright">2003-2019 国家地理中文网版权所有 NATIONAL GEOGRAPHIC All Rights Reserved.</p>
+<p class="record">京ICP备09113085号-3 京公网安备11010502015207</p>
+</div>
+</div>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca8fdc4afd8dbaec0d0f29ebf69ff42a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>

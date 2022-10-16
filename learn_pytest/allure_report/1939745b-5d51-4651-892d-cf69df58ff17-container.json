@@ -1,1 +1,13 @@
-{"uuid": "e3d51935-0155-46f0-ad57-0462360e9442", "befores": [{"name": "test_input", "status": "passed", "start": 1659166164738, "stop": 1659166164738}], "start": 1659166164738, "stop": 1659166164739}
+{
+  "uuid": "e3d51935-0155-46f0-ad57-0462360e9442",
+  "befores": [
+    {
+      "name": "test_input",
+      "status": "passed",
+      "start": 1659166164738,
+      "stop": 1659166164738
+    }
+  ],
+  "start": 1659166164738,
+  "stop": 1659166164739
+}
