@@ -1,6 +1,6 @@
 # Introduction
 
-本项目主要记录平时学习记录以及工作上编写用到的一些工具
+本项目主要记录Python学习和工作上编写用到的一些工具
 
 1. 学习Python语法
 2. 学习flask、pymysql、pytest、requests等第三方包
