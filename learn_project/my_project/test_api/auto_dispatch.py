@@ -62,7 +62,7 @@ class AutoDispatch(object):
 # courier_package = CourierPackage(package_name='测试背包',package_param={1:3,2:4})
 # courier = Courier(courier_location='131.3333,1.2222', courier_package=courier_package, courier_tag_id=[1])
 # # print(courier)
-# order = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999', shop_tag_id=[1], email=['RenaTuT0401@gmail.com'])
+# order = Order(user_location='131.4547,1.474', shop_location='131.9999,1.999', shop_tag_id=[1], email=['Rena0401@gmail.com'])
 # # print(order)
 #
 # 测试接单
@@ -77,13 +77,13 @@ courier_package = CourierPackage(package_name='测试背包', package_param={1: 
 courier_a = Courier(courier_location="1.3020385,103.8803897", courier_package=courier_package, courier_tag_id=[1])
 courier_b = Courier(courier_location='131.322,1.233', courier_package=courier_package, courier_tag_id=[1])
 order_a = Order(user_location="1.3020475,103.8803537", shop_location="1.3020375,103.8803837", shop_tag_id=[1],
-                email=['RenaTuT0401@gmail.com'])
+                email=['Rena0401@gmail.com'])
 order_b = Order(user_location="1.3020475,103.8803837", shop_location="1.3020475,103.8803837", shop_tag_id=[1],
-                email=['RenaTuT0401@gmail.com'])
+                email=['Rena401@gmail.com'])
 order_c = Order(user_location="1.3120675,103.8803837", shop_location="1.3120475,103.8803437", shop_tag_id=[1],
-                email=['RenaTuT0401@gmail.com'])
+                email=['Rena0401@gmail.com'])
 order_d = Order(user_location="1.3120275,103.8803437", shop_location="1.3120275,103.8803337", shop_tag_id=[1],
-                email=['RenaTuT0401@gmail.com'])
+                email=['Rena0401@gmail.com'])
 
 courier_b.update_status()
 courier_a.update_status()

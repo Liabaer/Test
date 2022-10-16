@@ -38,15 +38,14 @@ import requests
 
 
 # 域名
-# http://183.71.250.130:10001
 # 测试账号
-# 邮箱RenaTuT0401@gmail.com
-# 密码34dfsdAf324sf2@s
+# 邮箱
+# 密码
 #
 # 第一步
 hd = {'language': 'cn', 'device': 'tt-test', 'Content-Type': 'application/json'}
-pwd = {'email': 'RenaTuT0401@gmail.com', 'password': '34dfsdAf324sf2@s'}
-url = 'http://183.71.250.130:10001'
+pwd = {'email': 'Rena0401@gmail.com', 'password': '34dfsdAf324sf2@s'}
+url = 'http://localhost:10001'
 
 res = requests.post(url + '/api/user/pre-login',
                     headers=hd,
