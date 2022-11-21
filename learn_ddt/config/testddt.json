@@ -1,0 +1,19 @@
+{
+  "first": [
+    {
+      "isRememberMe": "True",
+      "password": "111111",
+      "username": "root"
+    },
+    "200"
+  ],
+  "second": [
+    "{'isRememberMe': True, 'password': '1111111', 'username': 'root'}",
+    "406"
+  ],
+  "third": [
+    1,
+    2
+  ],
+  "four": "123123"
+}
