@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import smtplib
 
 import pytest
 
@@ -120,21 +121,105 @@ import pytest
 #     # m1, s1在f1后，但因为scope 范围大，所以有会优先实例化
 #     assert order == ["s1", "m1", "f3", "a1", "f1", "f2"]
 
-@pytest.fixture(scope="session")
-def o():
-    print("===打开浏览器===")
-    # a = True
-    # yield a
-    return True
+# @pytest.fixture(scope="session")
+# def o():
+#     print("===打开浏览器===")
+#     # a = True
+#     # yield a
+#     return True
+#
+# # 添加了 @pytest.fixture ，如果fixture还想依赖其他fixture，需要用函数传参的方式，
+# # 不能用 @pytest.mark.usefixtures() 的方式，否则会不生效
+# @pytest.fixture
+# # @pytest.mark.usefixtures("open") #  不可取！！！不生效！！！
+# def login(open):
+#     # 方法级别前置操作setup
+#     print(f"输入账号，密码先登录{open}")
+#
+#
+# def test_login(o):
+#     pass
 
-# 添加了 @pytest.fixture ，如果fixture还想依赖其他fixture，需要用函数传参的方式，
-# 不能用 @pytest.mark.usefixtures() 的方式，否则会不生效
-@pytest.fixture
-# @pytest.mark.usefixtures("open") #  不可取！！！不生效！！！
-def login(open):
-    # 方法级别前置操作setup
-    print(f"输入账号，密码先登录{open}")
 
 
-def test_login(o):
-    pass
+# 用fixture实现teardown并不是一个独立的函数，而是用 yield 关键字来开启teardown操作
+
+# @pytest.fixture(scope="session")
+# def open():
+#     # 会话前置操作setup
+#     print("==打开浏览器==")
+#     test = "测试变量是否返回"
+#     yield test
+#     # 会话后置操作teardown
+#     print("==关闭浏览器==")
+#
+#
+# @pytest.fixture
+# def login(open):
+#     print(f"输入账号，密码先登录{open}")
+#     name = "==我是账号=="
+#     pwd = "==我是密码=="
+#     age = "==我是年龄=="
+#     # 返回变量-返回的元组
+#     yield name, pwd, age
+#     # 方法级别后置操teardown
+#     print("登录成功")
+#
+#
+# def test_s1(login):
+#     print("==用例1==")
+#     # 返回的是一个元组
+#     print(login)
+#     # 分别赋值给不同变量
+#     name, pwd, age = login
+#     print(name, pwd, age)
+#     assert "账号" in name
+#     assert "密码" in pwd
+#     assert "年龄" in age
+#
+#
+# def test_s2(login):
+#     print("==用例2==")
+#     print(login)
+
+
+# yield注意事项:
+# 如果yield前面的代码，即setup部分已经抛出异常了，则不会执行yield后面的teardown内容
+# 如果测试用例抛出异常，yield后面的teardown内容还是会正常执行
+
+
+
+# yield+with的结合
+
+# @pytest.fixture(scope="module")
+# def smtp_connection():
+#     with smtplib.SMTP("smtp.gamil.com", 587, timeout=5) as smtp_connection:
+#         yield smtp_connection
+# # 该 smtp_connection 连接将测试完成执行后已经关闭，因为 smtp_connection 对象自动关闭时，with 语句结束。
+
+
+
+# addfinalizer 终结函数
+
+@pytest.fixture(scope="module")
+def test_addfinalizer(request):
+    # 前置操作setup
+    print("==再次打开浏览器==")
+    test = "test_addfinalizer"
+
+    def fin():
+        # 后置操作teardown
+        print("==再次关闭浏览器==")
+
+    request.addfinalizer(fin)
+    # 返回前置操作的变量
+    return test
+
+
+def test_anthor(test_addfinalizer):
+    print("==最新用例==", test_addfinalizer)
+
+# 注意事项
+# 如果 request.addfinalizer() 前面的代码，即setup部分已经抛出异常了，
+# 则不会执行 request.addfinalizer() 的teardown内容（和yield相似，应该是最近新版本改成一致了）
+# 可以声明多个终结函数并调用
