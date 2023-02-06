@@ -1,0 +1,186 @@
+01. Growing of non-perennial crops
+02. Growing of perennial crops
+03. Plant propagation
+04. Animal production
+05. Support activities to agriculture and post-harvest crops activities
+06. Hunting, trapping and related service activities
+07. Silviculture and other forestry activities
+08. Logging
+09. Gathering of non-wood forest products
+10. Support service to forestry
+11. Fishing
+12. Aquaculture
+01. Mining Of Coal And Lignite
+02. Extraction of crude petroleum
+03. Extraction of natural gas
+04. Mining of iron ores
+05. Mining of non-ferrous metal ores
+06. Quarrying of stone, sand and clay
+07. Mining and quarrying n.e.c.
+08. Support activities for petroleum and natural gas extraction
+01. Processing and preserving of meat
+02. Processing and preserving of fish, crustaceans and molluscs
+03. Processing and preserving of fruits and vegetables
+04. Manufacture of vegetable and animal oils and fats
+05. Manufacture of dairy products
+06. Manufacture of grain mill products, starches and starch products
+07. Manufacture of other food products
+08. Manufacture of beverages
+09. Spinning, weaving and finishing of textiles
+10. Manufacture of other textiles
+11. Manufacture of wearing apparel, except fur apparel
+12. Manufacture of articles of fur
+13. Tanning and dressing of leather; manufacture of luggage, handbags, saddlery and harness; dressing and dyeing of fur
+14. Manufacture of footwear
+15. Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials
+16. Manufacture of products of wood, cork, straw and plaiting materials
+17. Manufacture of paper and paper products
+18. Printing and service activities related to printing
+19. Manufacture of coke and refined petroleum products
+20. Manufacture of refined petroleum products
+21. Manufacture of basic chemicals, fertilizer and nitrogen compounds, plastic and synthetic rubber in primary forms
+22. Manufacture of other chemical products
+23. Manufacture of basic pharmaceuticals, medicinal chemical and botanical products
+24. Manufacture of rubber products
+25. Manufacture of plastic products
+26. Manufacture of glass and glass products
+27. Manufacture of non-metallic mineral products n.e.c.
+28. Manufacture of basic iron and steel
+29. Manufacture of basic precious and other non-ferrous metals
+30. Casting of metals
+31. Manufacture of structural metal products, tanks, reservoirs and steam generators
+32. Manufacture of other fabricated metal products; metal working service activities
+33. Manufacture electronic components and boards
+34. Manufacture of computers and peripheral equipment
+35. Manufacture of measuring, testing, navigating and control equipment; watches and clocks
+36. Manufacture of optical instruments and photographic equipment
+37. Manufacture of electric motors, generators, transformers and electricity distribution and control apparatus
+38. Manufacture of wiring and wiring devices
+39. Manufacture of other electrical equipment
+40. Manufacture of general purpose machinery
+41. Manufacture of special-purpose machinery
+42. Manufacture of motor vehicles
+43. Building of ships and boats
+44. Manufacture of transport equipments n.e.c.
+45. Manufacture of furniture
+46. Manufacture of jewellery, bijouterie and related articles
+47. Other manufacturing n.e.c.
+48. Repair and installation of machinery and equipment
+01. Electric power generation, transmission and distribution
+02. Manufacture of gas; distribution of gaseous fuels through mains
+03. Steam and air conditioning supply
+01. Water collection, treatment and supply
+02. Sewerage
+03. Waste collection
+04. Waste treatment and disposal
+05. Materials recovery
+01. Construction of buildings
+02. Construction of roads and railways
+03. Construction of utility projects
+04. Construction of other civil engineering projects
+05. Demolition and site preparation
+06. Electrical, plumbing and other construction installation activities
+07. Building completion and finishing
+08. Other specialized construction activities
+01. Sale of motor vehicles
+02. Maintenance and repair of motor vehicles
+03. Sale of motor vehicle parts and accessories
+04. Sale, maintenance and repair of motorcycles and related parts and accessories
+05. Wholesale trade, except of motor vehicles and motorcycles
+06. Wholesale of agricultural raw materials and live animals
+07. Wholesale of food, beverages and tobacco
+08. Wholesale of household goods
+09. Wholesale of machinery, equipment and supplies
+10. Other specialized wholesale
+11. Non-specialized wholesale trade
+12. Retail sale in non-specialized stores
+13. Retail sale of food, beverages and tobacco in specialized stores
+14. Retail sale of information and communications equipment in specialized stores
+15. Retail sale of other household equipment in specialized stores
+16. Retail sale of cultural and recreation goods in specialized stores
+17. Retail sale of other goods in specialized stores
+18. Retail sale via stalls and markets
+19. Retail sale not in stores, stalls or markets
+01. Transport via railways
+02. Other land transport
+03. Sea and coastal water transport
+04. Inland water transport
+05. Passenger air transport
+06. Freight air transport
+07. Warehousing and storage
+08. Support activities for transportation
+09. Postal and courier activities
+01. Short term accommodation activities
+02. Restaurants and mobile food service activities
+03. Event catering and other food service activities
+04. Beverage serving activities
+01. Publishing of books, periodicals and other publishing activities
+02. Software publishing
+03. Motion picture, video and television programme activities
+04. Programming and broadcasting activities
+05. Wired telecommunications activities
+06. Wireless telecommunications activities
+07. Satellite telecommunications activities
+08. Other telecommunications activities
+09. Computer programming, consultancy and related activities
+10. Data processing, hosting and related activities; web portals
+11. Other information service activities
+01. Monetary intermediation
+02. Trusts, funds and similar financial entities
+03. Other financial service activities, except insurance/takaful and pension funding activities
+04. Insurance/Takaful
+05. Reinsurance/Retakaful
+06. Pension and provident funding
+07. Activities auxiliary to financial service activities, except insurance/takaful and pension funding
+08. Activities auxiliary to insurance/takaful and pension funding
+09. Fund management activities
+01. Real estate activities with own or leased property
+02. Real estate activities on a fee or contract basis
+01. Professional, scientific and technical activities
+02. Activities of head offices, management consultancy activities
+03. Management consultancy activities
+04. Architectural and engineering activities and related technical consultancy
+05. Research and experimental development on natural sciences and engineering
+06. Research and experimental development on social sciences and humanities
+07. Advertising and market research
+08. Specialized design activities
+09. Other professional, scientific and technical activities n.e.c.
+01. Rental and leasing of motor vehicles
+02. Rental and leasing of personal and household goods
+03. Rental and leasing of other machinery, equipment and tangible goods
+04. Employment activities
+05. Other human resources provision
+06. Travel agency, tour operator, reservation service and related activities
+07. Security and investigation activities
+08. Services to building and landscape activities
+09. Cleaning activities
+10. Office administrative and support activities
+11. Organization of conventions and trade shows
+12. Business support service activities n.e.c.
+01. Administration of the State and the economic and social policy of the community
+02. Provision of services to the community as a whole
+01. Pre-primary and primary education
+02. Secondary education
+03. Higher education
+04. Other education
+05. Education support services
+01. Hospital activities
+02. Medical and dental practice activities
+03. Other human health activities
+04. Residential nursing care facilities
+05. Residential care activities for mental retardation, mental health and substance abuse
+06. Other residential care activities
+07. Social work activities without accommodation for the elderly and disabled
+08. Other social work activities without accommodation n.e.c.
+01. Creative, arts and entertainment activities
+02. Libraries, archives, museums and other cultural activities
+03. Sports activities
+04. Other amusement and recreation activities
+01. Activities of business, employers and professional membership organizations
+02. Activities of other membership organizations
+03. Repair of computers and communication equipment
+04. Repair of personal and household goods
+05. Other personal service activities
+01. Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use
+02. Undifferentiated goods-and services-producing activities of private households for own use
+01. Activities of extraterritorial organizations and bodies

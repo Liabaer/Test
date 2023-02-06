@@ -3,46 +3,6 @@
   <database-model serializer="dbm" dbms="MYSQL_AURORA" family-id="MYSQL_AURORA" format-version="4.43">
     <root id="1">
       <Dbms>MYSQL_AURORA</Dbms>
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>easi_delivery|schema||ordering_stage||ALTER|G
-easi_delivery|schema||ordering_stage||ALTER ROUTINE|G
-easi_delivery|schema||ordering_stage||CREATE|G
-easi_delivery|schema||ordering_stage||CREATE ROUTINE|G
-easi_delivery|schema||ordering_stage||CREATE TEMPORARY TABLES|G
-easi_delivery|schema||ordering_stage||CREATE VIEW|G
-easi_delivery|schema||ordering_stage||DELETE|G
-easi_delivery|schema||ordering_stage||DROP|G
-easi_delivery|schema||ordering_stage||EVENT|G
-easi_delivery|schema||ordering_stage||EXECUTE|G
-easi_delivery|schema||ordering_stage||INDEX|G
-easi_delivery|schema||ordering_stage||INSERT|G
-easi_delivery|schema||ordering_stage||LOCK TABLES|G
-easi_delivery|schema||ordering_stage||REFERENCES|G
-easi_delivery|schema||ordering_stage||SELECT|G
-easi_delivery|schema||ordering_stage||SHOW VIEW|G
-easi_delivery|schema||ordering_stage||TRIGGER|G
-easi_delivery|schema||ordering_stage||UPDATE|G
-ordering|schema||ordering_stage||ALTER|G
-ordering|schema||ordering_stage||ALTER ROUTINE|G
-ordering|schema||ordering_stage||CREATE|G
-ordering|schema||ordering_stage||CREATE ROUTINE|G
-ordering|schema||ordering_stage||CREATE TEMPORARY TABLES|G
-ordering|schema||ordering_stage||CREATE VIEW|G
-ordering|schema||ordering_stage||DELETE|G
-ordering|schema||ordering_stage||DROP|G
-ordering|schema||ordering_stage||EVENT|G
-ordering|schema||ordering_stage||EXECUTE|G
-ordering|schema||ordering_stage||INDEX|G
-ordering|schema||ordering_stage||INSERT|G
-ordering|schema||ordering_stage||LOCK TABLES|G
-ordering|schema||ordering_stage||REFERENCES|G
-ordering|schema||ordering_stage||SELECT|G
-ordering|schema||ordering_stage||SHOW VIEW|G
-ordering|schema||ordering_stage||TRIGGER|G
-ordering|schema||ordering_stage||UPDATE|G</Grants>
-      <ServerVersion>1.22.2</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
