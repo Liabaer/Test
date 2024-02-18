@@ -108,14 +108,14 @@ import pandas as pd
 
 
 # pandas 清洗重复的数据 duplicated() drop.duplicates() 返回的bool值，如果是重复的duplicated() 返回True
-person = {
-  "name": ['Google', 'Runoob', 'Runoob', 'Taobao'],
-  "age": [50, 40, 40, 23]
-}
-df = pd.DataFrame(person)
-
-print(df.duplicated())
-
-# 删除重复数据，可以直接使用drop_duplicates() 方法。
-df.drop_duplicates(inplace = True)
-print(df)
+# person = {
+#   "name": ['Google', 'Runoob', 'Runoob', 'Taobao'],
+#   "age": [50, 40, 40, 23]
+# }
+# df = pd.DataFrame(person)
+#
+# print(df.duplicated())
+#
+# # 删除重复数据，可以直接使用drop_duplicates() 方法。
+# df.drop_duplicates(inplace = True)
+# print(df)

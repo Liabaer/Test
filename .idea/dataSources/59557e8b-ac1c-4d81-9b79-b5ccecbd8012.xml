@@ -3,10 +3,6 @@
   <database-model serializer="dbm" dbms="MYSQL_AURORA" family-id="MYSQL_AURORA" format-version="4.43">
     <root id="1">
       <Dbms>MYSQL_AURORA</Dbms>
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>MyISAM</DefaultTmpEngine>
-      <ServerVersion>1.22.2</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>

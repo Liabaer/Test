@@ -1,0 +1,1127 @@
+# -*- coding: utf-8 -*-
+import pandas as pd
+
+#
+# # 读取JSON文件
+# with open('demo.json', 'r') as f:
+#     data = pd.read_json(f)
+#     print(data)
+#
+# # 选择需要的列
+# data = data[['id', 'userEmail', 'userId']]
+#
+# # 将数据保存到CSV文件中
+# data.to_csv('demo.csv', index=False)
+
+
+demo = {
+    "current": 1,
+    "total": 100,
+    "pages": 1,
+    "size": 100,
+    "records": [
+        {
+            "id": "affe1f1ba6a729d7afe2db468644dd63",
+            "createTime": "2024-01-31 15:41:53",
+            "userId": "3fda39f7eb45e32fd3f583bb25e96c1e",
+            "userEmail": "TTtest100@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest100@cn.ey.com"
+        },
+        {
+            "id": "ecc40a0675580986b404c7694dcd8778",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "904dad009bbbb1662778b44a0dc19673",
+            "userEmail": "TTtest99@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest99@cn.ey.com"
+        },
+        {
+            "id": "6a966c093d0a88f8bda08576fff945c3",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "47259e80e5a6f8666c44638d1b80dc8d",
+            "userEmail": "TTtest98@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest98@cn.ey.com"
+        },
+        {
+            "id": "63dae80104f89b1c0623542d709e326f",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "03e1c3bc1e269eb732850fe235d5f9d1",
+            "userEmail": "TTtest74@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest74@cn.ey.com"
+        },
+        {
+            "id": "f52eb20f67ee5c30af7f769f85781b0e",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "8c1078c9a1320ec62c7faac7b09dccf7",
+            "userEmail": "TTtest97@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest97@cn.ey.com"
+        },
+        {
+            "id": "2b181991fec980dfdb99305c56c98834",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "0036d51de2c59eeab356dcbb74f79b70",
+            "userEmail": "TTtest96@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest96@cn.ey.com"
+        },
+        {
+            "id": "7a6482289e670bd1d1ffedac28330b3f",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "212e40c43c69d5168c8e3888cfc5eef0",
+            "userEmail": "TTtest95@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest95@cn.ey.com"
+        },
+        {
+            "id": "cc60d5afe19162ad723abd2bd5eb02b5",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "b3bb84350764ab1cee4a4bd0976fb0e7",
+            "userEmail": "TTtest94@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest94@cn.ey.com"
+        },
+        {
+            "id": "32fe0da73978cf2777d8a548efa24f27",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "f57a12a3f1d83d0aa44154d6048b5e18",
+            "userEmail": "TTtest92@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest92@cn.ey.com"
+        },
+        {
+            "id": "3f4129ac64b21a6da8a54e247118f539",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "2215bb325e0f856e66c58d931452cf58",
+            "userEmail": "TTtest93@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest93@cn.ey.com"
+        },
+        {
+            "id": "e880c0ac6a8bd9b8f12a84166480fa90",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "30fc85fad44f69fa35798efdd8b6aef4",
+            "userEmail": "TTtest91@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest91@cn.ey.com"
+        },
+        {
+            "id": "29d60115a6af0048b6e5f9f17ad892e2",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "1304f354d65e7bb8c002d15f4cb2ece0",
+            "userEmail": "TTtest90@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest90@cn.ey.com"
+        },
+        {
+            "id": "817aed5adab32c8240833bf49ed62697",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "92a4aff4c374748e98c0563475f8a960",
+            "userEmail": "TTtest89@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest89@cn.ey.com"
+        },
+        {
+            "id": "ef46aaf3ec11a95ff67f294a289d8187",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "f934003bea96bbcc3c90ab8e4013986c",
+            "userEmail": "TTtest86@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest86@cn.ey.com"
+        },
+        {
+            "id": "478c4e7a7ce94a2f89f553b493b849c5",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a14d0802a598e32a7a1164eb9dfef15d",
+            "userEmail": "TTtest87@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest87@cn.ey.com"
+        },
+        {
+            "id": "1c444943546d184bcd47b65c3089c7ac",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "336acb749e160e3a3e148f0661da8f81",
+            "userEmail": "TTtest85@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest85@cn.ey.com"
+        },
+        {
+            "id": "3c2ad3789cbb31a4416b0f851f82d1be",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "08266bcd5a9a4cdaf1424c97bd17d3ba",
+            "userEmail": "TTtest88@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest88@cn.ey.com"
+        },
+        {
+            "id": "6723ab29b8113e9b9d83b8e92c7228c0",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "c069ed1aa94daf7d17783bec4bd9e214",
+            "userEmail": "TTtest84@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest84@cn.ey.com"
+        },
+        {
+            "id": "579d2e8cafe9fd882aedf6e98b02b02f",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "7ef6f9bfaf387464084b7ea4c96b384c",
+            "userEmail": "TTtest80@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest80@cn.ey.com"
+        },
+        {
+            "id": "d97ecb09e6ad2af9fe699bd1fdae047f",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "500b15ebda448f56c5aa27d8db36c812",
+            "userEmail": "TTtest83@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest83@cn.ey.com"
+        },
+        {
+            "id": "45e33d998bb420d946c39ecedc6d3311",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "00c6c160f3d82d15fe0e7fe9b14d269b",
+            "userEmail": "TTtest81@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest81@cn.ey.com"
+        },
+        {
+            "id": "91e7fe2a55277aa481a74e8448089bc8",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a99bc69a445df64958a538620c3a78b5",
+            "userEmail": "TTtest79@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest79@cn.ey.com"
+        },
+        {
+            "id": "8ad466944559abe0955452629d849e66",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "113533e337cba175e64aa0ba628ec1f9",
+            "userEmail": "TTtest82@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest82@cn.ey.com"
+        },
+        {
+            "id": "d298bf5cf8f770ceda078554e1b3623d",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "7af0a4b2a488a5f35340a84ac9090c04",
+            "userEmail": "TTtest77@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest77@cn.ey.com"
+        },
+        {
+            "id": "236b4188e88d4eaa453bf178640aaa0d",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "4d639482da40d4e7021443d8780c0dea",
+            "userEmail": "TTtest78@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest78@cn.ey.com"
+        },
+        {
+            "id": "3ce1852a655d24929a86b2fd942720b6",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "639919a59eb9109e757fe396ff35b200",
+            "userEmail": "TTtest75@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest75@cn.ey.com"
+        },
+        {
+            "id": "1ecefdd0dab7b1e1b609b3fc836f51af",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "fbf887d3d93ac8ba05d8ab79cf0e93e0",
+            "userEmail": "TTtest76@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest76@cn.ey.com"
+        },
+        {
+            "id": "bb8833387973bcc00dc97b79c186c0af",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "55bfde46b35eebc005d4244743940c44",
+            "userEmail": "TTtest72@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest72@cn.ey.com"
+        },
+        {
+            "id": "ffce13c7beab5132a62105f61fb53f95",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "dcf80318d86e45a18a80b30c25f488db",
+            "userEmail": "TTtest73@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest73@cn.ey.com"
+        },
+        {
+            "id": "8a0e9adba91803be4a9f870b66e27cc9",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "5aa78df6465b2b9eb1c2cf74026ac2b8",
+            "userEmail": "TTtest70@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest70@cn.ey.com"
+        },
+        {
+            "id": "564a982dc5c3ba003f5a877522983b18",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "3fc560bb681b8c2f5ff30649575e095c",
+            "userEmail": "TTtest71@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest71@cn.ey.com"
+        },
+        {
+            "id": "5e1d1be86478bfbcb9c1cb2a06466154",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "34df28a585473be3f224b3c4455b689d",
+            "userEmail": "TTtest69@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest69@cn.ey.com"
+        },
+        {
+            "id": "a2748498e2deebbd5d68d39f0e5ed2ef",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "0bc56b8409560a34a635a819751c8e9c",
+            "userEmail": "TTtest68@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest68@cn.ey.com"
+        },
+        {
+            "id": "339d1a281a0cde8e57d61e877710191e",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "85f365fa9d6c5d1258d778300e24e54a",
+            "userEmail": "TTtest67@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest67@cn.ey.com"
+        },
+        {
+            "id": "7459caf1d8ca42907096dcad166268b4",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "854b3319a11b4ed7074dc9a64af5514f",
+            "userEmail": "TTtest65@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest65@cn.ey.com"
+        },
+        {
+            "id": "5b6352ca4c312c960f080263795335bc",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "3d9bd57e10c5bba4403a32e86e1060d0",
+            "userEmail": "TTtest64@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest64@cn.ey.com"
+        },
+        {
+            "id": "042bf1f8851d315537257ec5705b5f82",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "aa2b3c6e6273df93d56afcf8b3510f1d",
+            "userEmail": "TTtest66@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest66@cn.ey.com"
+        },
+        {
+            "id": "c0168974a2da7267ea7671670e8bdb4d",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "74414a7d75e027638fc55ebf13a26232",
+            "userEmail": "TTtest63@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest63@cn.ey.com"
+        },
+        {
+            "id": "fec82faa3f256623b4e7627c4119e3ac",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "465e11a3220db2d2aab9550c31fc5be5",
+            "userEmail": "TTtest61@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest61@cn.ey.com"
+        },
+        {
+            "id": "cc7735b380066206205de7642c574da1",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d869a27f4ce724429cc5e2d059dc85cd",
+            "userEmail": "TTtest62@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest62@cn.ey.com"
+        },
+        {
+            "id": "ac9094575ae0c122ca8485a7684f1ee7",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "9ee55f003032bc4bb3993ff521eda43d",
+            "userEmail": "TTtest60@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest60@cn.ey.com"
+        },
+        {
+            "id": "5d6c409ea8850919fdc87252e80cc3b0",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "fe26b38094f26c2aeb2b2384d8b63551",
+            "userEmail": "TTtest59@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest59@cn.ey.com"
+        },
+        {
+            "id": "7e9e925f4d484156282f23c90d152e05",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "6c30ef744a6cb07ebc659fd28a9f10fe",
+            "userEmail": "TTtest58@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest58@cn.ey.com"
+        },
+        {
+            "id": "8f53d4997d2593c5b7c434faf5d35ceb",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "e1a8b1dfcd0a72d14eb9bb06aa8e9cd4",
+            "userEmail": "TTtest56@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest56@cn.ey.com"
+        },
+        {
+            "id": "fe777563aa24823c2b2dd2151d9219d1",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "6a1730351d7dec932e0900f5ae723870",
+            "userEmail": "TTtest54@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest54@cn.ey.com"
+        },
+        {
+            "id": "343817f80fade4777231fd5fd098cff3",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d6a56646ad8d581a3eb32abc32adf7c4",
+            "userEmail": "TTtest55@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest55@cn.ey.com"
+        },
+        {
+            "id": "516ae678a66cd6903a751ab5e65cca62",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "fe77ca2e5863d7a64f34188735a9b85b",
+            "userEmail": "TTtest53@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest53@cn.ey.com"
+        },
+        {
+            "id": "ecaedd4ba1ae3b72d9a78c0dee07bffb",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "51ffbb3350ecdf8c4dd75bda1721dca9",
+            "userEmail": "TTtest52@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest52@cn.ey.com"
+        },
+        {
+            "id": "c0f3f4fb272d744284448747d4baadea",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a49a6b07a0a29ea962c8e1ec00838bf8",
+            "userEmail": "TTtest57@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest57@cn.ey.com"
+        },
+        {
+            "id": "b291b4f2ce208abe44a6a1ea9b990c3b",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a77553d504937bde30aca7c72d2b76d6",
+            "userEmail": "TTtest51@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest51@cn.ey.com"
+        },
+        {
+            "id": "88a79d3dda3e99509127e6ecea7c5724",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "14f7993613d8e5421579b9e7a5296167",
+            "userEmail": "TTtest49@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest49@cn.ey.com"
+        },
+        {
+            "id": "6b813950c6b32d4ae77e326077b78447",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "e46f7ea47da8d3c6f3e859660ed481b6",
+            "userEmail": "TTtest50@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest50@cn.ey.com"
+        },
+        {
+            "id": "ea97e116b5f7de7347b66cf5da35c829",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "c72c45d3b80d9195fbb7b6602b086399",
+            "userEmail": "TTtest48@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest48@cn.ey.com"
+        },
+        {
+            "id": "91ed4df489df8bd737a8e79e02043330",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "414981fcb350f5e48489e7d2972d245d",
+            "userEmail": "TTtest46@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest46@cn.ey.com"
+        },
+        {
+            "id": "2892771a7e3d675ac7073856c16677f7",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "f7ed6c81737b5e0381e5e95bbace955c",
+            "userEmail": "TTtest47@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest47@cn.ey.com"
+        },
+        {
+            "id": "a5884533c67ba787d95e30216c839690",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "da471312f12deaf27195d1addf74eea7",
+            "userEmail": "TTtest45@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest45@cn.ey.com"
+        },
+        {
+            "id": "4159f1cdb8c11454e414852fe1a8d67e",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "8aa24179b1a2e083047ff8286a697ba1",
+            "userEmail": "TTtest44@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest44@cn.ey.com"
+        },
+        {
+            "id": "b06727e4e6050b7e5a1bf2127eb7f1f3",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "e8ff9b76abeadbfcb70070f3bed00c29",
+            "userEmail": "TTtest43@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest43@cn.ey.com"
+        },
+        {
+            "id": "f16bbc455082e916271464ae8b6d4e34",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "14a1e3537ac8525c74e9efc4bc38a9bc",
+            "userEmail": "TTtest42@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest42@cn.ey.com"
+        },
+        {
+            "id": "e5d742aa49e5d237033aee7e6ce19765",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "add9371288006ad6b674af683ac184f4",
+            "userEmail": "TTtest41@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest41@cn.ey.com"
+        },
+        {
+            "id": "1e661baae80715e19d0ab0309a646e99",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "061330a4abe91813b7256d1863e188ee",
+            "userEmail": "TTtest40@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest40@cn.ey.com"
+        },
+        {
+            "id": "e872ddae09b877c1674ec78b1e3d8260",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "fd4dbb92b67a6f54bb46d58a2fef895f",
+            "userEmail": "TTtest39@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest39@cn.ey.com"
+        },
+        {
+            "id": "b581b70e8dcd7604af0eb1e4c3bafff6",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "67af3f3ccfc0f0e7cda692b3e6bd705e",
+            "userEmail": "TTtest38@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest38@cn.ey.com"
+        },
+        {
+            "id": "4ce9742b108bee4659acabd9d066ab4c",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "43b75bc39ef7ce240ca6eda9dbe934fc",
+            "userEmail": "TTtest37@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest37@cn.ey.com"
+        },
+        {
+            "id": "f17dfc4313f5df0b13290346e554e6ab",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a6296e5c6dbeb95482a5c77198520757",
+            "userEmail": "TTtest36@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest36@cn.ey.com"
+        },
+        {
+            "id": "bd4e2e7c6ce77f8e1164ff873d763fb8",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d7bea38258df7692fdf0d7b6d37cf707",
+            "userEmail": "TTtest35@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest35@cn.ey.com"
+        },
+        {
+            "id": "697d5503866ac2eaca163ff159b6d347",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "545d7e5e9782d1a17c584ab947b4047a",
+            "userEmail": "TTtest32@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest32@cn.ey.com"
+        },
+        {
+            "id": "2ae4913ba461dd13e29ebcc78c1407f4",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a4a1a476e5e672bc896ba1cd8dff6267",
+            "userEmail": "TTtest34@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest34@cn.ey.com"
+        },
+        {
+            "id": "f70bc2e5df94678c71eba2d9fa5c652b",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d5871d36f24de7e79db380f924eb2a32",
+            "userEmail": "TTtest33@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest33@cn.ey.com"
+        },
+        {
+            "id": "e1d2174ecb191694a39642809c4fb08a",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "115a7c3bc1a2b65f1ce808bcb50710d9",
+            "userEmail": "TTtest27@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest27@cn.ey.com"
+        },
+        {
+            "id": "afbe340ccd81dd7781ae547904865ed9",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a046afd8a597674e0bb264028e9a9fb3",
+            "userEmail": "TTtest30@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest30@cn.ey.com"
+        },
+        {
+            "id": "af3309b6305c3e4026397e7dd44a54f5",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "7d9630cca21d34d29672626a6eb7cc5b",
+            "userEmail": "TTtest31@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest31@cn.ey.com"
+        },
+        {
+            "id": "4f888783e2f54bf3237f515da289fdf9",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "e005db23cb1128f6b541d983cb791576",
+            "userEmail": "TTtest29@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest29@cn.ey.com"
+        },
+        {
+            "id": "bbf99eb78f53256c761bbd51dce01712",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a17b31813aa3f7a6fe53607402edb90d",
+            "userEmail": "TTtest28@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest28@cn.ey.com"
+        },
+        {
+            "id": "5bb4545b17e08bb9a652c55178f7afcb",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "9dfcd76d1b36572451c902625b11866c",
+            "userEmail": "TTtest26@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest26@cn.ey.com"
+        },
+        {
+            "id": "6f1b73be8e3f4f4a3405e35b6373807a",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "5743079736bc082883d148a3bf2ae1a1",
+            "userEmail": "TTtest25@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest25@cn.ey.com"
+        },
+        {
+            "id": "063ea0247edd2769ae38b286a7b57425",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "659f71bd0b755b507763fd6fcd31df5d",
+            "userEmail": "TTtest24@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest24@cn.ey.com"
+        },
+        {
+            "id": "7679ef894bbed098a93d22d4fa4cadf6",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "6c808d2cecd067c8fd1165eb2f1c8a23",
+            "userEmail": "TTtest23@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest23@cn.ey.com"
+        },
+        {
+            "id": "db78fe6fbe5d455bd87ecc42e58edb6e",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "f200faa74d4bb5a28ee1a59b4b70d198",
+            "userEmail": "TTtest21@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest21@cn.ey.com"
+        },
+        {
+            "id": "809c754e37c8c5463ed81792f143bdca",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "394b94aab5320f362a37e982d9efea1d",
+            "userEmail": "TTtest22@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest22@cn.ey.com"
+        },
+        {
+            "id": "1ad295c0e5507764a5aecb149b803d46",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "ecaec7f4e1a7d40676ae2fe60b894874",
+            "userEmail": "TTtest20@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest20@cn.ey.com"
+        },
+        {
+            "id": "a0edcaea6e44c1e890113d0c518ec3d2",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "3d73ed6fc2ce9e4b24cd596442cec286",
+            "userEmail": "TTtest17@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest17@cn.ey.com"
+        },
+        {
+            "id": "fcd22aecbed1b584c573619dd56bfffd",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "556719fe079aa93c3b83b1a9ef5fa005",
+            "userEmail": "TTtest19@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest19@cn.ey.com"
+        },
+        {
+            "id": "d377750a5c539537fe1089fb514040a7",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "e19e6f9b2e6465bb149e4b02305fa71f",
+            "userEmail": "TTtest18@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest18@cn.ey.com"
+        },
+        {
+            "id": "2a8df9961499f148372ad9ffa0c84c2b",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "a96fb6a8e8087bac810f90f68eb2dfbd",
+            "userEmail": "TTtest15@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest15@cn.ey.com"
+        },
+        {
+            "id": "b2e613c0d44fc18ad232dde9f517d958",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d1c227c14100a7780be8538f7fa1b0a1",
+            "userEmail": "TTtest16@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest16@cn.ey.com"
+        },
+        {
+            "id": "4745f57b08c2dce9e0dac95fe202a53b",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "25576b314382c9133de1f9fce46cd2a0",
+            "userEmail": "TTtest14@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest14@cn.ey.com"
+        },
+        {
+            "id": "95be700692dd50dd64d28f19125a7022",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "4b3534c0454c7d475d1c92a890f9a440",
+            "userEmail": "TTtest13@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest13@cn.ey.com"
+        },
+        {
+            "id": "fd4e46bcb91efa0444ddee398df65451",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "7b4c5aa5f9fe93c1da907b401f28b2b2",
+            "userEmail": "TTtest11@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest11@cn.ey.com"
+        },
+        {
+            "id": "c0283fc7cd0e75982e5e368e2fa9c434",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "2f7dcda586f6baf996b178c9d2eeb9d3",
+            "userEmail": "TTtest10@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest10@cn.ey.com"
+        },
+        {
+            "id": "11401cbbac667306c6b969c24b2efbe5",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "d4800552ff9416a6e733543f1c7733b9",
+            "userEmail": "TTtest12@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest12@cn.ey.com"
+        },
+        {
+            "id": "c583c04fecd17b264884077f47e72f65",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "139f6d3db2f70f65231c8fd8ab8a4d6c",
+            "userEmail": "TTtest9@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest9@cn.ey.com"
+        },
+        {
+            "id": "103816c97221d8c815b7659674086f7b",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "3762fee0151ee9c0d72c259aa81a98b3",
+            "userEmail": "TTtest8@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest8@cn.ey.com"
+        },
+        {
+            "id": "d10b24b97cbfaa3ee92d23bf0f6f0603",
+            "createTime": "2024-01-31 15:41:23",
+            "userId": "ae499e94decbf39523301d847a79fa36",
+            "userEmail": "TTtest7@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest7@cn.ey.com"
+        },
+        {
+            "id": "da9adca642aeb14e163e0f5a46095a1d",
+            "createTime": "2024-01-31 15:41:22",
+            "userId": "ee2426e28dad06d1d294e0c86021222b",
+            "userEmail": "TTtest4@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest4@cn.ey.com"
+        },
+        {
+            "id": "622ccce8ff64e167ae1b94c22da4fa22",
+            "createTime": "2024-01-31 15:41:22",
+            "userId": "090b2bd18238381f8c8246acaeeee54a",
+            "userEmail": "TTtest6@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest6@cn.ey.com"
+        },
+        {
+            "id": "a3efe338f039b33ab10eec51a8cb8edc",
+            "createTime": "2024-01-31 15:41:22",
+            "userId": "2a4f7ca5831766256ecd6e48edd5004a",
+            "userEmail": "TTtest5@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 0,
+            "status": 1,
+            "nickName": "TTtest5@cn.ey.com"
+        },
+        {
+            "id": "cd742a9c4ebe5cf8391670858e78f18d",
+            "createTime": "2024-01-31 15:39:35",
+            "userId": "ab845b45ab2174ad7d47978f9636ea0b",
+            "userEmail": "TTtest3@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 1,
+            "status": 1,
+            "nickName": "TTtest3@cn.ey.com"
+        },
+        {
+            "id": "3af2e17acd198a6c4b39f41b99ba41d8",
+            "createTime": "2024-01-31 15:38:25",
+            "userId": "9c8d1a4c26575a95cca0beec284087e1",
+            "userEmail": "TTtest2@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 1,
+            "status": 1,
+            "nickName": "TTtest2@cn.ey.com"
+        },
+        {
+            "id": "10751a6af4f561260aed95a7fa654c11",
+            "createTime": "2024-01-31 15:34:55",
+            "userId": "123ee3b2e091eca87dc6cdfb8fd1bc7b",
+            "userEmail": "TTtest1@cn.ey.com",
+            "lesseeName": "安永",
+            "lesseeCode": "ey",
+            "isAdmin": 1,
+            "status": 1,
+            "nickName": "TTtest1@cn.ey.com"
+        }
+    ]
+}
+
+for i in demo['records']:
+    print(i['userEmail'])
